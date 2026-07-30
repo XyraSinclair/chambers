@@ -1,0 +1,1 @@
+{"entry_sha256":"sha256:a5b5285be80740eec3e7338fb70cde1df6097d2c48dee07b6ed0d4eb96960c83","inputs":{"inputs/items.json":"sha256:0ff500690054259a20687a08f63342e18f8c27c70c7407405cb3ea02b5cc50cf"},"interpreter":"python3","spec":"runtime-r2/1","timeout_s":30}
