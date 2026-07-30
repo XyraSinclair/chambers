@@ -1,0 +1,1 @@
+{"accounts":[{"class":"reconstructed","cumulative_mbits":1059999,"demanded_mbits":1079999,"incident":true,"key":["exp","chamberA","agentZ"],"subject_entropy_mbits":100000}],"policy_name":"legacy-default","policy_sha256":"008db04ede19a35804f8aef922558312a9789921f79d2e3466b36f16cab8c2ec","spec":"charge-views/1"}

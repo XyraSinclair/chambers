@@ -1,0 +1,6 @@
+{"amount_ucr":999,"charge_keys":[["exp","s","r"]],"default_on_expiry":"refund_to_payer","expires_tick":100,"issuer":"bank","kind":"escrow","payee":"bob","payer":[],"required_clean":true,"seq":4,"tick":1}
+{"amount_ucr":999,"charge_keys":[["exp","s","r"]],"default_on_expiry":"refund_to_payer","expires_tick":100,"issuer":"bank","kind":"escrow","payee":"bob","payer":123,"required_clean":true,"seq":3,"tick":1}
+{"amount_ucr":999,"charge_keys":[["exp","s","r"]],"default_on_expiry":"refund_to_payer","expires_tick":100,"issuer":"bank","kind":"escrow","payee":"bob","payer":true,"required_clean":true,"seq":6,"tick":1}
+{"amount_ucr":999,"charge_keys":[["exp","s","r"]],"default_on_expiry":"refund_to_payer","expires_tick":100,"issuer":"bank","kind":"escrow","payee":"bob","payer":null,"required_clean":true,"seq":2,"tick":1}
+{"amount_ucr":999,"charge_keys":[["exp","s","r"]],"default_on_expiry":"refund_to_payer","expires_tick":100,"issuer":"bank","kind":"escrow","payee":"bob","payer":{"x":1},"required_clean":true,"seq":5,"tick":1}
+{"account":"alice","amount_ucr":1000,"issuer":"bank","kind":"deposit","seq":1,"tick":0}

@@ -1,0 +1,2 @@
+{"accepted":true,"channel":"c","charge_seq":1,"debit_mbits":50,"demand_mbits":50,"estimate_total_mbits":50,"estimator_id":"e","estimator_independence":"adversarial_review","estimator_worst_case":true,"key":["comp","phantom","q","a"],"kind":"charge","lease_id":"sha256:c65906024ea36f9b0aa3d7c86e06a2ee4d46c11282bf21471c90824490521908","node":"nX","reason_class":"EMITTED","reason_detail":"emitted_debited","tick":9}
+{"amount_mbits":100,"expires_tick":5,"issuer":"nobody","key":["comp","phantom","q","a"],"kind":"lease","lease_seq":1,"node":"nX"}

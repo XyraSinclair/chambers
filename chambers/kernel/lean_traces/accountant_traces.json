@@ -1,0 +1,390 @@
+{
+ "spec": "egress-accountant/1 \u00a72.2",
+ "traces": [
+  {
+   "ceiling": 1000000,
+   "charges": [
+    {
+     "admissible": true,
+     "bits": 80000
+    }
+   ],
+   "entropy": 100000,
+   "final": {
+    "blocked": false,
+    "cumulative": 80000,
+    "demanded": 80000,
+    "incident": true
+   },
+   "name": "emit_once",
+   "reasons": [
+    "EMITTED"
+   ]
+  },
+  {
+   "ceiling": 1000000,
+   "charges": [
+    {
+     "admissible": true,
+     "bits": 80000
+    },
+    {
+     "admissible": true,
+     "bits": 80000
+    }
+   ],
+   "entropy": 100000,
+   "final": {
+    "blocked": false,
+    "cumulative": 160000,
+    "demanded": 160000,
+    "incident": true
+   },
+   "name": "spec4_worked_example",
+   "reasons": [
+    "EMITTED",
+    "EMITTED"
+   ]
+  },
+  {
+   "ceiling": 50,
+   "charges": [
+    {
+     "admissible": true,
+     "bits": 20
+    },
+    {
+     "admissible": true,
+     "bits": 30
+    },
+    {
+     "admissible": true,
+     "bits": 1
+    }
+   ],
+   "entropy": 100,
+   "final": {
+    "blocked": true,
+    "cumulative": 50,
+    "demanded": 51,
+    "incident": false
+   },
+   "name": "exact_remaining_then_blocked",
+   "reasons": [
+    "EMITTED",
+    "EMITTED",
+    "REFUSED_BLOCKED"
+   ]
+  },
+  {
+   "ceiling": 50,
+   "charges": [
+    {
+     "admissible": true,
+     "bits": 60
+    },
+    {
+     "admissible": true,
+     "bits": 1
+    }
+   ],
+   "entropy": 100,
+   "final": {
+    "blocked": true,
+    "cumulative": 0,
+    "demanded": 61,
+    "incident": false
+   },
+   "name": "refuse_ceiling_then_blocked",
+   "reasons": [
+    "REFUSED_CEILING",
+    "REFUSED_BLOCKED"
+   ]
+  },
+  {
+   "ceiling": 50,
+   "charges": [
+    {
+     "admissible": false,
+     "bits": 999
+    },
+    {
+     "admissible": true,
+     "bits": 10
+    },
+    {
+     "admissible": false,
+     "bits": 999
+    }
+   ],
+   "entropy": 100,
+   "final": {
+    "blocked": false,
+    "cumulative": 10,
+    "demanded": 10,
+    "incident": false
+   },
+   "name": "inadmissible_accrues_nothing",
+   "reasons": [
+    "REFUSED_ESTIMATOR",
+    "EMITTED",
+    "REFUSED_ESTIMATOR"
+   ]
+  },
+  {
+   "ceiling": 5000,
+   "charges": [
+    {
+     "admissible": true,
+     "bits": 800
+    }
+   ],
+   "entropy": 1000,
+   "final": {
+    "blocked": false,
+    "cumulative": 800,
+    "demanded": 800,
+    "incident": true
+   },
+   "name": "incident_at_exact_threshold",
+   "reasons": [
+    "EMITTED"
+   ]
+  },
+  {
+   "ceiling": 5000,
+   "charges": [
+    {
+     "admissible": true,
+     "bits": 799
+    }
+   ],
+   "entropy": 1000,
+   "final": {
+    "blocked": false,
+    "cumulative": 799,
+    "demanded": 799,
+    "incident": false
+   },
+   "name": "incident_one_below_threshold",
+   "reasons": [
+    "EMITTED"
+   ]
+  },
+  {
+   "ceiling": 100,
+   "charges": [
+    {
+     "admissible": true,
+     "bits": 900
+    }
+   ],
+   "entropy": 1000,
+   "final": {
+    "blocked": true,
+    "cumulative": 0,
+    "demanded": 900,
+    "incident": true
+   },
+   "name": "incident_on_refused_demand",
+   "reasons": [
+    "REFUSED_CEILING"
+   ]
+  },
+  {
+   "ceiling": 10,
+   "charges": [
+    {
+     "admissible": true,
+     "bits": 10
+    },
+    {
+     "admissible": true,
+     "bits": 790
+    },
+    {
+     "admissible": true,
+     "bits": 100
+    }
+   ],
+   "entropy": 1000,
+   "final": {
+    "blocked": true,
+    "cumulative": 10,
+    "demanded": 900,
+    "incident": true
+   },
+   "name": "incident_while_blocked",
+   "reasons": [
+    "EMITTED",
+    "REFUSED_BLOCKED",
+    "REFUSED_BLOCKED"
+   ]
+  },
+  {
+   "ceiling": 0,
+   "charges": [
+    {
+     "admissible": true,
+     "bits": 0
+    },
+    {
+     "admissible": true,
+     "bits": 0
+    }
+   ],
+   "entropy": 100,
+   "final": {
+    "blocked": true,
+    "cumulative": 0,
+    "demanded": 0,
+    "incident": false
+   },
+   "name": "zero_ceiling_first_emit_blocks",
+   "reasons": [
+    "EMITTED",
+    "REFUSED_BLOCKED"
+   ]
+  },
+  {
+   "ceiling": 50,
+   "charges": [
+    {
+     "admissible": true,
+     "bits": 0
+    },
+    {
+     "admissible": true,
+     "bits": 0
+    },
+    {
+     "admissible": true,
+     "bits": 50
+    },
+    {
+     "admissible": true,
+     "bits": 0
+    }
+   ],
+   "entropy": 100,
+   "final": {
+    "blocked": true,
+    "cumulative": 50,
+    "demanded": 50,
+    "incident": false
+   },
+   "name": "zero_bits_charges",
+   "reasons": [
+    "EMITTED",
+    "EMITTED",
+    "EMITTED",
+    "REFUSED_BLOCKED"
+   ]
+  },
+  {
+   "ceiling": 200,
+   "charges": [
+    {
+     "admissible": true,
+     "bits": 200
+    },
+    {
+     "admissible": true,
+     "bits": 1
+    }
+   ],
+   "entropy": 200,
+   "final": {
+    "blocked": true,
+    "cumulative": 200,
+    "demanded": 201,
+    "incident": true
+   },
+   "name": "ceiling_equals_entropy",
+   "reasons": [
+    "EMITTED",
+    "REFUSED_BLOCKED"
+   ]
+  },
+  {
+   "ceiling": 100,
+   "charges": [
+    {
+     "admissible": false,
+     "bits": 5
+    },
+    {
+     "admissible": true,
+     "bits": 60
+    },
+    {
+     "admissible": true,
+     "bits": 50
+    },
+    {
+     "admissible": false,
+     "bits": 5
+    },
+    {
+     "admissible": true,
+     "bits": 10
+    },
+    {
+     "admissible": true,
+     "bits": 700
+    }
+   ],
+   "entropy": 1000,
+   "final": {
+    "blocked": true,
+    "cumulative": 60,
+    "demanded": 820,
+    "incident": true
+   },
+   "name": "interleaved_all_reasons",
+   "reasons": [
+    "REFUSED_ESTIMATOR",
+    "EMITTED",
+    "REFUSED_CEILING",
+    "REFUSED_ESTIMATOR",
+    "REFUSED_BLOCKED",
+    "REFUSED_BLOCKED"
+   ]
+  },
+  {
+   "ceiling": 120000,
+   "charges": [
+    {
+     "admissible": true,
+     "bits": 64585
+    },
+    {
+     "admissible": true,
+     "bits": 50000
+    },
+    {
+     "admissible": true,
+     "bits": 50000
+    },
+    {
+     "admissible": true,
+     "bits": 1000
+    }
+   ],
+   "entropy": 512000,
+   "final": {
+    "blocked": true,
+    "cumulative": 114585,
+    "demanded": 165585,
+    "incident": false
+   },
+   "name": "large_realistic_magnitudes",
+   "reasons": [
+    "EMITTED",
+    "EMITTED",
+    "REFUSED_CEILING",
+    "REFUSED_BLOCKED"
+   ]
+  }
+ ]
+}

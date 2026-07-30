@@ -1,0 +1,1 @@
+{"audit_codes":[],"fold":{"accounts":[{"ceiling_mbits":60000,"conflicted":false,"cumulative_mbits":60000,"demanded_mbits":80000,"granted_lease_mbits":60000,"incident":true,"key":["exp","chamberA","agentZ"],"leakage_class":"unsafe","subject_entropy_mbits":100000}]},"name":"honest-two-node-partition","spec":"charge-ledger/1"}

@@ -1,0 +1,6 @@
+{"amount_ucr":50000,"charge_keys":[["exp","srcA","readerR"]],"default_on_expiry":"refund_to_payer","expires_tick":100,"issuer":"bank","kind":"escrow","payee":"workerW","payer":"payerP","required_clean":true,"seq":1,"tick":2}
+{"ceiling_mbits":50000,"issuer":"srcA_chamber","key":["exp","srcA","readerR"],"kind":"register","subject_entropy_mbits":100000}
+{"account":"payerP","amount_ucr":100000,"issuer":"bank","kind":"deposit","seq":1,"tick":0}
+{"amount_ucr":50000,"charge_ids":[],"escrow_id":"sha256:6d77607fc668beb32241b8692fc5389924473109d1af7b99617fbc120f3ab796","kind":"default_resolution","seq":1,"submitter":"workerW","tick":50}
+{"amount_mbits":50000,"expires_tick":4611686018427387904,"issuer":"srcA_chamber","key":["exp","srcA","readerR"],"kind":"lease","lease_seq":1,"node":"n1"}
+{"accepted":true,"channel":"c","charge_seq":1,"debit_mbits":10000,"demand_mbits":10000,"estimate_total_mbits":10000,"estimator_id":"indep","estimator_independence":"adversarial_review","estimator_worst_case":true,"key":["exp","srcA","readerR"],"kind":"charge","lease_id":"sha256:9023bc1b792920824b67b01879a77b156f57c481a8e3d4adc902d6ad0f58e25a","node":"n1","reason_class":"EMITTED","reason_detail":"emitted_debited","tick":1}

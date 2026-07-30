@@ -1,0 +1,3 @@
+{"amount_mbits":50000,"expires_tick":100,"issuer":"ownerA","key":["comp","subjectP","reachability","cardinal"],"kind":"lease","lease_seq":1,"node":"n1"}
+{"ceiling_mbits":120000,"key":["comp","subjectP","reachability","cardinal"],"kind":"register","subject_entropy_mbits":400000}
+{"ceiling_mbits":90000,"issuer":7,"key":["comp","subjectP","reachability","cardinal"],"kind":"register","subject_entropy_mbits":512000}

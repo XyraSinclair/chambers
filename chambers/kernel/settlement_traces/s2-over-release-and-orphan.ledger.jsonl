@@ -1,0 +1,8 @@
+{"amount_ucr":5000,"charge_ids":["sha256:fc11bc6e9a6a7aabeb0276163791f370b5e100db56ce67fbaae375ef4de1bd55"],"escrow_id":"sha256:0d2b93c8c0334c1255218de7cb4e8d53e756e8330c6e6fc82601cfc13f092386","issuer":"bank","kind":"release","seq":98,"tick":4}
+{"amount_ucr":10000,"charge_keys":[["exp","srcA","readerR"]],"default_on_expiry":"refund_to_payer","expires_tick":100,"issuer":"bank","kind":"escrow","payee":"workerW","payer":"payerP","required_clean":true,"seq":1,"tick":2}
+{"amount_ucr":9000,"charge_ids":["sha256:fc11bc6e9a6a7aabeb0276163791f370b5e100db56ce67fbaae375ef4de1bd55"],"escrow_id":"sha256:0d2b93c8c0334c1255218de7cb4e8d53e756e8330c6e6fc82601cfc13f092386","issuer":"bank","kind":"release","seq":1,"tick":3}
+{"ceiling_mbits":50000,"issuer":"srcA_chamber","key":["exp","srcA","readerR"],"kind":"register","subject_entropy_mbits":100000}
+{"account":"payerP","amount_ucr":100000,"issuer":"bank","kind":"deposit","seq":1,"tick":0}
+{"amount_mbits":50000,"expires_tick":4611686018427387904,"issuer":"srcA_chamber","key":["exp","srcA","readerR"],"kind":"lease","lease_seq":1,"node":"n1"}
+{"amount_ucr":1000,"charge_ids":["sha256:fc11bc6e9a6a7aabeb0276163791f370b5e100db56ce67fbaae375ef4de1bd55"],"escrow_id":"sha256:0000000000000000000000000000000000000000000000000000000000000000","issuer":"bank","kind":"release","seq":99,"tick":5}
+{"accepted":true,"channel":"c","charge_seq":1,"debit_mbits":10000,"demand_mbits":10000,"estimate_total_mbits":10000,"estimator_id":"indep","estimator_independence":"adversarial_review","estimator_worst_case":true,"key":["exp","srcA","readerR"],"kind":"charge","lease_id":"sha256:9023bc1b792920824b67b01879a77b156f57c481a8e3d4adc902d6ad0f58e25a","node":"n1","reason_class":"EMITTED","reason_detail":"emitted_debited","tick":1}

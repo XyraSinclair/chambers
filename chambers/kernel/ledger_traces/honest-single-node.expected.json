@@ -1,0 +1,1 @@
+{"audit_codes":[],"fold":{"accounts":[{"ceiling_mbits":120000,"conflicted":false,"cumulative_mbits":73170,"demanded_mbits":124170,"granted_lease_mbits":120000,"incident":false,"key":["comp","subjectS","reachability","cardinal"],"leakage_class":"bounded","subject_entropy_mbits":512000}]},"name":"honest-single-node","spec":"charge-ledger/1"}
