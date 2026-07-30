@@ -1,0 +1,120 @@
+{
+  "expected": [
+    {
+      "accepted": true,
+      "blocked": false,
+      "cumulative_mbits": 8585,
+      "demanded_mbits": 8585,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "EMITTED",
+      "reason_detail": "emitted_debited"
+    },
+    {
+      "accepted": false,
+      "blocked": false,
+      "cumulative_mbits": 8585,
+      "demanded_mbits": 8585,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "REFUSED_ESTIMATOR",
+      "reason_detail": "self_interested_estimator"
+    },
+    {
+      "accepted": false,
+      "blocked": false,
+      "cumulative_mbits": 8585,
+      "demanded_mbits": 8585,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "REFUSED_ESTIMATOR",
+      "reason_detail": "unknown_independence_class"
+    }
+  ],
+  "name": "random-012",
+  "ops": [
+    {
+      "ceiling_mbits": 48775,
+      "key": [
+        "s12_0",
+        "flow",
+        "aud1"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 128000
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 1000,
+        "field_presence_mbits": 0,
+        "ordering_mbits": 6585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 0
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "operator",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s12_0",
+        "flow",
+        "aud1"
+      ],
+      "op": "charge",
+      "tick": 1
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 2000,
+        "field_presence_mbits": 0,
+        "ordering_mbits": 0,
+        "side_channel_mbits": 0,
+        "text_mbits": 32000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "self_interested",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s12_0",
+        "flow",
+        "aud1"
+      ],
+      "op": "charge",
+      "tick": 2
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 0,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 6585,
+        "side_channel_mbits": 0,
+        "text_mbits": 32000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "bogus_class",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s12_0",
+        "flow",
+        "aud1"
+      ],
+      "op": "charge",
+      "tick": 3
+    }
+  ],
+  "spec": "egress-accountant/1"
+}

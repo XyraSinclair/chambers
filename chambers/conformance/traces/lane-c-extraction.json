@@ -1,0 +1,222 @@
+{
+  "expected": [
+    {
+      "accepted": true,
+      "blocked": false,
+      "cumulative_mbits": 73170,
+      "demanded_mbits": 73170,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "EMITTED",
+      "reason_detail": "emitted_debited"
+    },
+    {
+      "accepted": false,
+      "blocked": true,
+      "cumulative_mbits": 73170,
+      "demanded_mbits": 146340,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "REFUSED_CEILING",
+      "reason_detail": "would_exceed_ceiling"
+    },
+    {
+      "accepted": false,
+      "blocked": true,
+      "cumulative_mbits": 73170,
+      "demanded_mbits": 219510,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "REFUSED_BLOCKED",
+      "reason_detail": "budget_already_blocked"
+    },
+    {
+      "accepted": false,
+      "blocked": true,
+      "cumulative_mbits": 73170,
+      "demanded_mbits": 292680,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "REFUSED_BLOCKED",
+      "reason_detail": "budget_already_blocked"
+    },
+    {
+      "accepted": false,
+      "blocked": true,
+      "cumulative_mbits": 73170,
+      "demanded_mbits": 365850,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "REFUSED_BLOCKED",
+      "reason_detail": "budget_already_blocked"
+    },
+    {
+      "accepted": false,
+      "blocked": true,
+      "cumulative_mbits": 73170,
+      "demanded_mbits": 439020,
+      "incident": true,
+      "leakage_class": "bounded",
+      "newly_incident": true,
+      "reason_class": "REFUSED_BLOCKED",
+      "reason_detail": "budget_already_blocked"
+    }
+  ],
+  "name": "lane-c-extraction",
+  "ops": [
+    {
+      "ceiling_mbits": 120000,
+      "key": [
+        "wolfden-in-Meridian:patch-diff-2026-06",
+        "reachability",
+        "cardinal-offensive"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 512000
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 4585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 64000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "wolfden-in-Meridian:patch-diff-2026-06",
+        "reachability",
+        "cardinal-offensive"
+      ],
+      "op": "charge",
+      "tick": 1
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 4585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 64000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "wolfden-in-Meridian:patch-diff-2026-06",
+        "reachability",
+        "cardinal-offensive"
+      ],
+      "op": "charge",
+      "tick": 2
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 4585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 64000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "wolfden-in-Meridian:patch-diff-2026-06",
+        "reachability",
+        "cardinal-offensive"
+      ],
+      "op": "charge",
+      "tick": 3
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 4585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 64000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "wolfden-in-Meridian:patch-diff-2026-06",
+        "reachability",
+        "cardinal-offensive"
+      ],
+      "op": "charge",
+      "tick": 4
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 4585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 64000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "wolfden-in-Meridian:patch-diff-2026-06",
+        "reachability",
+        "cardinal-offensive"
+      ],
+      "op": "charge",
+      "tick": 5
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 4585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 64000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "wolfden-in-Meridian:patch-diff-2026-06",
+        "reachability",
+        "cardinal-offensive"
+      ],
+      "op": "charge",
+      "tick": 6
+    }
+  ],
+  "spec": "egress-accountant/1"
+}

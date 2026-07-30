@@ -1,0 +1,16 @@
+[package]
+name = "egress_accountant"
+version = "0.1.0"
+edition = "2021"
+description = "Independent second implementation of egress-accountant/1 (see ../SPEC.md). std-only, no dependencies — hermetic and counterparty-compilable."
+
+[[bin]]
+name = "egress_accountant"
+path = "src/main.rs"
+
+[lib]
+name = "egress_accountant"
+path = "src/lib.rs"
+
+# No dependencies. Integer millibits, hand-rolled minimal JSON for the trace
+# format. Shares nothing with the Python reference — that is the point.

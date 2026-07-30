@@ -1,0 +1,232 @@
+{
+  "expected": [
+    {
+      "accepted": false,
+      "blocked": false,
+      "cumulative_mbits": 0,
+      "demanded_mbits": 0,
+      "incident": false,
+      "leakage_class": "negligible",
+      "newly_incident": false,
+      "reason_class": "REFUSED_ESTIMATOR",
+      "reason_detail": "unknown_independence_class"
+    },
+    {
+      "accepted": true,
+      "blocked": false,
+      "cumulative_mbits": 338585,
+      "demanded_mbits": 338585,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "EMITTED",
+      "reason_detail": "emitted_debited"
+    },
+    {
+      "accepted": false,
+      "blocked": false,
+      "cumulative_mbits": 338585,
+      "demanded_mbits": 338585,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "REFUSED_ESTIMATOR",
+      "reason_detail": "self_interested_estimator"
+    },
+    {
+      "accepted": false,
+      "blocked": false,
+      "cumulative_mbits": 0,
+      "demanded_mbits": 0,
+      "incident": false,
+      "leakage_class": "negligible",
+      "newly_incident": false,
+      "reason_class": "REFUSED_ESTIMATOR",
+      "reason_detail": "unknown_independence_class"
+    },
+    {
+      "accepted": false,
+      "blocked": false,
+      "cumulative_mbits": 0,
+      "demanded_mbits": 0,
+      "incident": false,
+      "leakage_class": "negligible",
+      "newly_incident": false,
+      "reason_class": "REFUSED_ESTIMATOR",
+      "reason_detail": "self_interested_estimator"
+    },
+    {
+      "accepted": true,
+      "blocked": false,
+      "cumulative_mbits": 485585,
+      "demanded_mbits": 485585,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "EMITTED",
+      "reason_detail": "emitted_debited"
+    }
+  ],
+  "name": "random-020",
+  "ops": [
+    {
+      "ceiling_mbits": 3731038,
+      "key": [
+        "s20_0",
+        "reach",
+        "aud1"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 4096000
+    },
+    {
+      "ceiling_mbits": 48249,
+      "key": [
+        "s20_1",
+        "reach",
+        "aud2"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 64000
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 2000,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 0,
+        "side_channel_mbits": 1000,
+        "text_mbits": 64000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "bogus_class",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s20_0",
+        "reach",
+        "aud1"
+      ],
+      "op": "charge",
+      "tick": 1
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 15000,
+        "side_channel_mbits": 0,
+        "text_mbits": 320000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "role_separated",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s20_0",
+        "reach",
+        "aud1"
+      ],
+      "op": "charge",
+      "tick": 2
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 2000,
+        "field_presence_mbits": 0,
+        "ordering_mbits": 15000,
+        "side_channel_mbits": 1000,
+        "text_mbits": 320000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "self_interested",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s20_0",
+        "reach",
+        "aud1"
+      ],
+      "op": "charge",
+      "tick": 3
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 2000,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 4585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 128000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "bogus_class",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s20_1",
+        "reach",
+        "aud2"
+      ],
+      "op": "charge",
+      "tick": 4
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 2000,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 6585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 64000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "self_interested",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s20_1",
+        "reach",
+        "aud2"
+      ],
+      "op": "charge",
+      "tick": 5
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 2000,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 15000,
+        "side_channel_mbits": 0,
+        "text_mbits": 128000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s20_0",
+        "reach",
+        "aud1"
+      ],
+      "op": "charge",
+      "tick": 6
+    }
+  ],
+  "spec": "egress-accountant/1"
+}

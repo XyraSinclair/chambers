@@ -1,0 +1,86 @@
+{
+  "expected": [
+    {
+      "accepted": true,
+      "blocked": false,
+      "cumulative_mbits": 80000,
+      "demanded_mbits": 80000,
+      "incident": true,
+      "leakage_class": "unsafe",
+      "newly_incident": true,
+      "reason_class": "EMITTED",
+      "reason_detail": "emitted_debited"
+    },
+    {
+      "accepted": true,
+      "blocked": false,
+      "cumulative_mbits": 160000,
+      "demanded_mbits": 160000,
+      "incident": true,
+      "leakage_class": "reconstructed",
+      "newly_incident": false,
+      "reason_class": "EMITTED",
+      "reason_detail": "emitted_debited"
+    }
+  ],
+  "name": "worked-example-spec-4",
+  "ops": [
+    {
+      "ceiling_mbits": 1000000,
+      "key": [
+        "s",
+        "f",
+        "a"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 100000
+    },
+    {
+      "estimate": {
+        "channel": "unit",
+        "enum_value_mbits": 0,
+        "field_presence_mbits": 0,
+        "ordering_mbits": 0,
+        "side_channel_mbits": 0,
+        "text_mbits": 80000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s",
+        "f",
+        "a"
+      ],
+      "op": "charge",
+      "tick": 1
+    },
+    {
+      "estimate": {
+        "channel": "unit",
+        "enum_value_mbits": 0,
+        "field_presence_mbits": 0,
+        "ordering_mbits": 0,
+        "side_channel_mbits": 0,
+        "text_mbits": 80000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s",
+        "f",
+        "a"
+      ],
+      "op": "charge",
+      "tick": 2
+    }
+  ],
+  "spec": "egress-accountant/1"
+}

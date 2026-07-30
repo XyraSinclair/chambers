@@ -1,0 +1,154 @@
+{
+  "expected": [
+    {
+      "accepted": false,
+      "blocked": false,
+      "cumulative_mbits": 0,
+      "demanded_mbits": 0,
+      "incident": false,
+      "leakage_class": "negligible",
+      "newly_incident": false,
+      "reason_class": "REFUSED_ESTIMATOR",
+      "reason_detail": "self_interested_estimator"
+    },
+    {
+      "accepted": false,
+      "blocked": false,
+      "cumulative_mbits": 0,
+      "demanded_mbits": 0,
+      "incident": false,
+      "leakage_class": "negligible",
+      "newly_incident": false,
+      "reason_class": "REFUSED_ESTIMATOR",
+      "reason_detail": "unknown_independence_class"
+    },
+    {
+      "accepted": false,
+      "blocked": false,
+      "cumulative_mbits": 0,
+      "demanded_mbits": 0,
+      "incident": false,
+      "leakage_class": "negligible",
+      "newly_incident": false,
+      "reason_class": "REFUSED_ESTIMATOR",
+      "reason_detail": "estimate_not_worst_case"
+    },
+    {
+      "accepted": true,
+      "blocked": false,
+      "cumulative_mbits": 327170,
+      "demanded_mbits": 327170,
+      "incident": false,
+      "leakage_class": "material",
+      "newly_incident": false,
+      "reason_class": "EMITTED",
+      "reason_detail": "emitted_debited"
+    }
+  ],
+  "name": "estimator-variants",
+  "ops": [
+    {
+      "ceiling_mbits": 800000,
+      "key": [
+        "subj",
+        "family",
+        "aud"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 1000000
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 2585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 320000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "self_interested",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "subj",
+        "family",
+        "aud"
+      ],
+      "op": "charge",
+      "tick": 1
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 2585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 320000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "mystery_class",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "subj",
+        "family",
+        "aud"
+      ],
+      "op": "charge",
+      "tick": 2
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 2585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 320000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": false
+      },
+      "key": [
+        "subj",
+        "family",
+        "aud"
+      ],
+      "op": "charge",
+      "tick": 3
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 2585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 320000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "subj",
+        "family",
+        "aud"
+      ],
+      "op": "charge",
+      "tick": 4
+    }
+  ],
+  "spec": "egress-accountant/1"
+}

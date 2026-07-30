@@ -1,0 +1,86 @@
+{
+  "expected": [
+    {
+      "accepted": true,
+      "blocked": true,
+      "cumulative_mbits": 327170,
+      "demanded_mbits": 327170,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "EMITTED",
+      "reason_detail": "emitted_debited"
+    },
+    {
+      "accepted": false,
+      "blocked": true,
+      "cumulative_mbits": 327170,
+      "demanded_mbits": 654340,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "REFUSED_BLOCKED",
+      "reason_detail": "budget_already_blocked"
+    }
+  ],
+  "name": "exact-ceiling",
+  "ops": [
+    {
+      "ceiling_mbits": 327170,
+      "key": [
+        "s",
+        "f",
+        "a"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 4096000
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 2585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 320000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s",
+        "f",
+        "a"
+      ],
+      "op": "charge",
+      "tick": 1
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 2585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 320000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s",
+        "f",
+        "a"
+      ],
+      "op": "charge",
+      "tick": 2
+    }
+  ],
+  "spec": "egress-accountant/1"
+}

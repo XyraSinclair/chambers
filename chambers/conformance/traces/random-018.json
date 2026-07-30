@@ -1,0 +1,174 @@
+{
+  "expected": [
+    {
+      "accepted": false,
+      "blocked": false,
+      "cumulative_mbits": 0,
+      "demanded_mbits": 0,
+      "incident": false,
+      "leakage_class": "negligible",
+      "newly_incident": false,
+      "reason_class": "REFUSED_ESTIMATOR",
+      "reason_detail": "self_interested_estimator"
+    },
+    {
+      "accepted": false,
+      "blocked": false,
+      "cumulative_mbits": 0,
+      "demanded_mbits": 0,
+      "incident": false,
+      "leakage_class": "negligible",
+      "newly_incident": false,
+      "reason_class": "REFUSED_ESTIMATOR",
+      "reason_detail": "self_interested_estimator"
+    },
+    {
+      "accepted": true,
+      "blocked": false,
+      "cumulative_mbits": 6585,
+      "demanded_mbits": 6585,
+      "incident": false,
+      "leakage_class": "negligible",
+      "newly_incident": false,
+      "reason_class": "EMITTED",
+      "reason_detail": "emitted_debited"
+    },
+    {
+      "accepted": false,
+      "blocked": false,
+      "cumulative_mbits": 0,
+      "demanded_mbits": 0,
+      "incident": false,
+      "leakage_class": "negligible",
+      "newly_incident": false,
+      "reason_class": "REFUSED_ESTIMATOR",
+      "reason_detail": "estimate_not_worst_case"
+    }
+  ],
+  "name": "random-018",
+  "ops": [
+    {
+      "ceiling_mbits": 1050732,
+      "key": [
+        "s18_0",
+        "reach",
+        "aud1"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 4096000
+    },
+    {
+      "ceiling_mbits": 22199,
+      "key": [
+        "s18_1",
+        "presence",
+        "aud2"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 64000
+    },
+    {
+      "ceiling_mbits": 473250,
+      "key": [
+        "s18_2",
+        "presence",
+        "aud0"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 512000
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 0,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 4585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 32000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "self_interested",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s18_1",
+        "presence",
+        "aud2"
+      ],
+      "op": "charge",
+      "tick": 1
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 0,
+        "ordering_mbits": 4585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 32000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "self_interested",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s18_1",
+        "presence",
+        "aud2"
+      ],
+      "op": "charge",
+      "tick": 2
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 1000,
+        "field_presence_mbits": 0,
+        "ordering_mbits": 4585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 0
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "role_separated",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s18_0",
+        "reach",
+        "aud1"
+      ],
+      "op": "charge",
+      "tick": 3
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 0,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 4585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 64000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "operator",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": false
+      },
+      "key": [
+        "s18_1",
+        "presence",
+        "aud2"
+      ],
+      "op": "charge",
+      "tick": 4
+    }
+  ],
+  "spec": "egress-accountant/1"
+}

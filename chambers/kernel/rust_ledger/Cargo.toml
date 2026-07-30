@@ -1,0 +1,12 @@
+[package]
+name = "charge_ledger"
+version = "0.1.0"
+edition = "2021"
+description = "Independent second implementation of charge-ledger/1. std-only, spec-only."
+
+[lib]
+name = "charge_ledger"
+path = "src/lib.rs"
+
+# Intentionally no dependencies: hand-rolled JSON, canonical serialization,
+# and in-crate SHA-256 for counterparty-compilable conformance.

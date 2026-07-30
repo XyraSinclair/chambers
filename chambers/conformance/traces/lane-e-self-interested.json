@@ -1,0 +1,52 @@
+{
+  "expected": [
+    {
+      "accepted": false,
+      "blocked": false,
+      "cumulative_mbits": 0,
+      "demanded_mbits": 0,
+      "incident": false,
+      "leakage_class": "negligible",
+      "newly_incident": false,
+      "reason_class": "REFUSED_ESTIMATOR",
+      "reason_detail": "self_interested_estimator"
+    }
+  ],
+  "name": "lane-e-self-interested",
+  "ops": [
+    {
+      "ceiling_mbits": 800000,
+      "key": [
+        "wolfden-in-Meridian",
+        "reachability",
+        "cardinal-offensive"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 4096000
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 2585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 320000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "self_interested",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": false
+      },
+      "key": [
+        "wolfden-in-Meridian",
+        "reachability",
+        "cardinal-offensive"
+      ],
+      "op": "charge",
+      "tick": 1
+    }
+  ],
+  "spec": "egress-accountant/1"
+}

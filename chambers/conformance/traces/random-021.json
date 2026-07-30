@@ -1,0 +1,86 @@
+{
+  "expected": [
+    {
+      "accepted": true,
+      "blocked": false,
+      "cumulative_mbits": 34000,
+      "demanded_mbits": 34000,
+      "incident": false,
+      "leakage_class": "negligible",
+      "newly_incident": false,
+      "reason_class": "EMITTED",
+      "reason_detail": "emitted_debited"
+    },
+    {
+      "accepted": true,
+      "blocked": false,
+      "cumulative_mbits": 71585,
+      "demanded_mbits": 71585,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "EMITTED",
+      "reason_detail": "emitted_debited"
+    }
+  ],
+  "name": "random-021",
+  "ops": [
+    {
+      "ceiling_mbits": 133468,
+      "key": [
+        "s21_0",
+        "presence",
+        "aud1"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 1000000
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 2000,
+        "field_presence_mbits": 0,
+        "ordering_mbits": 0,
+        "side_channel_mbits": 0,
+        "text_mbits": 32000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "operator",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s21_0",
+        "presence",
+        "aud1"
+      ],
+      "op": "charge",
+      "tick": 1
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 0,
+        "field_presence_mbits": 0,
+        "ordering_mbits": 4585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 32000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s21_0",
+        "presence",
+        "aud1"
+      ],
+      "op": "charge",
+      "tick": 2
+    }
+  ],
+  "spec": "egress-accountant/1"
+}

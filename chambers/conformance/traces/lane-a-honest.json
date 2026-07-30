@@ -1,0 +1,52 @@
+{
+  "expected": [
+    {
+      "accepted": true,
+      "blocked": false,
+      "cumulative_mbits": 327170,
+      "demanded_mbits": 327170,
+      "incident": false,
+      "leakage_class": "bounded",
+      "newly_incident": false,
+      "reason_class": "EMITTED",
+      "reason_detail": "emitted_debited"
+    }
+  ],
+  "name": "lane-a-honest",
+  "ops": [
+    {
+      "ceiling_mbits": 800000,
+      "key": [
+        "wolfden-in-Meridian",
+        "reachability",
+        "cardinal-offensive"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 4096000
+    },
+    {
+      "estimate": {
+        "channel": "vex_verdict",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 2000,
+        "ordering_mbits": 2585,
+        "side_channel_mbits": 1000,
+        "text_mbits": 320000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "wolfden-in-Meridian",
+        "reachability",
+        "cardinal-offensive"
+      ],
+      "op": "charge",
+      "tick": 1
+    }
+  ],
+  "spec": "egress-accountant/1"
+}

@@ -1,0 +1,86 @@
+{
+  "expected": [
+    {
+      "accepted": false,
+      "blocked": true,
+      "cumulative_mbits": 0,
+      "demanded_mbits": 144585,
+      "incident": true,
+      "leakage_class": "negligible",
+      "newly_incident": true,
+      "reason_class": "REFUSED_CEILING",
+      "reason_detail": "would_exceed_ceiling"
+    },
+    {
+      "accepted": false,
+      "blocked": true,
+      "cumulative_mbits": 0,
+      "demanded_mbits": 209585,
+      "incident": true,
+      "leakage_class": "negligible",
+      "newly_incident": false,
+      "reason_class": "REFUSED_BLOCKED",
+      "reason_detail": "budget_already_blocked"
+    }
+  ],
+  "name": "random-009",
+  "ops": [
+    {
+      "ceiling_mbits": 29516,
+      "key": [
+        "s9_0",
+        "flow",
+        "aud1"
+      ],
+      "op": "register",
+      "subject_entropy_mbits": 64000
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 1585,
+        "field_presence_mbits": 0,
+        "ordering_mbits": 15000,
+        "side_channel_mbits": 0,
+        "text_mbits": 128000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "adversarial_review",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s9_0",
+        "flow",
+        "aud1"
+      ],
+      "op": "charge",
+      "tick": 1
+    },
+    {
+      "estimate": {
+        "channel": "rnd",
+        "enum_value_mbits": 1000,
+        "field_presence_mbits": 0,
+        "ordering_mbits": 0,
+        "side_channel_mbits": 0,
+        "text_mbits": 64000
+      },
+      "estimator": {
+        "estimator_id": "indep",
+        "independence": "operator",
+        "method": "static_schema_bound",
+        "worst_case_over_secrets": true
+      },
+      "key": [
+        "s9_0",
+        "flow",
+        "aud1"
+      ],
+      "op": "charge",
+      "tick": 2
+    }
+  ],
+  "spec": "egress-accountant/1"
+}
