@@ -1,0 +1,5 @@
+name = "ChargeKernel"
+defaultTargets = ["ChargeKernel"]
+
+[[lean_lib]]
+name = "ChargeKernel"
