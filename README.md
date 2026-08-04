@@ -1,5 +1,7 @@
 # Chambers
 
+[![ci](https://github.com/XyraSinclair/chambers/actions/workflows/ci.yml/badge.svg)](https://github.com/XyraSinclair/chambers/actions/workflows/ci.yml)
+
 **Private worlds become partially computable without becoming public.**
 
 Most of what matters is trapped behind privacy boundaries: who should meet,
