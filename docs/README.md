@@ -62,34 +62,22 @@ it touches.
 six-right decomposition of "can this agent access my data?", with the
 model-improvement right deliberately unbundled.
 
-**"Why these shapes? What was stress-tested?"**
-→ [`autoresearch/`](autoresearch/) — the adversarial research record: a
-207-agent stress test that retired three overclaims, the economy atlas that
-killed 28 of 32 candidate domains against live incumbents, and the
-type-surface adjudication. Historical documents, dated, kept as run
-records.
-
 **"What is the deep frontier?"**
 → [`frontier/`](frontier/) — coalitional inference (reader-relative
 leakage, the lifetime exposure ledger), IP trades (the feasibility floor at
 model scale), generative private-data moats, g-leakage measurement, and
 judgement markets.
 
-**"What is the conceptual vision, lens by lens?"**
-→ [`ideation/`](ideation/). Provocations, not commitments.
-
 ## Private artifacts
 
 Canon occasionally cites artifacts that are not part of this release: the
-operator's live chamber deployment, its dogfood log and runbook, raw
-multi-agent run outputs, and demos over the operator's own private corpus.
-Citations to them are marked "private" where they occur. Every protocol-
-grade finding they produced has landed in the specs and tests that *are*
-here; what stays home is the operator's personal data and operating record,
-not any law of the substrate. The [`autoresearch/`](autoresearch/) run
-records predate this release and occasionally name pre-release paths and
-artifacts; they are kept verbatim as dated history rather than edited into
-anachronism.
+operator's live chamber deployment, its dogfood log and runbook, the raw
+research record (a 207-agent stress test that retired three overclaims, the
+economy atlas that killed 28 of 32 candidate domains, the ideation series),
+and demos over the operator's own private corpus. Citations to them are
+marked "private" where they occur. Every protocol-grade finding they
+produced has landed in the specs and tests that *are* here; what stays home
+is the operator's working record, not any law of the substrate.
 
 ## Working rule
 

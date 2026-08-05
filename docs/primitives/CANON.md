@@ -171,7 +171,7 @@ future module. Not a primitive.
 ## Open frontier — what types do NOT solve
 
 An exhaustive adversarial pass (207 agents; see
-`../autoresearch/2026-07-01-substrate-stress-test/`) established that the
+`private: autoresearch/2026-07-01-substrate-stress-test/`) established that the
 following are load-bearing dependencies the type system must not pretend to
 have solved. New records here may *name* these problems and record verdicts
 honestly (e.g. `ConflictVerdict = "unprovable"`), but must never assert them

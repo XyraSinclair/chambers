@@ -102,7 +102,7 @@ Every other axis in the corpus refines one of the six:
 | estimate provenance (corpus_relative vs buyer_conditioned) | extraction posture (whose budget debits) |
 | independence class (attester/estimator) | contingency closure (who may attest the external outcome) |
 | oracle mechanicalness (in-chamber vs attested vs refused) | this IS axis 4's source (`stories/gardener.md`) |
-| ObservableClass × precision × cadence atlas (`autoresearch/2026-06-29-orthogonal-type-systems/01-orthogonal-type-atlas.md` §6) | alphabet class — the concrete enumeration checklist the calculus proviso needs; currently ignored by CALCULUS/STRUCTURE (§6) |
+| ObservableClass × precision × cadence atlas (`private: autoresearch/2026-06-29-orthogonal-type-systems/01-orthogonal-type-atlas.md` §6) | alphabet class — the concrete enumeration checklist the calculus proviso needs; currently ignored by CALCULUS/STRUCTURE (§6) |
 | gain-function class (`FRAMEWORKS.md` F1) | alphabet class (design-time input: the alphabet is designed against a declared gain function) |
 | schedule discipline (fixed/bucketed/padded) | alphabet class (timing is a channel the ceiling never sees) |
 | deal-intimacy ladder (`stories/frontier-lab-ip-mediation.md`) | not an axis: a path through the spine, alphabet widening and silo deepening per step |
@@ -192,7 +192,7 @@ in-ch/ext/refused/`—` · rung: R1/R2/R3/any · extr: 1shot/meter/campgn/`—`.
 | Committed alpha attestation (hash now, score later) | closed | self | est | ext (neutral harness vs public prices) | R2 | meter | NAMED | B(est) | `stories/MARKETS.md` §3 |
 | Cohort aggregate (N-party, real DP ε) | declared | kT | est | — | R1 | meter | NAMED | B(est) | `stories/MARKETS.md` §7 |
 | Expert confidential consult (typed severity verdict) | schema | 2T | trust | ext (audited samples) | R1 | meter | NAMED | B(schema) | `stories/MARKETS.md` §4 |
-| Oracle-approved patch acceptance (quantized bands) | closed | 2T | trust | in-ch | R2 | meter | SPEC | B(build) | `autoresearch/2026-07-01-premier-use-cases/README.md` §3; `primitives/market.ts`, `primitives/pricing.ts` |
+| Oracle-approved patch acceptance (quantized bands) | closed | 2T | trust | in-ch | R2 | meter | SPEC | B(build) | `private: autoresearch/2026-07-01-premier-use-cases/README.md` §3; `primitives/market.ts`, `primitives/pricing.ts` |
 | CI-verdict-as-oracle (pay-on-green) | closed | 2T | trust | in-ch | R2 | meter | SPEC; kernel binding IMPL | B(build) | `stories/gardener.md`; kernel charge_ids law |
 
 ### C. Verification, attestation, audit
@@ -217,17 +217,17 @@ in-ch/ext/refused/`—` · rung: R1/R2/R3/any · extr: 1shot/meter/campgn/`—`.
 
 | Operation | alph | silo | lane | closure | rung | extr | status | tier | source |
 |---|---|---|---|---|---|---|---|---|---|
-| Priced introduction clearing | closed | 2T | trust | in-ch | R1 | meter | IMPL (contingent-fee leg = named residue, `PARTY_LANE_GAPS`) | A | `autoresearch/2026-07-01-premier-use-cases/README.md` §2; PRICING_LAWS; `chambers/intro_clearing/` |
+| Priced introduction clearing | closed | 2T | trust | in-ch | R1 | meter | IMPL (contingent-fee leg = named residue, `PARTY_LANE_GAPS`) | A | `private: autoresearch/2026-07-01-premier-use-cases/README.md` §2; PRICING_LAWS; `chambers/intro_clearing/` |
 | Attention notification (credits AND bits, atomic) | closed | 2T+3rd | trust | in-ch | R1 | meter | IMPL | A | `chambers/kernel/attention_node.py`, `chambers/kernel/demo_attention_notify.py`; `stories/party-matchmaker.md` Act 3 |
-| Denominator control (bucketed pool sizes) | closed | kT | trust | — | R1 | meter | SPEC | B(build) | MATCHING_LAWS; `autoresearch/2026-06-29-orthogonal-type-systems/01-orthogonal-type-atlas.md` §11 |
+| Denominator control (bucketed pool sizes) | closed | kT | trust | — | R1 | meter | SPEC | B(build) | MATCHING_LAWS; `private: autoresearch/2026-06-29-orthogonal-type-systems/01-orthogonal-type-atlas.md` §11 |
 | Bilateral reveal / identity widening | closed | 2T | prov (`chambers/lean/ChargeKernel/Widening.lean`) | — | R1 | 1shot (one-way) | SPEC; algebra IMPL | B(build) | `stories/consult-storyweaver.md` runs 2/6; COALITION_LAWS |
 
 ### E. Trade and negotiation lifecycle
 
 | Operation | alph | silo | lane | closure | rung | extr | status | tier | source |
 |---|---|---|---|---|---|---|---|---|---|
-| Claim commitment (hash first, salted) | closed | self | prov | — | R1 | 1shot | IMPL sim / SPEC | B(build) | `autoresearch/2026-07-01-premier-use-cases/README.md` §1; `chambers/ip_trade_sim/SIM.md`; `primitives/negotiation.ts` |
-| Staged reveal ladder (reciprocity-gated) | schema | 2T | trust | — | R1 | campgn (walk-away timing is an emission) | SPEC | B(schema) | NEGOTIATION_LAWS; `autoresearch/2026-07-01-premier-use-cases/README.md` §1 |
+| Claim commitment (hash first, salted) | closed | self | prov | — | R1 | 1shot | IMPL sim / SPEC | B(build) | `private: autoresearch/2026-07-01-premier-use-cases/README.md` §1; `chambers/ip_trade_sim/SIM.md`; `primitives/negotiation.ts` |
+| Staged reveal ladder (reciprocity-gated) | schema | 2T | trust | — | R1 | campgn (walk-away timing is an emission) | SPEC | B(schema) | NEGOTIATION_LAWS; `private: autoresearch/2026-07-01-premier-use-cases/README.md` §1 |
 | Black-box probe (the distillation channel) | declared | 2T | est | — | R1 | campgn | IMPL sim | B(declared) | `chambers/ip_trade_sim/SIM.md` |
 | Appraisal / valuation (benchmark-normalized marginal) | declared | self | est | — | R1 | meter | IMPL sim | B(est) | `chambers/ip_trade_sim/economics.py` |
 | Price negotiation (metered rounds, commitments persist) | declared | 2T | est | — | R1 | meter | IMPL sim | B(declared) | `chambers/ip_trade_sim/price_debate.py`, `chambers/ip_trade_sim/SIM.md` |
@@ -391,7 +391,7 @@ Axis reconciliations owed:
   across the sim/kernel boundary (`chambers/ip_trade_sim/types.py` vs
   kernel/stories).
 - **The atlas ObservableClass × precision × cadence taxonomy**
-  (`autoresearch/2026-06-29-orthogonal-type-systems/01-orthogonal-type-atlas.md`
+  (`private: autoresearch/2026-06-29-orthogonal-type-systems/01-orthogonal-type-atlas.md`
   §6) is the richest emission-surface axis in the corpus and is ignored by
   CALCULUS/STRUCTURE — it is the concrete checklist the calculus's
   every-observable-enumerated proviso needs.
