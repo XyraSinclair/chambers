@@ -1,6 +1,6 @@
 # D1 bounty slice — metered-egress security research over sealed vendor artifacts
 
-The executable embodiment of the [build-first decision](../../docs/autoresearch/2026-07-02-cooperative-economy-atlas/README.md)
+The executable embodiment of the build-first decision (`private: autoresearch/2026-07-02-cooperative-economy-atlas/README.md`)
 (§4): a third-party research agent is admitted near a sealed vendor artifact,
 emits typed findings (VEX reachability verdicts + minimal repros), gets scored
 by a pinned oracle, and is paid **zero-touch** under a standing authorization —

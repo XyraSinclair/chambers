@@ -12,7 +12,9 @@ use, copy, modify, merge, publish, distribute, sublicense, and sell
 copies of the Work, subject to the conditions below.
 
 "Steward" means the copyright holder above, or whoever they designate
-to receive disclosures on the Work's behalf.
+to receive disclosures on the Work's behalf. The Steward's channel for
+the question and its answer is xyra@scry.io, unless a later version of
+this file names a successor.
 
 ## Conditions
 
