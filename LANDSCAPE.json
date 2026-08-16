@@ -1,0 +1,286 @@
+{
+  "components": [
+    {
+      "entrypoints": [
+        {
+          "command": "python3 -m chambers.cardinal_wedge.run_sort_metered",
+          "target": "chambers/cardinal_wedge/run_sort_metered.py"
+        }
+      ],
+      "evidence": [
+        "chambers/cardinal_wedge/test_sort_metered.py"
+      ],
+      "id": "cardinal-wedge",
+      "kind": "economy",
+      "path": "chambers/cardinal_wedge",
+      "summary": "Metered cardinal sorting: a ranking is a coupled, receipt-bound emission."
+    },
+    {
+      "entrypoints": [
+        {
+          "command": "python3 -m chambers.conformance.check_conformance",
+          "target": "chambers/conformance/check_conformance.py"
+        }
+      ],
+      "evidence": [
+        "chambers/conformance/SPEC.md",
+        "chambers/conformance/traces/MANIFEST.json",
+        "chambers/conformance/test_conformance.py"
+      ],
+      "id": "conformance",
+      "kind": "conformance",
+      "path": "chambers/conformance",
+      "summary": "Language-independent egress-accountant decision core, frozen traces, and a Rust twin."
+    },
+    {
+      "entrypoints": [
+        {
+          "command": "python3 -m chambers.d1_bounty.run",
+          "target": "chambers/d1_bounty/run.py"
+        }
+      ],
+      "evidence": [
+        "chambers/d1_bounty/README.md",
+        "chambers/d1_bounty/test_d1.py",
+        "chambers/d1_bounty/test_estimator_probe.py"
+      ],
+      "id": "d1-bounty",
+      "kind": "economy",
+      "path": "chambers/d1_bounty",
+      "summary": "Metered-egress security research over sealed vendor artifacts."
+    },
+    {
+      "entrypoints": [
+        {
+          "command": "python3 -m chambers.intro_clearing.run_clearing",
+          "target": "chambers/intro_clearing/run_clearing.py"
+        }
+      ],
+      "evidence": [
+        "chambers/intro_clearing/test_intro_clearing.py",
+        "chambers/intro_clearing/test_party_outcome.py"
+      ],
+      "id": "intro-clearing",
+      "kind": "economy",
+      "path": "chambers/intro_clearing",
+      "summary": "Purpose-blind, bidirectionally reviewed, priced introduction clearing."
+    },
+    {
+      "entrypoints": [
+        {
+          "command": "python3 -m chambers.ip_trade_sim.run",
+          "target": "chambers/ip_trade_sim/run.py"
+        }
+      ],
+      "evidence": [
+        "chambers/ip_trade_sim/SIM.md",
+        "chambers/ip_trade_sim/test_engine.py",
+        "chambers/ip_trade_sim/test_scenario.py"
+      ],
+      "id": "ip-trade-sim",
+      "kind": "economy",
+      "path": "chambers/ip_trade_sim",
+      "summary": "Two private labs negotiate and settle IP trades under a leakage meter."
+    },
+    {
+      "entrypoints": [
+        {
+          "command": "python3 -m chambers.kernel.node",
+          "target": "chambers/kernel/node.py"
+        },
+        {
+          "command": "python3 -m chambers.kernel.demo_work_economy",
+          "target": "chambers/kernel/demo_work_economy.py"
+        },
+        {
+          "command": "python3 -m chambers.kernel.verify ARTIFACT",
+          "target": "chambers/kernel/verify.py"
+        }
+      ],
+      "evidence": [
+        "chambers/kernel/KERNEL-SPEC.md",
+        "chambers/kernel/SETTLEMENT-SPEC.md",
+        "chambers/kernel/test_fuzz_audit.py",
+        "chambers/kernel/test_settlement2.py"
+      ],
+      "id": "kernel",
+      "kind": "kernel",
+      "path": "chambers/kernel",
+      "summary": "Exact charge, ledger, scope, identity, attribution, settlement, and verification machinery."
+    },
+    {
+      "entrypoints": [
+        {
+          "command": "cd chambers/lean && lake build",
+          "target": "chambers/lean/lakefile.toml"
+        }
+      ],
+      "evidence": [
+        "chambers/lean/ChargeKernel.lean",
+        "chambers/lean/README.md",
+        "chambers/lean/lean-toolchain"
+      ],
+      "id": "lean",
+      "kind": "proof",
+      "path": "chambers/lean",
+      "summary": "Machine-checked charge-algebra theorems and replayed golden traces."
+    },
+    {
+      "entrypoints": [
+        {
+          "command": "python3 -m chambers.peer_sim.run_peer_prediction",
+          "target": "chambers/peer_sim/run_peer_prediction.py"
+        }
+      ],
+      "evidence": [
+        "chambers/peer_sim/test_peer_sim.py"
+      ],
+      "id": "peer-sim",
+      "kind": "economy",
+      "path": "chambers/peer_sim",
+      "summary": "Peer-prediction judgement market with its redundancy leakage metered."
+    },
+    {
+      "entrypoints": [
+        {
+          "command": "python3 -m chambers.pipeline.run_pipeline",
+          "target": "chambers/pipeline/run_pipeline.py"
+        }
+      ],
+      "evidence": [
+        "chambers/pipeline/fixtures",
+        "chambers/pipeline/test_pipeline.py"
+      ],
+      "id": "pipeline",
+      "kind": "economy",
+      "path": "chambers/pipeline",
+      "summary": "Nine shipped machines composed into one deterministic end-to-end system."
+    },
+    {
+      "entrypoints": [
+        {
+          "command": "python3 -m chambers.review_audit.battery",
+          "target": "chambers/review_audit/battery.py"
+        }
+      ],
+      "evidence": [
+        "chambers/review_audit/PROBE-SPEC.md",
+        "chambers/review_audit/test_review_audit.py"
+      ],
+      "id": "review-audit",
+      "kind": "conformance",
+      "path": "chambers/review_audit",
+      "summary": "Content-addressed probe battery for reviewer coherence and capture pathologies."
+    },
+    {
+      "entrypoints": [
+        {
+          "command": "python3 -m chambers.runtime.runner run BUNDLE_DIR",
+          "target": "chambers/runtime/runner.py"
+        }
+      ],
+      "evidence": [
+        "chambers/runtime/RUNNER-SPEC.md",
+        "chambers/runtime/bundles",
+        "chambers/runtime/test_runner.py"
+      ],
+      "id": "runtime",
+      "kind": "runtime",
+      "path": "chambers/runtime",
+      "summary": "R2 deterministic bundle runner: reproducibility receipts, not confidentiality."
+    }
+  ],
+  "documentation": [
+    {
+      "path": "docs/ASSURANCE.md",
+      "role": "six-rung assurance ladder"
+    },
+    {
+      "path": "docs/BOOK.md",
+      "role": "minimal statement and refusal register"
+    },
+    {
+      "path": "docs/FRAMEWORKS.md",
+      "role": "formal-machinery import register"
+    },
+    {
+      "path": "docs/LICENSING.md",
+      "role": "licensed latent-formation rights"
+    },
+    {
+      "path": "docs/MACHINES.md",
+      "role": "runnable machine register"
+    },
+    {
+      "path": "docs/OPERATIONS.md",
+      "role": "graded operation atlas"
+    },
+    {
+      "path": "docs/README.md",
+      "role": "reading map"
+    },
+    {
+      "path": "docs/RUNTIME.md",
+      "role": "execution and plaintext ladder"
+    },
+    {
+      "path": "docs/SPECS.md",
+      "role": "versioned specification registry"
+    },
+    {
+      "path": "docs/STORIES.md",
+      "role": "grounded narratives and gaps"
+    },
+    {
+      "path": "docs/frontier",
+      "role": "frontier papers"
+    },
+    {
+      "path": "docs/primitives",
+      "role": "type canon"
+    },
+    {
+      "path": "docs/stories",
+      "role": "ledger-depth stories"
+    }
+  ],
+  "independent_implementations": [
+    {
+      "id": "charge-ledger-rust",
+      "path": "chambers/kernel/rust_ledger",
+      "spec": "charge-ledger/1 + charge-settlement/2",
+      "test_command": "cargo test --locked"
+    },
+    {
+      "cross_check_command": "cargo run --locked -- --emit out && python3 -m chambers.conformance.check_conformance --actual chambers/conformance/rust/out",
+      "id": "egress-accountant-rust",
+      "path": "chambers/conformance/rust",
+      "spec": "egress-accountant/1",
+      "test_command": "cargo test --locked"
+    }
+  ],
+  "project": {
+    "canon": "docs/primitives/CANON.md",
+    "claim": "Private worlds become partially computable without becoming public.",
+    "machine_registry": "docs/MACHINES.md",
+    "name": "Chambers",
+    "refusal_register": "docs/BOOK.md",
+    "spec_registry": "docs/SPECS.md"
+  },
+  "ratchets": {
+    "python": {
+      "default_max_bytes": 50000,
+      "excluded_name_prefixes": [
+        "demo_",
+        "emit_",
+        "test_"
+      ],
+      "grandfathered_max_bytes": {
+        "chambers/intro_clearing/intro_clearing.py": 93690,
+        "chambers/intro_clearing/run_clearing.py": 63070,
+        "chambers/kernel/settlement.py": 81297
+      }
+    }
+  },
+  "schema": "chambers-landscape/1"
+}

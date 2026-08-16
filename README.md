@@ -23,6 +23,11 @@ the system is *Scry Chambers*; Chambers is short.)
 
 ## What is here
 
+- **The landscape** — [`LANDSCAPE.json`](LANDSCAPE.json) is the executable
+  index over every component, docs root, entry point, evidence path, and
+  independent Rust implementation. [`chambers/landscape.py`](chambers/landscape.py)
+  verifies it and enforces no-growth ratchets around inherited monoliths;
+  [`AGENTS.md`](AGENTS.md) carries the change contract.
 - **The Book** — [`docs/BOOK.md`](docs/BOOK.md): the whole system as seven
   objects, twelve axioms, two theorems, and fourteen refusals, with a
   verified coverage map over every law in canon.
@@ -35,13 +40,15 @@ the system is *Scry Chambers*; Chambers is short.)
   released only against ledgered work, bonded contestable outcome
   attestations, exact-integer Shapley attribution. Every spec written so a
   counterparty can implement from the file alone.
-- **The conformance surface** — [`chambers/conformance/`](chambers/conformance/):
-  the language-independent decision core, plus golden traces. The Python
-  reference and a Rust twin written from the spec alone
-  ([`chambers/kernel/rust_ledger/`](chambers/kernel/rust_ledger/)) agree
-  bit-for-bit — 195/195 decisions — because every float was exiled from the
-  decision path. One author wrote both, with the reference sealed shut
-  during the port; the first truly foreign twin is the standing invitation.
+- **The conformance surfaces** — [`chambers/conformance/`](chambers/conformance/)
+  holds the language-independent egress-accountant decision core and golden
+  traces. Its Python reference and
+  [Rust twin](chambers/conformance/rust/) agree bit-for-bit on 195/195
+  decisions because every float was exiled from the decision path. The
+  separate [`chambers/kernel/rust_ledger/`](chambers/kernel/rust_ledger/)
+  crate verifies the ledger and settlement surfaces. One author wrote the
+  twins from the specs with the references sealed shut during each port; a
+  truly foreign implementation remains the standing invitation.
 - **The proofs** — [`chambers/lean/`](chambers/lean/): machine-checked
   theorems over the charge algebra (ceiling law, global cap under lease
   partition, settlement conservation, widening one-way-ness), with golden
@@ -67,16 +74,19 @@ the system is *Scry Chambers*; Chambers is short.)
 ## Run something
 
 ```
+python3 -m chambers.landscape show                    # the repository in one screen
+python3 -m chambers.landscape check                   # topology + no-growth ratchets
 python3 -m pytest -q                                  # the whole floor, ~365 tests
 python3 -m chambers.kernel.demo_work_economy          # value moves iff metered work moved
 python3 -m chambers.pipeline.run_pipeline             # nine machines as one system
 python3 -m chambers.intro_clearing.run_clearing       # priced introductions, end to end
-cd chambers/kernel/rust_ledger && cargo test          # the counterparty's verifier
+cd chambers/conformance/rust && cargo test --locked   # the independent accountant
+cd chambers/kernel/rust_ledger && cargo test --locked # the ledger/settlement verifier
 cd chambers/lean && lake build                        # the proof kernel
 ```
 
 Python ≥ 3.9 with `pytest` runs everything Python — the code itself is
-stdlib-only. The Rust twin wants `cargo`; the proofs want `elan`, which
+stdlib-only. The Rust twins want `cargo`; the proofs want `elan`, which
 reads the pinned toolchain from `chambers/lean/lean-toolchain`.
 
 ## What this does not claim
