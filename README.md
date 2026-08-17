@@ -28,6 +28,11 @@ the system is *Scry Chambers*; Chambers is short.)
   independent Rust implementation. [`chambers/landscape.py`](chambers/landscape.py)
   verifies it and enforces no-growth ratchets around inherited monoliths;
   [`AGENTS.md`](AGENTS.md) carries the change contract.
+- **The research lineage** — [`LITERATURE.json`](LITERATURE.json) records
+  primary sources with stable identifiers, exact repository targets, the
+  relationship Chambers bears to each source, the mechanism actually imported,
+  and the boundary of what the citation does not establish.
+  [`docs/LITERATURE.md`](docs/LITERATURE.md) is its generated human view.
 - **The Book** — [`docs/BOOK.md`](docs/BOOK.md): the whole system as seven
   objects, twelve axioms, two theorems, and fourteen refusals, with a
   verified coverage map over every law in canon.
@@ -38,22 +43,24 @@ the system is *Scry Chambers*; Chambers is short.)
   economy over the canon. Egress accounting in millibits, a content-addressed
   grow-only ledger that convicts rather than crashes, escrowed settlement
   released only against ledgered work, bonded contestable outcome
-  attestations, exact-integer Shapley attribution. Every spec written so a
+  attestations, exact-integer Shapley attribution. Every spec is written so a
   counterparty can implement from the file alone.
 - **The conformance surfaces** — [`chambers/conformance/`](chambers/conformance/)
   holds the language-independent egress-accountant decision core and golden
   traces. Its Python reference and
-  [Rust twin](chambers/conformance/rust/) agree bit-for-bit on 195/195
-  decisions because every float was exiled from the decision path. The
-  separate [`chambers/kernel/rust_ledger/`](chambers/kernel/rust_ledger/)
-  crate verifies the ledger and settlement surfaces. One author wrote the
-  twins from the specs with the references sealed shut during each port; a
-  truly foreign implementation remains the standing invitation.
+  [Rust implementation](chambers/conformance/rust/) agree bit-for-bit on
+  195/195 decisions because every float was exiled from the decision path.
+  The separate [`chambers/kernel/rust_ledger/`](chambers/kernel/rust_ledger/)
+  crate verifies the ledger and settlement surfaces. Each Rust port was written
+  from the normative specifications and golden artifacts without consulting
+  the corresponding Python source. Both are same-author implementations, not
+  evidence of social independence; a genuinely foreign implementation remains
+  the standing invitation.
 - **The proofs** — [`chambers/lean/`](chambers/lean/): machine-checked
   theorems over the charge algebra (ceiling law, global cap under lease
   partition, settlement conservation, widening one-way-ness), with golden
   traces from the reference's accountant core replayed inside Lean. The
-  proofs cover the charge algebra, not the whole kernel.
+  proofs cover the stated algebra, not the whole kernel.
 - **The economies** — [`chambers/ip_trade_sim/`](chambers/ip_trade_sim/),
   [`chambers/intro_clearing/`](chambers/intro_clearing/),
   [`chambers/d1_bounty/`](chambers/d1_bounty/),
@@ -73,10 +80,12 @@ the system is *Scry Chambers*; Chambers is short.)
 
 ## Run something
 
-```
+```text
 python3 -m chambers.landscape show                    # the repository in one screen
 python3 -m chambers.landscape check                   # topology + no-growth ratchets
-python3 -m pytest -q                                  # the whole floor, ~365 tests
+python3 -m chambers.literature show                   # source → claim → boundary map
+python3 -m chambers.literature check                  # metadata + target + render parity
+python3 -m pytest -q                                  # the complete Python floor
 python3 -m chambers.kernel.demo_work_economy          # value moves iff metered work moved
 python3 -m chambers.pipeline.run_pipeline             # nine machines as one system
 python3 -m chambers.intro_clearing.run_clearing       # priced introductions, end to end
@@ -85,9 +94,9 @@ cd chambers/kernel/rust_ledger && cargo test --locked # the ledger/settlement ve
 cd chambers/lean && lake build                        # the proof kernel
 ```
 
-Python ≥ 3.9 with `pytest` runs everything Python — the code itself is
-stdlib-only. The Rust twins want `cargo`; the proofs want `elan`, which
-reads the pinned toolchain from `chambers/lean/lean-toolchain`.
+Python ≥ 3.9 with `pytest` runs everything Python — the implementation itself
+is stdlib-only. The Rust implementations want `cargo`; the proofs want `elan`,
+which reads the pinned toolchain from `chambers/lean/lean-toolchain`.
 
 ## What this does not claim
 
@@ -110,6 +119,23 @@ a hosted product. The operator's own live deployment and its dogfood record
 stay private; [`IP-MANIFEST.md`](IP-MANIFEST.md) states exactly what this
 release gives and withholds.
 
+## Research lineage
+
+[`docs/LITERATURE.md`](docs/LITERATURE.md) is the precise map from primary
+sources to repository claims. It covers the quantitative-information-flow,
+contextual-integrity, transparency-log, fork-consistency, CRDT,
+monitorability, information-elicitation, attribution, signature, and proof
+machinery used or compared here. Every record names its relationship and
+non-transfer boundary. CI verifies the registry, repository targets, stable
+locator syntax, and generated human view; it deliberately does not make
+network availability part of the build.
+
+## Citation and contribution
+
+Machine-readable citation metadata is in [`CITATION.cff`](CITATION.cff).
+Contribution standards are in [`CONTRIBUTING.md`](CONTRIBUTING.md); the
+stricter agent and maintainer contract is [`AGENTS.md`](AGENTS.md).
+
 ## License
 
 [The Harvest License](LICENSE.md). Use it, fork it, sell it. At most once a
@@ -125,13 +151,3 @@ the same single question is all that travels with it.
 Conformance divergences, spec ambiguities, and corpus errors: open an
 issue naming the spec identifier ([`docs/SPECS.md`](docs/SPECS.md) is the
 registry). Security reports: [`SECURITY.md`](SECURITY.md).
-
-## Prior art, gratefully
-
-Quantitative information flow and g-leakage (Alvim, Chatzikokolakis,
-McIver, Morgan, Palamidessi, Smith); differential privacy and the
-odometer/filter line; contextual integrity (Nissenbaum); Certificate
-Transparency (RFC 6962/9162) and SUNDR fork consistency; peer prediction
-and correlated agreement; Shapley data valuation; Ed25519 (RFC 8032);
-Lean 4. The frontier papers in `docs/frontier/` cite the specific
-literatures each law leans on.

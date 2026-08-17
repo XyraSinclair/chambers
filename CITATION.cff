@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "Please cite Chambers using this metadata."
+title: "Chambers"
+type: software
+authors:
+  - family-names: "Sinclair"
+    given-names: "Xyra"
+abstract: >-
+  A specification-first substrate for metered confidential cognitive work:
+  exact integer charge accounting, content-addressed court files, independent
+  conformance implementations, and machine-checked proof obligations.
+repository-code: "https://github.com/XyraSinclair/chambers"
+url: "https://github.com/XyraSinclair/chambers"
+keywords:
+  - quantitative information flow
+  - confidential computation
+  - mechanism design
+  - accountable protocols
+  - formal verification
+  - Lean 4

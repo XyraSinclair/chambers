@@ -208,6 +208,10 @@
       "role": "licensed latent-formation rights"
     },
     {
+      "path": "docs/LITERATURE.md",
+      "role": "primary-source provenance and import boundaries"
+    },
+    {
       "path": "docs/MACHINES.md",
       "role": "runnable machine register"
     },

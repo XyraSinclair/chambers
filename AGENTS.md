@@ -1,8 +1,9 @@
 # Agent Operating Contract
 
 Chambers is a court file, not a notebook. Changes must leave a stranger able
-to locate the governing law, reproduce the decision, and distinguish what is
-proved from what is merely demonstrated.
+to locate the governing law, reproduce the decision, trace substantive imports
+to primary sources, and distinguish what is proved from what is merely
+demonstrated.
 
 ## First read
 
@@ -12,10 +13,15 @@ proved from what is merely demonstrated.
 4. Read the applicable refusals in `docs/BOOK.md`.
 5. For cross-cutting work, read `docs/primitives/CANON.md` and
    `docs/ASSURANCE.md` before touching code.
+6. When importing or invoking external machinery, read
+   `docs/LITERATURE.md` and update `LITERATURE.json` rather than adding an
+   unbounded name-drop to prose.
 
 `LANDSCAPE.json` is the topology index. It is not a second normative spec.
 `docs/SPECS.md` remains the registry of live identifiers; `docs/MACHINES.md`
-remains the register of runnable claims.
+remains the register of runnable claims. `LITERATURE.json` is the
+primary-source provenance registry; it is not permission to inherit a cited
+paper's theorem or assumptions.
 
 ## Authority order
 
@@ -73,11 +79,15 @@ Preserve these unless a new spec version explicitly changes them:
 
 Every top-level `chambers/` component, every `docs/` root entry, and every Rust
 crate must appear in `LANDSCAPE.json`. Entry points name a real target; evidence
-paths must exist. Run:
+paths must exist. Every substantive literature import must appear in
+`LITERATURE.json`, name real repository targets, and reproduce
+`docs/LITERATURE.md` exactly. Run:
 
 ```text
 python3 -m chambers.landscape check
 python3 -m chambers.landscape hotspots
+python3 -m chambers.literature check
+python3 -m chambers.literature show
 ```
 
 Production Python has a 50,000-byte default ceiling. Three inherited files are
@@ -104,6 +114,7 @@ claiming completion:
 
 ```text
 python3 -m chambers.landscape check
+python3 -m chambers.literature check
 python3 -m pytest -q
 
 cd chambers/conformance/rust
@@ -134,6 +145,11 @@ ledger and settlement surfaces. Neither substitutes for the other.
   withheld artifacts with the existing `private:` convention.
 - Do not turn a demo's god-view, fixture knowledge, or mocked oracle into a
   protocol assumption.
+- Use a primary source when one exists. Record a stable DOI, RFC, arXiv
+  identifier, or official archival URL; name the exact import and its
+  non-transfer boundary.
+- Do not use citation as theorem inheritance, implementation equivalence, or a
+  novelty claim.
 - Do not describe R1/R2 reproducibility as R3 confidentiality or TEE
   attestation.
 - Do not describe declared identity as Sybil resistance.
@@ -142,6 +158,6 @@ ledger and settlement surfaces. Neither substitutes for the other.
 ## Definition of done
 
 A change is complete when its governing identifier is unambiguous, its
-topology is indexed, its decision evidence is reproducible, all claimed twins
-agree, proof obligations are current, and the prose says no more than the
-evidence.
+topology is indexed, its intellectual imports are bounded and traceable, its
+decision evidence is reproducible, all claimed twins agree, proof obligations
+are current, and the prose says no more than the evidence.

@@ -57,6 +57,13 @@ reports).
 literatures with real theorems, each priced against the law or gap of ours
 it touches.
 
+**"Which primary sources is each claim answerable to?"**
+→ [`LITERATURE.md`](LITERATURE.md) — the generated source-to-claim map.
+Every record states a stable locator, the relationship Chambers bears to
+the source, the exact import, and the boundary of what the citation does
+not establish. Its machine-readable source is
+[`../LITERATURE.json`](../LITERATURE.json).
+
 **"What does the substrate sell, economically?"**
 → [`LICENSING.md`](LICENSING.md) — licensed latent formation: the
 six-right decomposition of "can this agent access my data?", with the
