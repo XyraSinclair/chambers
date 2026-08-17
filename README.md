@@ -2,152 +2,169 @@
 
 [![ci](https://github.com/XyraSinclair/chambers/actions/workflows/ci.yml/badge.svg)](https://github.com/XyraSinclair/chambers/actions/workflows/ci.yml)
 
-**Private worlds become partially computable without becoming public.**
+Chambers is a formal and executable model for bounded computation over private
+data. It combines reader-indexed exposure accounting, append-only evidence, and
+settlement rules that release value only against recorded work.
 
-Most of what matters is trapped behind privacy boundaries: who should meet,
-who should hire whom, which two labs hold techniques the other would pay
-for, what a decade of someone's notes actually says about them. None of it
-can be safely broadcast, so almost none of it is computed on. The default
-answer — upload everything and trust the platform — launders a lifetime of
-context into someone else's model.
+The question is deliberately narrower than “how do we make arbitrary
+computation private?” Chambers asks what rights can be granted, what information
+can cross a boundary, what evidence must remain afterward, and which claims a
+stranger can verify without seeing the underlying private material.
 
-A chamber is the other answer: a computation confined to the private worlds
-it has touched. Around it runs a market whose only tradable good is a
-bounded computation right, whose only deliverable is one symbol from a
-closed alphabet, whose price system is a lifetime exposure ledger, and
-whose settlement instrument is a court file. Nobody buys bits; people buy
-scoped rights and legible evidence.
+The repository contains versioned specifications, a Lean formalization, two
+separate Rust implementations of protocol surfaces, and Python research
+implementations that exercise complete economic scenarios. Lean is the intended
+semantic center. Python is useful implementation and experiment machinery; it is
+not the source of mathematical authority.
 
-This repository is that sentence made to run. (The specs' long name for
-the system is *Scry Chambers*; Chambers is short.)
+## Authority and correspondence
 
-## What is here
-
-- **The landscape** — [`LANDSCAPE.json`](LANDSCAPE.json) is the executable
-  index over every component, docs root, entry point, evidence path, and
-  independent Rust implementation. [`chambers/landscape.py`](chambers/landscape.py)
-  verifies it and enforces no-growth ratchets around inherited monoliths;
-  [`AGENTS.md`](AGENTS.md) carries the change contract.
-- **The research lineage** — [`LITERATURE.json`](LITERATURE.json) records
-  primary sources with stable identifiers, exact repository targets, the
-  relationship Chambers bears to each source, the mechanism actually imported,
-  and the boundary of what the citation does not establish.
-  [`docs/LITERATURE.md`](docs/LITERATURE.md) is its generated human view.
-- **The Book** — [`docs/BOOK.md`](docs/BOOK.md): the whole system as seven
-  objects, twelve axioms, two theorems, and fourteen refusals, with a
-  verified coverage map over every law in canon.
-- **The type canon** — [`docs/primitives/`](docs/primitives/): fourteen
-  TypeScript modules that decide what the prose merely argues. Leakage is
-  reader-relative. Charges are integers. No boolean ever says "private".
-- **The kernel** — [`chambers/kernel/`](chambers/kernel/): a running
-  economy over the canon. Egress accounting in millibits, a content-addressed
-  grow-only ledger that convicts rather than crashes, escrowed settlement
-  released only against ledgered work, bonded contestable outcome
-  attestations, exact-integer Shapley attribution. Every spec is written so a
-  counterparty can implement from the file alone.
-- **The conformance surfaces** — [`chambers/conformance/`](chambers/conformance/)
-  holds the language-independent egress-accountant decision core and golden
-  traces. Its Python reference and
-  [Rust implementation](chambers/conformance/rust/) agree bit-for-bit on
-  195/195 decisions because every float was exiled from the decision path.
-  The separate [`chambers/kernel/rust_ledger/`](chambers/kernel/rust_ledger/)
-  crate verifies the ledger and settlement surfaces. Each Rust port was written
-  from the normative specifications and golden artifacts without consulting
-  the corresponding Python source. Both are same-author implementations, not
-  evidence of social independence; a genuinely foreign implementation remains
-  the standing invitation.
-- **The proofs** — [`chambers/lean/`](chambers/lean/): machine-checked
-  theorems over the charge algebra (ceiling law, global cap under lease
-  partition, settlement conservation, widening one-way-ness), with golden
-  traces from the reference's accountant core replayed inside Lean. The
-  proofs cover the stated algebra, not the whole kernel.
-- **The economies** — [`chambers/ip_trade_sim/`](chambers/ip_trade_sim/),
-  [`chambers/intro_clearing/`](chambers/intro_clearing/),
-  [`chambers/d1_bounty/`](chambers/d1_bounty/),
-  [`chambers/peer_sim/`](chambers/peer_sim/),
-  [`chambers/pipeline/`](chambers/pipeline/): two labs trading IP under a
-  leakage meter, priced introductions, metered third-party security
-  research, peer prediction with its redundancy metered openly, and nine
-  machines composed into one system — all on the same accounting path,
-  stdlib-only, deterministic.
-- **The maps** — [`docs/OPERATIONS.md`](docs/OPERATIONS.md) (~80 operations
-  graded on six axes), [`docs/ASSURANCE.md`](docs/ASSURANCE.md) (the six-rung
-  ladder from types to priced social layer),
-  [`docs/MACHINES.md`](docs/MACHINES.md) (one command per machine that
-  runs), [`docs/SPECS.md`](docs/SPECS.md) (the registry of record: every
-  spec identifier, its defining file, and what a conformance claim means),
-  and the frontier papers under [`docs/frontier/`](docs/frontier/).
-
-## Run something
-
-```text
-python3 -m chambers.landscape show                    # the repository in one screen
-python3 -m chambers.landscape check                   # topology + no-growth ratchets
-python3 -m chambers.literature show                   # source → claim → boundary map
-python3 -m chambers.literature check                  # metadata + target + render parity
-python3 -m pytest -q                                  # the complete Python floor
-python3 -m chambers.kernel.demo_work_economy          # value moves iff metered work moved
-python3 -m chambers.pipeline.run_pipeline             # nine machines as one system
-python3 -m chambers.intro_clearing.run_clearing       # priced introductions, end to end
-cd chambers/conformance/rust && cargo test --locked   # the independent accountant
-cd chambers/kernel/rust_ledger && cargo test --locked # the ledger/settlement verifier
-cd chambers/lean && lake build                        # the proof kernel
+```mermaid
+flowchart LR
+    S[Versioned specifications] --> L[Lean semantics and theorems]
+    S --> R[Rust implementations]
+    S --> P[Python research implementations]
+    R --> A[Frozen traces and court files]
+    P --> A
+    A --> V[Cross-language verification]
+    P -. current finite trace bridge .-> L
 ```
 
-Python ≥ 3.9 with `pytest` runs everything Python — the implementation itself
-is stdlib-only. The Rust implementations want `cargo`; the proofs want `elan`,
-which reads the pinned toolchain from `chambers/lean/lean-toolchain`.
+The solid edges describe the present assurance structure. The dashed edge is a
+known limitation: selected Lean golden traces are currently generated from the
+Python accountant and replayed in Lean. The next formalization step is to reverse
+that dependency for the accountant core: Lean should emit the canonical
+decision oracle, and executable implementations should be checked against it.
 
-## What this does not claim
+A versioned specification defines the protocol surface. Lean proves properties
+of the model encoded under [`chambers/lean/`](chambers/lean/). Frozen artifacts
+bind implementations to concrete decisions and bytes. None of these silently
+inherits the claims of the others.
 
-No success-shaped privacy claims. The refusal register in
-[`docs/BOOK.md`](docs/BOOK.md) is load-bearing: identity is Sybil-soft, the
-meter prices channel width and never harm, the trusted core is ledgered
-rather than eliminated, and where no alphabet closes the meter bounds the
-ledger, not the adversary. A type may name an unsolved problem and record
-an honest "unprovable"; it may never assert the problem away with a
-boolean. Anything this substrate cannot compile from its court files, it
-does not say.
+## Formal kernel
 
-## Status
+The Lean project is the most compact statement of the system’s load-bearing
+laws. It uses a pinned Lean toolchain and no mathlib. Current modules prove, among
+other results:
 
-The accounting layer runs and is cross-verified (two implementations, one
-proof kernel, frozen golden corpora). The execution ladder is at R1–R2:
-operator-observed and reproducible-local rungs are real; TEE attestation is
-named, not built. What you are reading is a substrate and its evidence, not
-a hosted product. The operator's own live deployment and its dogfood record
-stay private; [`IP-MANIFEST.md`](IP-MANIFEST.md) states exactly what this
-release gives and withholds.
+- accepted exposure never exceeds its ceiling, and cumulative exposure is
+  exactly the sum of accepted debits;
+- lease partition preserves a global cap under arbitrary interleavings;
+- audience widening is one-way and every reader outside the generating tuple is
+  explained by a named widening;
+- settlement conserves value, including raw adversarial event models for the
+  gates formalized so far;
+- selected audit findings are sound and complete over arbitrary event soups,
+  with permanent findings separated from findings that retract only when their
+  named missing fact arrives;
+- largest-remainder attribution conserves the payment pot, while the floor-only
+  rule has a checked counterexample;
+- merge cannot lower the modeled leakage class or clear a permanent conviction.
 
-## Research lineage
+The root module also checks the axiom dependencies of headline theorems. See
+[`chambers/lean/README.md`](chambers/lean/README.md) for the theorem inventory
+and [`docs/FORMALIZATION.md`](docs/FORMALIZATION.md) for the next proof program.
 
-[`docs/LITERATURE.md`](docs/LITERATURE.md) is the precise map from primary
-sources to repository claims. It covers the quantitative-information-flow,
-contextual-integrity, transparency-log, fork-consistency, CRDT,
-monitorability, information-elicitation, attribution, signature, and proof
-machinery used or compared here. Every record names its relationship and
-non-transfer boundary. CI verifies the registry, repository targets, stable
-locator syntax, and generated human view; it deliberately does not make
-network availability part of the build.
+## Specifications, implementations, and evidence
+
+**Normative specifications.**
+[`docs/SPECS.md`](docs/SPECS.md) indexes the live identifiers and their defining
+files. The specifications define canonical events, decision rules, audit codes,
+settlement behavior, and conformance artifacts.
+
+**Rust implementations.**
+[`chambers/conformance/rust/`](chambers/conformance/rust/) implements the
+egress-accountant decision surface.
+[`chambers/kernel/rust_ledger/`](chambers/kernel/rust_ledger/) verifies ledger
+and settlement artifacts. They were implemented separately from the
+corresponding Python source, but by the same author; this is source isolation,
+not independent social confirmation.
+
+**Python research implementations.**
+[`chambers/kernel/`](chambers/kernel/) and the scenario directories under
+[`chambers/`](chambers/) provide the broadest executable surface: mediation,
+settlement, introductions, IP trades, security bounties, peer-prediction
+experiments, and an end-to-end pipeline. They are valuable for integration,
+counterexamples, and rapid protocol research. Core claims should migrate toward
+Lean definitions, proof-producing checkers, or language-independent
+conformance artifacts rather than becoming Python-specific conventions.
+
+**Research lineage.**
+[`LITERATURE.json`](LITERATURE.json) maps primary sources to the exact
+repository surfaces that use them. Each record states the relationship, the
+mechanism imported, and the boundary of what the citation does not establish.
+[`docs/LITERATURE.md`](docs/LITERATURE.md) is the generated reading view.
+
+**Claim boundaries.**
+[`docs/BOOK.md`](docs/BOOK.md) gives the compact object/axiom/refusal account.
+[`docs/ASSURANCE.md`](docs/ASSURANCE.md) separates types, conformance, formal
+proof, adversarial evidence, and deployment evidence.
+
+## Build the evidence
+
+```text
+cd chambers/lean
+lake build
+
+cd ../conformance/rust
+cargo test --locked
+cargo run --locked -- --emit out
+cd ../../..
+python3 -m chambers.conformance.check_conformance \
+  --actual chambers/conformance/rust/out
+
+cd chambers/kernel/rust_ledger
+cargo test --locked
+cd ../../..
+
+python3 -m chambers.literature check
+python3 -m pytest -q
+```
+
+The order is intentional: formal claims first, isolated protocol
+implementations second, research and integration implementations third.
+
+## Current limits
+
+Chambers does not prove that arbitrary private computation is confidential.
+The meter accounts for modeled reader-relative channels, not downstream harm.
+Signatures identify keys, not unique people. The current formalization does not
+cover every audit code, estimator, parser, runtime, or deployment. The
+reproducible-local runtime exists; TEE-backed attestation is specified as a
+higher assurance rung, not implemented here. A complete model-to-implementation
+refinement proof remains open.
+
+These are design boundaries, not footnotes. New work should either reduce one of
+them or preserve it explicitly.
+
+## Repository guide
+
+- [`docs/README.md`](docs/README.md) — reading map.
+- [`docs/primitives/`](docs/primitives/) — typed vocabulary and composition
+  laws.
+- [`chambers/conformance/`](chambers/conformance/) — language-independent
+  accountant specification and frozen traces.
+- [`chambers/lean/`](chambers/lean/) — formal model and theorem inventory.
+- [`chambers/kernel/`](chambers/kernel/) — executable ledger, audit, settlement,
+  identity, scope, and node surfaces.
+- [`docs/frontier/`](docs/frontier/) — open research questions and mechanism
+  proposals.
 
 ## Citation and contribution
 
 Machine-readable citation metadata is in [`CITATION.cff`](CITATION.cff).
-Contribution standards are in [`CONTRIBUTING.md`](CONTRIBUTING.md); the
-stricter agent and maintainer contract is [`AGENTS.md`](AGENTS.md).
+Contribution standards are in [`CONTRIBUTING.md`](CONTRIBUTING.md); maintainer
+and agent invariants are in [`AGENTS.md`](AGENTS.md).
 
 ## License
 
-[The Harvest License](LICENSE.md). Use it, fork it, sell it. At most once a
-year the steward may ask you one question — *what has this been worth to
-you?* — and you answer honestly: money, work, releasing your own work this
-way, or an honest zero. Every answer satisfies the license in full. Only
-silence is a breach. The question arrives, if ever, through the channel
-this repository names; no ask means nothing owed. Pass the work on and
-the same single question is all that travels with it.
+[The Harvest License](LICENSE.md). Use it, fork it, sell it. At most once a year
+the steward may ask what the work has been worth to you. Money, work, releasing
+your own work under the same terms, or an honest zero all satisfy the license.
+Only silence breaches it.
 
 ## Findings
 
-Conformance divergences, spec ambiguities, and corpus errors: open an
-issue naming the spec identifier ([`docs/SPECS.md`](docs/SPECS.md) is the
-registry). Security reports: [`SECURITY.md`](SECURITY.md).
+Conformance divergences, specification ambiguities, and corpus errors should
+name the affected identifier and trace. Security reports follow
+[`SECURITY.md`](SECURITY.md).

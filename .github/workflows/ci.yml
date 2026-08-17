@@ -2,11 +2,10 @@ name: ci
 
 on:
   push:
-    branches: [main]
   pull_request:
   workflow_dispatch:
   schedule:
-    - cron: '17 6 3 * *' # monthly: surface environment rot before a contributor's PR does
+    - cron: '17 6 3 * *' # monthly: surface environment rot
 
 permissions:
   contents: read
@@ -16,28 +15,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  python:
-    name: reference (Python ${{ matrix.python-version }})
+  lean:
+    name: formal kernel (Lean)
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.9", "3.11"]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1
         with:
-          python-version: ${{ matrix.python-version }}
-      - run: python -m pip install --disable-pip-version-check -r requirements-test.txt
-      - run: python -m chambers.landscape check
-      - run: python -m chambers.literature check
-      - run: python -m pytest -q
+          lake-package-directory: chambers/lean
 
   rust-accountant:
-    name: counterparty accountant (Rust + Python cross-check)
+    name: conformance accountant (Rust)
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -62,7 +53,7 @@ jobs:
           --actual chambers/conformance/rust/out
 
   rust-ledger:
-    name: counterparty ledger (cargo test)
+    name: ledger and settlement verifier (Rust)
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -78,14 +69,21 @@ jobs:
       - run: cargo test --locked
         working-directory: chambers/kernel/rust_ledger
 
-  lean:
-    name: proof kernel (lake build)
+  python:
+    name: research implementations (Python ${{ matrix.python-version }})
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.11"]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with:
-          lake-package-directory: chambers/lean
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install --disable-pip-version-check -r requirements-test.txt
+      - run: python -m chambers.literature check
+      - run: python -m pytest -q

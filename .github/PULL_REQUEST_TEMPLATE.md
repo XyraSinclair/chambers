@@ -5,23 +5,28 @@
 
 ## Claim
 
-What becomes more correct, reproducible, or legible?
+What becomes more correct, formally established, reproducible, or legible?
 
 ## Evidence
 
-- [ ] `python3 -m chambers.landscape check`
-- [ ] `python3 -m chambers.literature check`
-- [ ] `python3 -m pytest -q`
-- [ ] applicable Rust conformance lane(s)
-- [ ] applicable Lean proof lane
-- [ ] generated corpora were produced by their generator, not edited by hand
+- [ ] applicable Lean build and theorem checks
+- [ ] applicable Rust conformance lane
+- [ ] language-independent corpus comparison
+- [ ] Python integration/regression suite, when applicable
+- [ ] literature registry check, when applicable
+- [ ] generated artifacts came from their declared generator
+
+## Correspondence
+
+Which specification, formal model, artifacts, and implementations are being
+related? State any remaining model-to-code gap.
 
 ## Boundaries
 
-What does this change deliberately not claim or solve?
+What does this change deliberately not prove or solve?
 
-## Protocol compatibility
+## Compatibility
 
 For a mechanical change, state why committed bytes and decisions are unchanged.
-For a semantic change, name the new identifier, migration path, corpora, twins,
-proof obligations, and refusals.
+For a semantic change, name the new identifier, migration path, artifacts,
+implementations, proof obligations, and new limits.
