@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Set
 
 from chambers.literature import audit_registry, audit_repository, render
 
@@ -13,7 +14,7 @@ def registry() -> dict:
     return json.loads((ROOT / "LITERATURE.json").read_text(encoding="utf-8"))
 
 
-def codes(findings) -> set[str]:
+def codes(findings) -> Set[str]:
     return {finding.code for finding in findings}
 
 
