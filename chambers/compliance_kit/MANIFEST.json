@@ -1,0 +1,1396 @@
+{
+  "contract": "your implementation is conforming iff these bytes replay",
+  "entries": [
+    {
+      "bytes": 5941,
+      "corpus": "lean_traces",
+      "path": "corpora/lean_traces/accountant_traces.json",
+      "role": "corpus",
+      "sha256": "f8e7b7b669b58e3a4080221d0211979fdaf580b12c80326be2c4f6f96e56e4f9",
+      "source": "chambers/kernel/lean_traces/accountant_traces.json",
+      "spec_versions": [
+        "egress-accountant/1"
+      ]
+    },
+    {
+      "bytes": 82,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/empty.expected.json",
+      "role": "corpus",
+      "sha256": "5b406b55e4b4ba5e5d41f56e21b57a03b1bd771e08fdf718ff73b45a85e8eda2",
+      "source": "chambers/kernel/ledger_traces/empty.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 0,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/empty.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "chambers/kernel/ledger_traces/empty.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 520,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/equivocation.expected.json",
+      "role": "corpus",
+      "sha256": "f85e43348f50cdc69bc7f7f743231d70361ce0c3f82864641bd766c8abbaddea",
+      "source": "chambers/kernel/ledger_traces/equivocation.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 4703,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/equivocation.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "781dc9c0e8f488196da597ddcdafaa0d4bbd5d0f77ca6961799390c3564cce18",
+      "source": "chambers/kernel/ledger_traces/equivocation.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 513,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/expired-lease-charge.expected.json",
+      "role": "corpus",
+      "sha256": "7dc887ee7347e1f50dab83963db6d7d418e08657173293c0569ddbafa8c059f2",
+      "source": "chambers/kernel/ledger_traces/expired-lease-charge.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 4282,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/expired-lease-charge.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "5738ffb5783410c5bf532517ef76cf35ef3a04ddb1b1b50f5ca009bc933aafe3",
+      "source": "chambers/kernel/ledger_traces/expired-lease-charge.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 511,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/foreign-node-spend.expected.json",
+      "role": "corpus",
+      "sha256": "8842dc1f1c6f5055eb153623e234006ebb69e8ad6c753b3ced6b8aa9321ee1e1",
+      "source": "chambers/kernel/ledger_traces/foreign-node-spend.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 4282,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/foreign-node-spend.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "46a80adcf6a3549ce94cb00bff924cf07ce7a78bd5472935a237a30b77d2ee73",
+      "source": "chambers/kernel/ledger_traces/foreign-node-spend.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 443,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/forged-overspend.expected.json",
+      "role": "corpus",
+      "sha256": "bc553ad2176314927ae8c7924ef6012fa3cdbff37f6c40bf81e465906bda8a20",
+      "source": "chambers/kernel/ledger_traces/forged-overspend.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 4287,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/forged-overspend.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "c198db530db519897ba2825149bd43b38ede98c5639cdc27995138a83174ca04",
+      "source": "chambers/kernel/ledger_traces/forged-overspend.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 1013,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/honest-mediation-coupled.expected.json",
+      "role": "corpus",
+      "sha256": "8efd899f792b6d90a708de03587d29f4585e48f97819ad350644135ac95c8fa7",
+      "source": "chambers/kernel/ledger_traces/honest-mediation-coupled.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 3385,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/honest-mediation-coupled.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "81ea50aac95c0e09bb6dc4b45dbcede8adac876406f29574f4a8b6c5ed7d51c9",
+      "source": "chambers/kernel/ledger_traces/honest-mediation-coupled.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 342,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/honest-single-node.expected.json",
+      "role": "corpus",
+      "sha256": "c58f0954c0c5402d8ac4b137834a8e7b58a9ab6df6cab2c60400902ef38fc4c2",
+      "source": "chambers/kernel/ledger_traces/honest-single-node.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 2175,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/honest-single-node.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "65e78f4a06aae970b7501730cbd42e76ea77325456cffdeeb788dbd7b2d08978",
+      "source": "chambers/kernel/ledger_traces/honest-single-node.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 326,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/honest-two-node-partition.expected.json",
+      "role": "corpus",
+      "sha256": "6d4ae7d74c421b99506828528359eb1845492619f688018d43b928f6a6cba2a9",
+      "source": "chambers/kernel/ledger_traces/honest-two-node-partition.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 3857,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/honest-two-node-partition.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "9eee1803e9a5b833bf8b00dc7d983db64f88b6f3992fa3f27e3e1e5cc55d4e27",
+      "source": "chambers/kernel/ledger_traces/honest-two-node-partition.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 472,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/lease-key-mismatch.expected.json",
+      "role": "corpus",
+      "sha256": "65e89b22cbb99eb62f066a87eec5e3a1605e7a4b09e28713738eee5dd047b13c",
+      "source": "chambers/kernel/ledger_traces/lease-key-mismatch.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 4279,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/lease-key-mismatch.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "1b3d3cbd7b76a22bdfdbba104bdc0fa3b706ba77a3950f5c3642ba71ae9ac7c3",
+      "source": "chambers/kernel/ledger_traces/lease-key-mismatch.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 741,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/malformed-charges.expected.json",
+      "role": "corpus",
+      "sha256": "f6d82abaf477917db85ec94afcb4e3257e1f55d54b524eb016a264f0452ae1f4",
+      "source": "chambers/kernel/ledger_traces/malformed-charges.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 5562,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/malformed-charges.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "98a94c5e76697d3ecb92fb8b77bb7acb3d5ce9789f73ffa6f2a3e09aef7c3418",
+      "source": "chambers/kernel/ledger_traces/malformed-charges.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 247,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/orphan-facts-only.expected.json",
+      "role": "corpus",
+      "sha256": "b621aaea5fca61a04cb50170e6850594b99fde0ad66cb55b6dcccdf078d46219",
+      "source": "chambers/kernel/ledger_traces/orphan-facts-only.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 545,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/orphan-facts-only.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "3ec47c3f50553bd2a35220296cff303fa057d1dbbfae6d969d784d55103859ee",
+      "source": "chambers/kernel/ledger_traces/orphan-facts-only.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 435,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/registration-poison.expected.json",
+      "role": "corpus",
+      "sha256": "caa11d1fce02c91a5f91101fe241715a02b64fb2bf80b52226d6f73f3d57e520",
+      "source": "chambers/kernel/ledger_traces/registration-poison.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 4106,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/registration-poison.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "2df36d63de164ebbb878cd05e2605db6eb5f15bc4f165c3172c6b643875f18b7",
+      "source": "chambers/kernel/ledger_traces/registration-poison.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 547,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/rogue-lease.expected.json",
+      "role": "corpus",
+      "sha256": "9a67def7c7a0a7673a979414467466e0548a6064c03518e4805d558fa7d49e2e",
+      "source": "chambers/kernel/ledger_traces/rogue-lease.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 2455,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/rogue-lease.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "eb6dff4439e8410d68a8ae9dba6c57706bbdd5e614aade596c8cafac82cd338a",
+      "source": "chambers/kernel/ledger_traces/rogue-lease.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 724,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/spec-ambiguity-i3-i4.expected.json",
+      "role": "corpus",
+      "sha256": "27a4d1cf621e11cd77018d051c8af3563f928f773cd5a4419de61748cb59c356",
+      "source": "chambers/kernel/ledger_traces/spec-ambiguity-i3-i4.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 3203,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/spec-ambiguity-i3-i4.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "be1d86950e3a674371d948b588c2f4f1267379fb0f001a9bc310023a5111e0c9",
+      "source": "chambers/kernel/ledger_traces/spec-ambiguity-i3-i4.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 471,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/spec-ambiguity-issuer.expected.json",
+      "role": "corpus",
+      "sha256": "0bd3940447241a7bc5ee9a964cac1edbf28dd0c16b043542f6f280e97681132b",
+      "source": "chambers/kernel/ledger_traces/spec-ambiguity-issuer.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 415,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/spec-ambiguity-issuer.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "b7888724429a7760c3d14d7afdd4c8af80724c6fe7a59bb1997d12da890f9a09",
+      "source": "chambers/kernel/ledger_traces/spec-ambiguity-issuer.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 420,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/unknown-lease-charge.expected.json",
+      "role": "corpus",
+      "sha256": "614332098a7a44354412d0fabccb655195a04d72a15c9d5332677b8e29b484d6",
+      "source": "chambers/kernel/ledger_traces/unknown-lease-charge.expected.json",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 2615,
+      "corpus": "ledger_traces",
+      "path": "corpora/ledger_traces/unknown-lease-charge.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "d0100ba5fa3b032a445ae78265e30cfc3625beabbb9cba4cbd4940a57ed8ba2f",
+      "source": "chambers/kernel/ledger_traces/unknown-lease-charge.ledger.jsonl",
+      "spec_versions": [
+        "charge-ledger/1"
+      ]
+    },
+    {
+      "bytes": 1442,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/both-parties-sign.expected.json",
+      "role": "corpus",
+      "sha256": "b3d486ccd160f82d8963c066559919e24e537ac29a743caa77c9738c10b8ccc7",
+      "source": "chambers/kernel/settlement2_traces/both-parties-sign.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 2752,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/both-parties-sign.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "97e221dd0a4303e37ca0422bfc6f7a9b0785bf7b80145618b3fb39c39bd63d4b",
+      "source": "chambers/kernel/settlement2_traces/both-parties-sign.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1525,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/equal-lane-contest.expected.json",
+      "role": "corpus",
+      "sha256": "e69d41665209fe9173dff500799bde83495fba33b74e3dc9c8bcd5d33694442b",
+      "source": "chambers/kernel/settlement2_traces/equal-lane-contest.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 2651,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/equal-lane-contest.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "461d732e74f08dacdaba3f4cd1ecb1dbd7967b5b68feef333f15bf3cbbfd6f15",
+      "source": "chambers/kernel/settlement2_traces/equal-lane-contest.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 2033,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/g19-named-override-referent.expected.json",
+      "role": "corpus",
+      "sha256": "69eba428bbe7fc90b3e039cc88cbfe038f6efdea513a679c4ca097051772897b",
+      "source": "chambers/kernel/settlement2_traces/g19-named-override-referent.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 3360,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/g19-named-override-referent.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "2af70d00ff47659d7f3a52f22c1b7d9244b807bc552493ad8d65475ead6101f4",
+      "source": "chambers/kernel/settlement2_traces/g19-named-override-referent.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1278,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/honest-outcome-flow.expected.json",
+      "role": "corpus",
+      "sha256": "c6e0e3dfc697681fe5c672dd54224753e54d67bf10858a0e0e5914c4502de9b8",
+      "source": "chambers/kernel/settlement2_traces/honest-outcome-flow.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 2205,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/honest-outcome-flow.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "ee6916394c14d1c0c40907ad5f9cffe35aa4554f9bf040a45a359adce87800de",
+      "source": "chambers/kernel/settlement2_traces/honest-outcome-flow.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1280,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/payee-default-release.expected.json",
+      "role": "corpus",
+      "sha256": "afba924ee205432baa67417daaa330f0ceae9705b7e7f9f59329f35814a57dfb",
+      "source": "chambers/kernel/settlement2_traces/payee-default-release.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 2198,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/payee-default-release.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "7647ce8c19387fcd8713519ca956cc86df4177d3d03772da545cb51c532f3bcb",
+      "source": "chambers/kernel/settlement2_traces/payee-default-release.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1105,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/payer-default-refund.expected.json",
+      "role": "corpus",
+      "sha256": "235421ecf7b58529ebc5ddcd607855dadde91d05c08647194b09be8b0b4092d7",
+      "source": "chambers/kernel/settlement2_traces/payer-default-refund.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1563,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/payer-default-refund.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "883d9578523c2f1546bcc10764b1009b9cfcdb997a0cec4d1a927ba467fcff44",
+      "source": "chambers/kernel/settlement2_traces/payer-default-refund.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1529,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/platform-override-slash.expected.json",
+      "role": "corpus",
+      "sha256": "049763793e2a5a0871c1d8be876732c9ae0f0d43c93fb702da3a00d0f5bdf222",
+      "source": "chambers/kernel/settlement2_traces/platform-override-slash.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 2661,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/platform-override-slash.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "b066754240540ff8edfd1338d5535e6733b2a0659c287ff4c99e4eaa26d4bad1",
+      "source": "chambers/kernel/settlement2_traces/platform-override-slash.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1587,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/s10-bond-crimes.expected.json",
+      "role": "corpus",
+      "sha256": "9a21873b4d207eacfcfea4e8125926a4ccd0eccd76ab05dc9bd4206a97415ff1",
+      "source": "chambers/kernel/settlement2_traces/s10-bond-crimes.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 2429,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/s10-bond-crimes.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "95e0094cf371e219d5891764ed188e4211ce6c00759ad3020ffef9c1f83b1ab4",
+      "source": "chambers/kernel/settlement2_traces/s10-bond-crimes.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1753,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/s5-equivocation-v2.expected.json",
+      "role": "corpus",
+      "sha256": "14a1138787ecced6d5834f1199597c02fddc018f2bd1ff7f2a1e85f09c371882",
+      "source": "chambers/kernel/settlement2_traces/s5-equivocation-v2.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 2290,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/s5-equivocation-v2.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "8b0294d3a807f6f60070338ba7ad03e9fadbebcad9af85ae57115dca6aa0aed1",
+      "source": "chambers/kernel/settlement2_traces/s5-equivocation-v2.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1975,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/s6-malformed-v2.expected.json",
+      "role": "corpus",
+      "sha256": "1e29a27056a56d894d6568f90474073d4f340a8ad5f7dad07012d264dd27bdcf",
+      "source": "chambers/kernel/settlement2_traces/s6-malformed-v2.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 2898,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/s6-malformed-v2.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "ecf693b52051808256d4827638fc995e4d75c9eaf8803191524c0796c0095b01",
+      "source": "chambers/kernel/settlement2_traces/s6-malformed-v2.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1190,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/s8-forged-default-release.expected.json",
+      "role": "corpus",
+      "sha256": "bb35f6af259da67508b862e54e77bb2ee3c1b7eef7bd91532eb40d587b2bc721",
+      "source": "chambers/kernel/settlement2_traces/s8-forged-default-release.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1731,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/s8-forged-default-release.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "8e78075ab965b75c3af14dfa659a4e9bda4d4543817900bc760aa827715bcf1a",
+      "source": "chambers/kernel/settlement2_traces/s8-forged-default-release.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 2469,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/s9-gate.expected.json",
+      "role": "corpus",
+      "sha256": "ffa48231e69a55a800014af457c357c60275a7201a125ac58d812502aa765f55",
+      "source": "chambers/kernel/settlement2_traces/s9-gate.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 5068,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/s9-gate.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "5e9ebb51577406854c53808f31d223a191a349439870653276d4e4899c41cc9c",
+      "source": "chambers/kernel/settlement2_traces/s9-gate.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1545,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/s9-unbacked-ghost.expected.json",
+      "role": "corpus",
+      "sha256": "0696c2b58d57bf2ea0a5ce4dff99a465d18740f29b21e8830e58b101eb84998c",
+      "source": "chambers/kernel/settlement2_traces/s9-unbacked-ghost.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1967,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/s9-unbacked-ghost.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "30a3fd20042c0aafbebf0b07105d38e025c9f28840e69cbdcc14688efd6ebca7",
+      "source": "chambers/kernel/settlement2_traces/s9-unbacked-ghost.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1100,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/soup-nonstring-party-disbursement.expected.json",
+      "role": "corpus",
+      "sha256": "6a1b2a111fda90b3a63e02cebb0cc81e0068c2dcdc3b6456be76b1addb228178",
+      "source": "chambers/kernel/settlement2_traces/soup-nonstring-party-disbursement.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 897,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/soup-nonstring-party-disbursement.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "9cf420f8710ef9876db1a1a66dfcc98dedbe8c5b8fd88cb9163c42462dedf307",
+      "source": "chambers/kernel/settlement2_traces/soup-nonstring-party-disbursement.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1706,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/soup-nonstring-payer-mint.expected.json",
+      "role": "corpus",
+      "sha256": "f9f1303281b1a44a7c75c557602c1be64a1a36bd7e9328adf1e4d06d4f4d8c2e",
+      "source": "chambers/kernel/settlement2_traces/soup-nonstring-payer-mint.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1118,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/soup-nonstring-payer-mint.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "d08a9f6c0a8dfc0ef8ac738bcc0d2c37b489e11a83f91b621c810cf9ed062097",
+      "source": "chambers/kernel/settlement2_traces/soup-nonstring-payer-mint.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 2069,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/soup-unhashable-ids-total.expected.json",
+      "role": "corpus",
+      "sha256": "aa656e95e38f6748c2d317505c209f1f53ab29364b05497bae64bf455e631210",
+      "source": "chambers/kernel/settlement2_traces/soup-unhashable-ids-total.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 2576,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/soup-unhashable-ids-total.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "81a80df9214eda1e78eab00e4bc7de4be0d7af69120bd770bbff44bdeeac3b65",
+      "source": "chambers/kernel/settlement2_traces/soup-unhashable-ids-total.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 1768,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/two-escrows-cross-reference.expected.json",
+      "role": "corpus",
+      "sha256": "82f2a12ad4a40b6c5451ece431af090543cde14ed649296d5a8f6d0361cc8e14",
+      "source": "chambers/kernel/settlement2_traces/two-escrows-cross-reference.expected.json",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 3293,
+      "corpus": "settlement2_traces",
+      "path": "corpora/settlement2_traces/two-escrows-cross-reference.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "6e8d52f0fe6b54b02d80d96016ddfa102cec7710f3e80aff4b826a276e8daa9c",
+      "source": "chambers/kernel/settlement2_traces/two-escrows-cross-reference.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 145,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/empty-value.expected.json",
+      "role": "corpus",
+      "sha256": "e077814c0023988810fdb8780d6910c071cb2071f6f44f78077a99c832bb90a8",
+      "source": "chambers/kernel/settlement_traces/empty-value.expected.json",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 708,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/empty-value.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "bb13a1bac6a51975a1a33c30f89f5a20b65dfd6b0fe6f4313b0180626828531f",
+      "source": "chambers/kernel/settlement_traces/empty-value.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 577,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/honest-default-refund.expected.json",
+      "role": "corpus",
+      "sha256": "80091a584fa41a3d706d28f08c978c69c8b0c664d2bfa0bde7f692cf817e8555",
+      "source": "chambers/kernel/settlement_traces/honest-default-refund.expected.json",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 1213,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/honest-default-refund.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "dc560fa9021b1ea32d62177deb8e3ea460f085a00600d2cc9198af2b25986893",
+      "source": "chambers/kernel/settlement_traces/honest-default-refund.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 582,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/honest-default-release.expected.json",
+      "role": "corpus",
+      "sha256": "bbe8079fda5b94fbaab832aafd28593a603dc7eea3e9890f67bfdb7e0c04d66d",
+      "source": "chambers/kernel/settlement_traces/honest-default-release.expected.json",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 1288,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/honest-default-release.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "118238f9a4807c23b683e4b721ef854b9c9763976c6a9278418d77ef60bf1a41",
+      "source": "chambers/kernel/settlement_traces/honest-default-release.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 584,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/honest-flow.expected.json",
+      "role": "corpus",
+      "sha256": "9a4e8af03176ddc8f4f416142b5795e8e39ce7df3936a72d395ba8d0538c29d7",
+      "source": "chambers/kernel/settlement_traces/honest-flow.expected.json",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 1430,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/honest-flow.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "5de4d54714f37ed774e26a338eb54e9309391728412d215baf43319a2cd7d9f4",
+      "source": "chambers/kernel/settlement_traces/honest-flow.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 580,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s1-overdraft-escrow.expected.json",
+      "role": "corpus",
+      "sha256": "ee9af2216c0def9f41c27e1e927656eb313d95c54f1cf0d37b7a75a492b9fa0f",
+      "source": "chambers/kernel/settlement_traces/s1-overdraft-escrow.expected.json",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 1024,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s1-overdraft-escrow.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "0725103995c2297c19c85aede6df6f571a787f72be3a9288558ee3c8dd7eadb8",
+      "source": "chambers/kernel/settlement_traces/s1-overdraft-escrow.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 742,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s2-over-release-and-orphan.expected.json",
+      "role": "corpus",
+      "sha256": "33058b62f4d9916635f39bc0acd4dc775d7ba7470a763bff5e2764b306d40dd3",
+      "source": "chambers/kernel/settlement_traces/s2-over-release-and-orphan.expected.json",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 1761,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s2-over-release-and-orphan.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "fe27e2485fc7d245eeaac0231fe1de72381989bbcf63694525fb34c7f2edbac1",
+      "source": "chambers/kernel/settlement_traces/s2-over-release-and-orphan.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 962,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s3-bad-receipts.expected.json",
+      "role": "corpus",
+      "sha256": "6d7456973f134072db3fe05ee3cb6128114c567918ba6087575cd67ab94b2d71",
+      "source": "chambers/kernel/settlement_traces/s3-bad-receipts.expected.json",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 3328,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s3-bad-receipts.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "84154f87187b79654d3b203092b3225ed330bc8305374774e9504a8e7abd9383",
+      "source": "chambers/kernel/settlement_traces/s3-bad-receipts.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 773,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s4-dirty-court-release.expected.json",
+      "role": "corpus",
+      "sha256": "c3cb6b51e333e6b3122686e1ca85d7ecb281da4580b5822414d24907240ec420",
+      "source": "chambers/kernel/settlement_traces/s4-dirty-court-release.expected.json",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 1686,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s4-dirty-court-release.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "d6dbdd128e9ad6da38925f6244e18273259d1035b564fcaf5b62d80a80a3ba09",
+      "source": "chambers/kernel/settlement_traces/s4-dirty-court-release.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 612,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s5-release-equivocation.expected.json",
+      "role": "corpus",
+      "sha256": "4df22d4f2b87357a0d84ef85e7758f5afd20b373f520feb1e64d1324bd4f54b0",
+      "source": "chambers/kernel/settlement_traces/s5-release-equivocation.expected.json",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 1514,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s5-release-equivocation.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "e0335438b1b7eac07fb8fd424c027f38fb9ed8a20726111e99f2c924e7d04505",
+      "source": "chambers/kernel/settlement_traces/s5-release-equivocation.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 1478,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s6-malformed-events.expected.json",
+      "role": "corpus",
+      "sha256": "191e9da246fd2183d5e49bda351dc7de1104fdb13576122d08f9221718584b46",
+      "source": "chambers/kernel/settlement_traces/s6-malformed-events.expected.json",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 1527,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s6-malformed-events.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "19a7d5cf10e426ada3789b621c1554925345403bb5cb82e7dc1b16b7c6a34736",
+      "source": "chambers/kernel/settlement_traces/s6-malformed-events.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 657,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s7-expired-release.expected.json",
+      "role": "corpus",
+      "sha256": "284b38fcef00d8cadd0c85b21d21585e129696530a4560d02dad4f04ebcf776e",
+      "source": "chambers/kernel/settlement_traces/s7-expired-release.expected.json",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 1271,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s7-expired-release.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "f8445ea6efa6205787d5c44866965eb6764f408e5b03a9b68bd00c4a28587ada",
+      "source": "chambers/kernel/settlement_traces/s7-expired-release.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 669,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s8-default-release-without-receipt.expected.json",
+      "role": "corpus",
+      "sha256": "38c258fefaf47a9edfe02735944aa7c0c1e64ffad39e59f2e80522a974bd724f",
+      "source": "chambers/kernel/settlement_traces/s8-default-release-without-receipt.expected.json",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 1215,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s8-default-release-without-receipt.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "aa3f66a6627dee00a4623d2f14d2e4c9bb46e93c7b84a599b9bb6a9f378f77c0",
+      "source": "chambers/kernel/settlement_traces/s8-default-release-without-receipt.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 652,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s8-premature-default.expected.json",
+      "role": "corpus",
+      "sha256": "291458faefd1040495ecabb5a8f572526981b90e058f2473158465471a6a24d9",
+      "source": "chambers/kernel/settlement_traces/s8-premature-default.expected.json",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 1215,
+      "corpus": "settlement_traces",
+      "path": "corpora/settlement_traces/s8-premature-default.ledger.jsonl",
+      "role": "corpus",
+      "sha256": "3e26a7ed34bef1204b71ccd5e1c35dcbc88d350c8345b755eec77ec644efe8e3",
+      "source": "chambers/kernel/settlement_traces/s8-premature-default.ledger.jsonl",
+      "spec_versions": [
+        "charge-settlement/1"
+      ]
+    },
+    {
+      "bytes": 447,
+      "corpus": "views_traces",
+      "path": "corpora/views_traces/custom-vocabulary.expected.json",
+      "role": "corpus",
+      "sha256": "d856cd2b4f91efb1e101d053fa64e9d38e080d1b54aa251263fa5cded45de530",
+      "source": "chambers/kernel/views_traces/custom-vocabulary.expected.json",
+      "spec_versions": [
+        "charge-views/1"
+      ]
+    },
+    {
+      "bytes": 518,
+      "corpus": "views_traces",
+      "path": "corpora/views_traces/custom-vocabulary.input.json",
+      "role": "corpus",
+      "sha256": "7787e1e1ac12dd8fb48b99af75cb7e3d1cf3610ac340ba47c7908c1bfb867b38",
+      "source": "chambers/kernel/views_traces/custom-vocabulary.input.json",
+      "spec_versions": [
+        "charge-views/1"
+      ]
+    },
+    {
+      "bytes": 436,
+      "corpus": "views_traces",
+      "path": "corpora/views_traces/domain-void-attention.expected.json",
+      "role": "corpus",
+      "sha256": "7f1b1d68ce3dad1181b4064aba4e7e434bee6052f191f80276ebd969066f13dd",
+      "source": "chambers/kernel/views_traces/domain-void-attention.expected.json",
+      "spec_versions": [
+        "charge-views/1"
+      ]
+    },
+    {
+      "bytes": 602,
+      "corpus": "views_traces",
+      "path": "corpora/views_traces/domain-void-attention.input.json",
+      "role": "corpus",
+      "sha256": "09835c50fdfc492e1f05305e774a9c1c3a7ce70ebb6f968a6b19cc627a947f71",
+      "source": "chambers/kernel/views_traces/domain-void-attention.input.json",
+      "spec_versions": [
+        "charge-views/1"
+      ]
+    },
+    {
+      "bytes": 449,
+      "corpus": "views_traces",
+      "path": "corpora/views_traces/edge-cap-and-zero-entropy.expected.json",
+      "role": "corpus",
+      "sha256": "4a95f3c4a912d350bc666c65fe51971d2772fb8adcaf9190cdae2b09aca3181e",
+      "source": "chambers/kernel/views_traces/edge-cap-and-zero-entropy.expected.json",
+      "spec_versions": [
+        "charge-views/1"
+      ]
+    },
+    {
+      "bytes": 602,
+      "corpus": "views_traces",
+      "path": "corpora/views_traces/edge-cap-and-zero-entropy.input.json",
+      "role": "corpus",
+      "sha256": "7f2f5368ba380b3714714c8714f4c2bfa30a35346e1fd41dbf899bb608a7f9fb",
+      "source": "chambers/kernel/views_traces/edge-cap-and-zero-entropy.input.json",
+      "spec_versions": [
+        "charge-views/1"
+      ]
+    },
+    {
+      "bytes": 115,
+      "corpus": "views_traces",
+      "path": "corpora/views_traces/malformed-fold-boolean-sum.expected.json",
+      "role": "corpus",
+      "sha256": "6fae22e2592a89457b4479e09ef05687f89702bf04b65ab7f7f8c2414c95e7d3",
+      "source": "chambers/kernel/views_traces/malformed-fold-boolean-sum.expected.json",
+      "spec_versions": [
+        "charge-views/1"
+      ]
+    },
+    {
+      "bytes": 572,
+      "corpus": "views_traces",
+      "path": "corpora/views_traces/malformed-fold-boolean-sum.input.json",
+      "role": "corpus",
+      "sha256": "34ec3d5e2513c2edadb11c0289a4017a8a364cedecbee232566ce34ac6f2d5e0",
+      "source": "chambers/kernel/views_traces/malformed-fold-boolean-sum.input.json",
+      "spec_versions": [
+        "charge-views/1"
+      ]
+    },
+    {
+      "bytes": 115,
+      "corpus": "views_traces",
+      "path": "corpora/views_traces/malformed-policy-nonmonotone.expected.json",
+      "role": "corpus",
+      "sha256": "dbf421d2b04652a72a974fd8a91c814776b7bcddb327edc87aa8f6f511975459",
+      "source": "chambers/kernel/views_traces/malformed-policy-nonmonotone.expected.json",
+      "spec_versions": [
+        "charge-views/1"
+      ]
+    },
+    {
+      "bytes": 601,
+      "corpus": "views_traces",
+      "path": "corpora/views_traces/malformed-policy-nonmonotone.input.json",
+      "role": "corpus",
+      "sha256": "a4969fbb5797138e97a71e240dab8b7b574057581968eaec7ae82839f2197126",
+      "source": "chambers/kernel/views_traces/malformed-policy-nonmonotone.input.json",
+      "spec_versions": [
+        "charge-views/1"
+      ]
+    },
+    {
+      "bytes": 312,
+      "corpus": "views_traces",
+      "path": "corpora/views_traces/parity-forged-overspend.expected.json",
+      "role": "corpus",
+      "sha256": "78425f7360b91645c598e9ed93c2cfea9eeb2cf082b13624eabeb5f9fc7071e3",
+      "source": "chambers/kernel/views_traces/parity-forged-overspend.expected.json",
+      "spec_versions": [
+        "charge-views/1"
+      ]
+    },
+    {
+      "bytes": 618,
+      "corpus": "views_traces",
+      "path": "corpora/views_traces/parity-forged-overspend.input.json",
+      "role": "corpus",
+      "sha256": "8aa9329cdd1c17649bb75439522858e66b5a6ac8351b852b8f3bbc4ada3c4a6f",
+      "source": "chambers/kernel/views_traces/parity-forged-overspend.input.json",
+      "spec_versions": [
+        "charge-views/1"
+      ]
+    },
+    {
+      "bytes": 16160,
+      "path": "specs/conformance/SPEC.md",
+      "role": "normative_spec",
+      "sha256": "c6884c1c74a057aad9a1186690d0dd768148154ed20b8852b35317a22e59296d",
+      "source": "chambers/conformance/SPEC.md",
+      "spec_versions": [
+        "egress-accountant/1"
+      ]
+    },
+    {
+      "bytes": 19152,
+      "path": "specs/kernel/ATTRIBUTION-SPEC.md",
+      "role": "normative_spec",
+      "sha256": "ea127ad7f9c0e06605871b27729c61236738387f073eb77881e2f6e046c48dc8",
+      "source": "chambers/kernel/ATTRIBUTION-SPEC.md",
+      "spec_versions": [
+        "charge-attribution/1",
+        "charge-attribution/2"
+      ]
+    },
+    {
+      "bytes": 6051,
+      "path": "specs/kernel/COVENANT-SPEC.md",
+      "role": "normative_spec",
+      "sha256": "7726ba2047df5f6a9b1f422a2732597e09d9db4f435689863f9901ca8ada716b",
+      "source": "chambers/kernel/COVENANT-SPEC.md",
+      "spec_versions": [
+        "charge-covenant/1"
+      ]
+    },
+    {
+      "bytes": 7508,
+      "path": "specs/kernel/IDENTITY-SPEC.md",
+      "role": "normative_spec",
+      "sha256": "4653d3d97e87fab8b6e6ef3e0484d20394e822f543884c9091c182f813047927",
+      "source": "chambers/kernel/IDENTITY-SPEC.md",
+      "spec_versions": [
+        "charge-identity/1",
+        "charge-identity/2"
+      ]
+    },
+    {
+      "bytes": 25617,
+      "path": "specs/kernel/KERNEL-SPEC.md",
+      "role": "normative_spec",
+      "sha256": "24bf339515ca27b09fd4ab8d89705655386830a2f93a24f791f9ca4d3712a69e",
+      "source": "chambers/kernel/KERNEL-SPEC.md",
+      "spec_versions": [
+        "charge-ledger/1",
+        "charge-substrate/1",
+        "charge-provenance/1"
+      ]
+    },
+    {
+      "bytes": 16013,
+      "path": "specs/kernel/PROTOCOL.md",
+      "role": "normative_spec",
+      "sha256": "fef72462bfa609f0cb750dab428c50c45d4c5254c25daa3520217eade6d34031",
+      "source": "chambers/kernel/PROTOCOL.md",
+      "spec_versions": [
+        "charge-kernel/2"
+      ]
+    },
+    {
+      "bytes": 7944,
+      "path": "specs/kernel/SCOPE-SPEC.md",
+      "role": "normative_spec",
+      "sha256": "36c4bab0dc6792a5cc6b869e3daef8e104e3046eddda720b8ea669df69f312ae",
+      "source": "chambers/kernel/SCOPE-SPEC.md",
+      "spec_versions": [
+        "charge-scope/1"
+      ]
+    },
+    {
+      "bytes": 40703,
+      "path": "specs/kernel/SETTLEMENT-SPEC.md",
+      "role": "normative_spec",
+      "sha256": "943c45defd6b121e84b4d4491d0a8c82d571f40e7c22117fcf1e5263f4716579",
+      "source": "chambers/kernel/SETTLEMENT-SPEC.md",
+      "spec_versions": [
+        "charge-settlement/1",
+        "charge-settlement/2"
+      ]
+    },
+    {
+      "bytes": 9860,
+      "path": "specs/kernel/VIEWS-SPEC.md",
+      "role": "normative_spec",
+      "sha256": "e049855951ff385b8163ae278bf639354219be5932e023f20144e42779a2392c",
+      "source": "chambers/kernel/VIEWS-SPEC.md",
+      "spec_versions": [
+        "charge-views/1"
+      ]
+    },
+    {
+      "bytes": 10167,
+      "path": "specs/review_audit/PROBE-SPEC.md",
+      "role": "normative_spec",
+      "sha256": "16c50b9ca391bab480d296057bcbf4237316e6687b6bca58273d4b32378bd887",
+      "source": "chambers/review_audit/PROBE-SPEC.md",
+      "spec_versions": [
+        "review-audit/1"
+      ]
+    },
+    {
+      "bytes": 2669,
+      "path": "verifier/python/chambers/kernel/__init__.py",
+      "role": "reference_verifier",
+      "sha256": "4c2563d3a9135058c57f743e923c9731aaaf120100dcb83510f85ad2bccff24e",
+      "source": "chambers/kernel/__init__.py",
+      "verifier": "python"
+    },
+    {
+      "bytes": 15203,
+      "path": "verifier/python/chambers/kernel/accountant.py",
+      "role": "reference_verifier",
+      "sha256": "e14477c1ef40d7e71da80cd7a16c43089ab9b6b5d2a7d669d104f227ae50f450",
+      "source": "chambers/kernel/accountant.py",
+      "verifier": "python"
+    },
+    {
+      "bytes": 14179,
+      "path": "verifier/python/chambers/kernel/attribution.py",
+      "role": "reference_verifier",
+      "sha256": "0774e9b052a57261198f17a256935f2ad3b224d96a4787b88fdde6a4d643fbce",
+      "source": "chambers/kernel/attribution.py",
+      "verifier": "python"
+    },
+    {
+      "bytes": 13133,
+      "path": "verifier/python/chambers/kernel/covenant.py",
+      "role": "reference_verifier",
+      "sha256": "22ac2e625d789f18e0d5efc07dac301e356ffeaf71ba330b4fda0107f3d0ff25",
+      "source": "chambers/kernel/covenant.py",
+      "verifier": "python"
+    },
+    {
+      "bytes": 8493,
+      "path": "verifier/python/chambers/kernel/events.py",
+      "role": "reference_verifier",
+      "sha256": "5d575b8ca7e297abfcc4f919a810de843929f955447ea46da4f2e385397fc147",
+      "source": "chambers/kernel/events.py",
+      "verifier": "python"
+    },
+    {
+      "bytes": 12884,
+      "path": "verifier/python/chambers/kernel/identity.py",
+      "role": "reference_verifier",
+      "sha256": "e7b4c5ff4401602d3057cbdd154747baeb878d19daff9a674cffad67226cf748",
+      "source": "chambers/kernel/identity.py",
+      "verifier": "python"
+    },
+    {
+      "bytes": 37564,
+      "path": "verifier/python/chambers/kernel/ledger.py",
+      "role": "reference_verifier",
+      "sha256": "a36e3f289005526e072b7c4a7530deb1d3ddd47884f1e735aa4fdfdc7cfd9aab",
+      "source": "chambers/kernel/ledger.py",
+      "verifier": "python"
+    },
+    {
+      "bytes": 81297,
+      "path": "verifier/python/chambers/kernel/settlement.py",
+      "role": "reference_verifier",
+      "sha256": "8d83ff005387d90470ebc16f129d5cbcae958f022a22c892b0207b5e105520eb",
+      "source": "chambers/kernel/settlement.py",
+      "verifier": "python"
+    },
+    {
+      "bytes": 5267,
+      "path": "verifier/python/chambers/kernel/verify.py",
+      "role": "reference_verifier",
+      "sha256": "a6845cb47585ef7f8425ffc008938f8bd9eb1aeb111e4ec7af5628f400d1650b",
+      "source": "chambers/kernel/verify.py",
+      "verifier": "python"
+    },
+    {
+      "bytes": 7468,
+      "path": "verifier/python/chambers/kernel/views.py",
+      "role": "reference_verifier",
+      "sha256": "7a9c215e7b9e19926eb0f4852006e5f90f2e0d48c22879a7d777ee83be37b5a4",
+      "source": "chambers/kernel/views.py",
+      "verifier": "python"
+    },
+    {
+      "bytes": 157,
+      "path": "verifier/rust_ledger/Cargo.lock",
+      "role": "reference_verifier",
+      "sha256": "b5379249e450b62b1df69d14381caf1161e9a949d8ace4e6b6a42450847724ac",
+      "source": "chambers/kernel/rust_ledger/Cargo.lock",
+      "verifier": "rust"
+    },
+    {
+      "bytes": 350,
+      "path": "verifier/rust_ledger/Cargo.toml",
+      "role": "reference_verifier",
+      "sha256": "1c9bfa63702943f5e7fea572bfcd875d55a053b75b92cbfeba339d25221aa742",
+      "source": "chambers/kernel/rust_ledger/Cargo.toml",
+      "verifier": "rust"
+    },
+    {
+      "bytes": 4547,
+      "path": "verifier/rust_ledger/README.md",
+      "role": "reference_verifier",
+      "sha256": "4cb22de1a5b77a5c4370700d5e45a4bb1f7205258fa2a5f521424987e35a74e8",
+      "source": "chambers/kernel/rust_ledger/README.md",
+      "verifier": "rust"
+    },
+    {
+      "bytes": 3140,
+      "path": "verifier/rust_ledger/src/bin/charge-verify.rs",
+      "role": "reference_verifier",
+      "sha256": "2352baf67fd6dc3d6fad50ce38ab213cb454772376a0596d6b3e2da0feef6de7",
+      "source": "chambers/kernel/rust_ledger/src/bin/charge-verify.rs",
+      "verifier": "rust"
+    },
+    {
+      "bytes": 20146,
+      "path": "verifier/rust_ledger/src/identity.rs",
+      "role": "reference_verifier",
+      "sha256": "0224d926aa03790088af37eaea8d076e699560fb48e57b9051d822f8b061169a",
+      "source": "chambers/kernel/rust_ledger/src/identity.rs",
+      "verifier": "rust"
+    },
+    {
+      "bytes": 90867,
+      "path": "verifier/rust_ledger/src/lib.rs",
+      "role": "reference_verifier",
+      "sha256": "46556fe176e5174bca8af889f260cb5f820dce04aa0062951ec554babd7a2c2b",
+      "source": "chambers/kernel/rust_ledger/src/lib.rs",
+      "verifier": "rust"
+    }
+  ],
+  "entry_count": 131,
+  "generated_by": "chambers/compliance_kit/make_kit.py",
+  "manifest_version": 1
+}
