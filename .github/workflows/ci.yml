@@ -97,6 +97,6 @@ jobs:
         with:
           persist-credentials: false
       - run: >-
-          npx --yes typescript@5.9 tsc --noEmit --strict
+          npx --yes --package typescript@5.9 tsc --noEmit --strict
           --target es2020 --module es2020 --moduleResolution bundler
           docs/primitives/*.ts
