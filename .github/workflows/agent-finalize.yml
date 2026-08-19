@@ -1,0 +1,142 @@
+name: agent consolidation finalizer
+
+on:
+  push:
+    branches:
+      - agent/consolidate-chamber
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+
+env:
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: agent/consolidate-chamber
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Audit the intended tree
+        run: |
+          set -euo pipefail
+          test -f docs/ARCHITECTURE.md
+          test -f workbench/README.md
+          test -d workbench/experiments/pipeline
+          test -d workbench/notes/research
+          test -f chambers/reference/README.md
+          test -f tests/test_repository_boundaries.py
+          test -f tests/reference/test_requester_bundle.py
+          test ! -e chambers/pipeline
+          test ! -e docs/research
+          test "$(head -n 1 chambers/CHAMBER.md)" = "# Chamber Law"
+
+          python - <<'PY'
+          from pathlib import Path
+          import ast
+
+          violations = []
+          for path in Path("chambers").rglob("*.py"):
+              tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+              for node in ast.walk(tree):
+                  if isinstance(node, ast.Import):
+                      modules = [alias.name for alias in node.names]
+                  elif isinstance(node, ast.ImportFrom) and node.module:
+                      modules = [node.module]
+                  else:
+                      modules = []
+                  for module in modules:
+                      if module == "workbench" or module.startswith("workbench."):
+                          violations.append(f"{path}: {module}")
+          if violations:
+              raise SystemExit("maintained-to-workbench imports:\n" + "\n".join(violations))
+          PY
+
+      - name: Run the complete Python contract surface
+        id: verify
+        run: |
+          set -euo pipefail
+          python -m pip install pytest
+          python -m compileall -q chambers workbench tests
+          python -m pytest -q | tee "$RUNNER_TEMP/pytest.txt"
+          python -m chambers.compliance_kit.make_kit --check | tee "$RUNNER_TEMP/kit.txt"
+          echo "pytest_summary=$(tail -n 1 "$RUNNER_TEMP/pytest.txt")" >> "$GITHUB_OUTPUT"
+          echo "kit_summary=$(tail -n 1 "$RUNNER_TEMP/kit.txt")" >> "$GITHUB_OUTPUT"
+
+      - name: Remove one-shot machinery and push the reviewed tree
+        run: |
+          set -euo pipefail
+          git config user.name "chambers-structure-bot"
+          git config user.email "actions@users.noreply.github.com"
+          rm -f \
+            .github/workflows/agent-checkout-export.yml \
+            .github/workflows/agent-polish.yml \
+            .github/workflows/agent-finalize.yml
+          git add -A
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: remove one-shot refactor machinery"
+            git push origin HEAD:agent/consolidate-chamber
+          fi
+
+      - name: Wait for the public CI on the final head
+        run: |
+          set -euo pipefail
+          sleep 10
+          gh pr checks 2 --repo XyraSinclair/chambers --watch --fail-fast
+
+      - name: Publish the evidence ledger on the draft PR
+        env:
+          PYTEST_SUMMARY: ${{ steps.verify.outputs.pytest_summary }}
+          KIT_SUMMARY: ${{ steps.verify.outputs.kit_summary }}
+        run: |
+          cat > "$RUNNER_TEMP/pr-body.md" <<EOF
+          ## Purpose
+
+          Make the repository legible as a maintained technical system rather than as an undifferentiated research dump.
+
+          ## Structural cut
+
+          - Moved the executable economies and mechanism probes into one non-normative region: \`workbench/experiments/\`.
+          - Moved autoresearch, ideation, deep research, frontier papers, frameworks, and stories into \`workbench/notes/\`.
+          - Added an enforced dependency direction: workbench code may exercise maintained interfaces; maintained Python may not import the workbench.
+          - Moved the two large reference-application contract suites out of the import surface and into \`tests/reference/\`.
+
+          ## Reference application
+
+          - Split operator instructions from model-facing law. \`chambers/CHAMBER.md\` now begins with and contains Chamber Law; \`chambers/reference/README.md\` is the operator runbook.
+          - Kept the application, court-file verifier, requester-bundle verifier, confinement demo, and compliance kit on the maintained side of the boundary.
+          - Did **not** merge the two offline verifiers. Their repeated parsing and hashing logic is an independence property: the requester checker must remain pure standard library and textually independent of the writer.
+
+          ## Public reading surface
+
+          - Rewrote the root README around exact claims, public evidence, and explicit limits.
+          - Added \`docs/ARCHITECTURE.md\` as the maintained map of canon, protocol specs, implementations, proof scope, reference integration, and workbench.
+          - Replaced the documentation and package indexes with short status-bearing maps.
+          - Updated imports, commands, and repository links to the new workbench paths.
+
+          ## Compatibility
+
+          Normative protocol identifiers, frozen trace bytes, charge arithmetic, finding codes, settlement law, and theorem statements are unchanged. Import paths for explicitly experimental packages changed from \`chambers.<experiment>\` to \`workbench.experiments.<experiment>\`; those paths are intentionally outside the maintained compatibility surface.
+
+          ## Verification
+
+          - Python: \`${PYTEST_SUMMARY}\`
+          - Portable evidence manifest: \`${KIT_SUMMARY}\`
+          - Final-head GitHub Actions: Python, Rust, and Lean checks passed before this body was published.
+          EOF
+          gh api \
+            --method PATCH \
+            repos/XyraSinclair/chambers/pulls/2 \
+            --raw-field title='Separate the maintained system from the workbench' \
+            --raw-field body="$(cat "$RUNNER_TEMP/pr-body.md")" >/dev/null
