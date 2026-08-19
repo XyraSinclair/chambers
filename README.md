@@ -89,6 +89,16 @@ counterexamples, and rapid protocol research. Core claims should migrate toward
 Lean definitions, proof-producing checkers, or language-independent
 conformance artifacts rather than becoming Python-specific conventions.
 
+**Working chamber and demos.**
+[`chambers/chamber.py`](chambers/chamber.py) with its runbook
+[`chambers/CHAMBER.md`](chambers/CHAMBER.md) is a single-file, stdlib-only
+working chamber: one requester, one bounded question, review gates, and a
+court-file audit trail, with court-file and requester-bundle verifiers
+alongside. [`chambers/corpus_demo/`](chambers/corpus_demo/) demonstrates guest
+confinement against a contract and sink schema;
+[`chambers/compliance_kit/`](chambers/compliance_kit/) packages the normative
+specs with a hash manifest and checker.
+
 **Research lineage.**
 [`LITERATURE.json`](LITERATURE.json) maps primary sources to the exact
 repository surfaces that use them. Each record states the relationship, the
@@ -149,6 +159,10 @@ them or preserve it explicitly.
   identity, scope, and node surfaces.
 - [`docs/frontier/`](docs/frontier/) — open research questions and mechanism
   proposals.
+- [`docs/autoresearch/`](docs/autoresearch/), [`docs/ideation/`](docs/ideation/),
+  [`docs/research/`](docs/research/) — the working record that produced the
+  canon: stress tests, the atlas that killed 28 of 32 candidate domains, the
+  ideation series, and deep-read syntheses.
 
 ## Citation and contribution
 

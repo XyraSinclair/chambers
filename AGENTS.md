@@ -134,7 +134,10 @@ independence.
 - Generate frozen artifacts through their declared generator.
 - Put a generator change and its artifact delta in the same commit.
 - Name the exact identifier and trace in a finding.
-- Keep private working records outside the public tree.
+- Keep the operator's private records (live deployment, dogfood log,
+  personal-corpus runs) outside the public tree; the research record under
+  `docs/autoresearch/`, `docs/ideation/`, and `docs/research/` is public by
+  operator decision.
 - Do not turn fixture knowledge or a demo's global view into a protocol
   assumption.
 - Do not describe reproducibility as confidentiality or attestation.

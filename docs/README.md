@@ -39,11 +39,17 @@ The machine-readable source for the literature map is
 
 ## Private artifacts
 
-Some documents cite the operator's private deployment, dogfood records, and raw
-research logs. These are marked as private. Protocol laws and public findings
-must be represented in the specifications, proofs, tests, or frozen artifacts
-included in this repository; a private record is never the sole support for a
-public conformance claim.
+The record that produced this canon is in the repository: the autoresearch
+runs in [`autoresearch/`](autoresearch/), the ideation series in
+[`ideation/`](ideation/), and the deep-read syntheses in
+[`research/`](research/).
+
+A small residue stays with the operator: the live chamber deployment (deploy
+machinery, egress harness, dogfood log) and runs over the operator's own
+private corpus. Citations to that residue are marked as private. Protocol laws
+and public findings must be represented in the specifications, proofs, tests,
+or frozen artifacts included in this repository; a private record is never the
+sole support for a public conformance claim.
 
 ## Working rule
 
