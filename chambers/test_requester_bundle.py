@@ -2343,6 +2343,7 @@ class SeatbeltConfinementTests(_LifetimeIsolationMixin, unittest.TestCase):
 
     # -- run_codex argv: sandbox-exec -> native codex, never the shim -----------
 
+    @unittest.skipUnless(_SANDBOX_EXEC_AVAILABLE, "requires macOS sandbox-exec")
     def test_run_codex_argv_starts_sandbox_exec_then_native_codex(self) -> None:
         artifact_dir = self._tmpdir("chamber_argv_")
         fake_native = artifact_dir / "native-codex"
