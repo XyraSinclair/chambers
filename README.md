@@ -56,6 +56,13 @@ the system is *Scry Chambers*; Chambers is short.)
   research, peer prediction with its redundancy metered openly, and nine
   machines composed into one system — all on the same accounting path,
   stdlib-only, deterministic.
+- **The chamber** — [`chambers/chamber.py`](chambers/chamber.py) with its
+  runbook [`chambers/CHAMBER.md`](chambers/CHAMBER.md): a single-file,
+  stdlib-only working chamber — one requester, one bounded question, review
+  gates, court-file audit trail — plus the court-file and requester-bundle
+  verifiers, the corpus confinement demo
+  ([`chambers/corpus_demo/`](chambers/corpus_demo/)), and the compliance
+  kit ([`chambers/compliance_kit/`](chambers/compliance_kit/)).
 - **The maps** — [`docs/OPERATIONS.md`](docs/OPERATIONS.md) (~80 operations
   graded on six axes), [`docs/ASSURANCE.md`](docs/ASSURANCE.md) (the six-rung
   ladder from types to priced social layer),
@@ -63,11 +70,16 @@ the system is *Scry Chambers*; Chambers is short.)
   runs), [`docs/SPECS.md`](docs/SPECS.md) (the registry of record: every
   spec identifier, its defining file, and what a conformance claim means),
   and the frontier papers under [`docs/frontier/`](docs/frontier/).
+- **The research record** — [`docs/autoresearch/`](docs/autoresearch/),
+  [`docs/ideation/`](docs/ideation/), [`docs/research/`](docs/research/):
+  the working record that produced the canon — the stress tests, the atlas
+  that killed 28 of 32 candidate domains, the ideation series, and the
+  deep-read syntheses.
 
 ## Run something
 
 ```
-python3 -m pytest -q                                  # the whole floor, ~365 tests
+python3 -m pytest -q                                  # the whole floor, ~465 tests
 python3 -m chambers.kernel.demo_work_economy          # value moves iff metered work moved
 python3 -m chambers.pipeline.run_pipeline             # nine machines as one system
 python3 -m chambers.intro_clearing.run_clearing       # priced introductions, end to end
