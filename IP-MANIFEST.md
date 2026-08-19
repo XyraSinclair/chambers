@@ -31,7 +31,7 @@ Capabilities, not files:
   its runbook (`chambers/chamber.py`, `chambers/CHAMBER.md`), the court-file
   and requester-bundle verifiers, the corpus confinement demo, the
   compliance kit, and the research record that produced the canon
-  (`docs/autoresearch/`, `docs/ideation/`, `docs/research/`).
+  (`workbench/notes/`).
 
 ## What this withholds, and where the seam is
 

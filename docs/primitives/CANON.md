@@ -151,7 +151,7 @@ implementation must enforce and a reviewer may cite by key.
   timing named as surfaces that are free only where fixed or public-computable.
   Status: these laws are a SPEC enforced by kernel + review; the types-to-QIF
   soundness theorem is the named open goal (mediation-literature.md, vein 3).
-  Runnable shadow: `chambers/ip_trade_sim/test_calculus_bound.py`.
+  Runnable shadow: `workbench/ip_trade_sim/test_calculus_bound.py`.
 
 ## Admission test for new primitives
 
@@ -171,7 +171,7 @@ future module. Not a primitive.
 ## Open frontier — what types do NOT solve
 
 An exhaustive adversarial pass (207 agents; see
-`docs/autoresearch/2026-07-01-substrate-stress-test/`) established that the
+`workbench/notes/autoresearch/2026-07-01-substrate-stress-test/`) established that the
 following are load-bearing dependencies the type system must not pretend to
 have solved. New records here may *name* these problems and record verdicts
 honestly (e.g. `ConflictVerdict = "unprovable"`), but must never assert them

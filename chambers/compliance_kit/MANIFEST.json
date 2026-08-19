@@ -1188,10 +1188,10 @@
       ]
     },
     {
-      "bytes": 7508,
+      "bytes": 7509,
       "path": "specs/kernel/IDENTITY-SPEC.md",
       "role": "normative_spec",
-      "sha256": "4653d3d97e87fab8b6e6ef3e0484d20394e822f543884c9091c182f813047927",
+      "sha256": "cb8dcb2401d6ee110e674d326fb2d6260ddf4f9f897c1e82865c589e3dfd3f27",
       "source": "chambers/kernel/IDENTITY-SPEC.md",
       "spec_versions": [
         "charge-identity/1",

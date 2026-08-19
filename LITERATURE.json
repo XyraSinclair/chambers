@@ -52,7 +52,7 @@
     },
     {
       "applies_to": [
-        "docs/FRAMEWORKS.md"
+        "workbench/notes/FRAMEWORKS.md"
       ],
       "authors": [
         "Vitalik Buterin",
@@ -168,7 +168,7 @@
     },
     {
       "applies_to": [
-        "docs/FRAMEWORKS.md"
+        "workbench/notes/FRAMEWORKS.md"
       ],
       "authors": [
         "Marcela S. Melara",
@@ -193,7 +193,7 @@
     },
     {
       "applies_to": [
-        "docs/frontier/judgement-markets/peer-prediction.md"
+        "workbench/notes/frontier/judgement-markets/peer-prediction.md"
       ],
       "authors": [
         "Nolan Miller",
@@ -216,7 +216,7 @@
     },
     {
       "applies_to": [
-        "docs/FRAMEWORKS.md"
+        "workbench/notes/FRAMEWORKS.md"
       ],
       "authors": [
         "Ilya Mironov"
@@ -237,7 +237,7 @@
     },
     {
       "applies_to": [
-        "docs/FRAMEWORKS.md"
+        "workbench/notes/FRAMEWORKS.md"
       ],
       "authors": [
         "Roger B. Myerson"
@@ -279,7 +279,7 @@
     },
     {
       "applies_to": [
-        "docs/FRAMEWORKS.md"
+        "workbench/notes/FRAMEWORKS.md"
       ],
       "authors": [
         "Dražen Prelec"
@@ -300,7 +300,7 @@
     },
     {
       "applies_to": [
-        "docs/FRAMEWORKS.md"
+        "workbench/notes/FRAMEWORKS.md"
       ],
       "authors": [
         "Ryan M. Rogers",
@@ -369,7 +369,7 @@
     },
     {
       "applies_to": [
-        "docs/FRAMEWORKS.md"
+        "workbench/notes/FRAMEWORKS.md"
       ],
       "authors": [
         "Peiyao Sheng",
@@ -394,8 +394,8 @@
     },
     {
       "applies_to": [
-        "chambers/peer_sim/run_peer_prediction.py",
-        "docs/frontier/judgement-markets/peer-prediction.md"
+        "workbench/notes/frontier/judgement-markets/peer-prediction.md",
+        "workbench/peer_sim/run_peer_prediction.py"
       ],
       "authors": [
         "Victor Shnayder",

@@ -136,8 +136,10 @@ independence.
 - Name the exact identifier and trace in a finding.
 - Keep the operator's private records (live deployment, dogfood log,
   personal-corpus runs) outside the public tree; the research record under
-  `docs/autoresearch/`, `docs/ideation/`, and `docs/research/` is public by
-  operator decision.
+  `workbench/notes/` is public by operator decision.
+- Keep the workbench non-normative: workbench code may import `chambers.*`;
+  maintained code never imports `workbench.*`. Deleting `workbench/` must
+  leave every specification, proof, frozen corpus, and maintained test intact.
 - Do not turn fixture knowledge or a demo's global view into a protocol
   assumption.
 - Do not describe reproducibility as confidentiality or attestation.

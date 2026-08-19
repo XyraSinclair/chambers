@@ -81,13 +81,15 @@ corresponding Python source, but by the same author; this is source isolation,
 not independent social confirmation.
 
 **Python research implementations.**
-[`chambers/kernel/`](chambers/kernel/) and the scenario directories under
-[`chambers/`](chambers/) provide the broadest executable surface: mediation,
-settlement, introductions, IP trades, security bounties, peer-prediction
-experiments, and an end-to-end pipeline. They are valuable for integration,
-counterexamples, and rapid protocol research. Core claims should migrate toward
-Lean definitions, proof-producing checkers, or language-independent
-conformance artifacts rather than becoming Python-specific conventions.
+[`chambers/kernel/`](chambers/kernel/) provides the broadest executable
+surface: ledger, audit, settlement, attribution, identity, scope, and node.
+The scenario economies that exercise it — introductions, IP trades, security
+bounties, peer prediction, and an end-to-end pipeline — live in
+[`workbench/`](workbench/), the repository's single non-normative region. They
+are valuable for integration, counterexamples, and rapid protocol research.
+Core claims should migrate toward Lean definitions, proof-producing checkers,
+or language-independent conformance artifacts rather than becoming
+Python-specific conventions.
 
 **Working chamber and demos.**
 [`chambers/chamber.py`](chambers/chamber.py) with its runbook
@@ -157,12 +159,10 @@ them or preserve it explicitly.
 - [`chambers/lean/`](chambers/lean/) — formal model and theorem inventory.
 - [`chambers/kernel/`](chambers/kernel/) — executable ledger, audit, settlement,
   identity, scope, and node surfaces.
-- [`docs/frontier/`](docs/frontier/) — open research questions and mechanism
-  proposals.
-- [`docs/autoresearch/`](docs/autoresearch/), [`docs/ideation/`](docs/ideation/),
-  [`docs/research/`](docs/research/) — the working record that produced the
-  canon: stress tests, the atlas that killed 28 of 32 candidate domains, the
-  ideation series, and deep-read syntheses.
+- [`workbench/`](workbench/) — the single non-normative region: scenario
+  economies that run on the kernel, open frontier questions, and the working
+  record that produced the canon. Nothing in it defines or amends a protocol
+  law.
 
 ## Citation and contribution
 

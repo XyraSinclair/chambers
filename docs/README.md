@@ -28,21 +28,15 @@ The machine-readable source for the literature map is
 - [`LICENSING.md`](LICENSING.md) separates the rights involved in access,
   computation, derivative use, and model improvement.
 
-## Human and economic cases
+## The workbench
 
-- [`STORIES.md`](STORIES.md) and [`stories/`](stories/) contain grounded
-  scenarios and adversarial reviews.
-- [`frontier/`](frontier/) contains open work on coalitional inference, IP
-  trades, private-data moats, leakage measurement, and judgement markets.
-- [`FRAMEWORKS.md`](FRAMEWORKS.md) surveys adjacent formal machinery that may be
-  useful but is not necessarily implemented.
-
-## The research record
-
-The record that produced this canon is in the repository: the autoresearch
-runs in [`autoresearch/`](autoresearch/), the ideation series in
-[`ideation/`](ideation/), and the deep-read syntheses in
-[`research/`](research/).
+Everything non-normative lives in one region, [`workbench/`](../workbench/):
+the scenario economies that exercise the kernel, and under
+[`workbench/notes/`](../workbench/notes/) the grounded stories, the open
+frontier questions, the adjacent-frameworks survey, and the research record
+that produced this canon (autoresearch runs, the ideation series, deep-read
+syntheses). [`workbench/README.md`](../workbench/README.md) states its status
+and the promotion rule.
 
 A small residue stays with the operator: the live chamber deployment (deploy
 machinery, egress harness, dogfood log) and runs over the operator's own

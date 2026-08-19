@@ -160,7 +160,7 @@ in the alphabet has an unmetered channel.
 ```haskell
 -- Unforgeable witness that party p signed codebook v for protocol π.
 -- Canon: the owner-token approval in core.ts; program-level consent
--- per the clean-room analysis (docs/research/data-clean-rooms-alpha.md):
+-- per the clean-room analysis (workbench/notes/research/data-clean-rooms-alpha.md):
 -- legal reviews (codebook, worker program) ONCE, before data enters.
 Consent :: Silo -> Type -> Type
 sign    :: PrivateKey p -> CodebookHash v -> ProgramHash -> Consent {p} v
@@ -275,7 +275,7 @@ surface rather than hide in an estimate.
 
 Two labs suspect overlap between A's patent claims and B's implementation.
 Full discovery is mutually assured destruction. Canon: `iptrade.ts` lanes +
-`mediation.ts` tuple-scoped judgements; simulation: `chambers/ip_trade_sim/`.
+`mediation.ts` tuple-scoped judgements; simulation: `workbench/ip_trade_sim/`.
 
 ```haskell
 data Overlap    = NoOverlap | Narrow | Substantial          -- 3

@@ -24,7 +24,7 @@
  * laws are the specification that the kernel meter, runtime checks, and
  * review enforce — cite them by key; do not present them as proved.
  *
- * Runnable shadow: chambers/ip_trade_sim/{codebook,leakage}.py and
+ * Runnable shadow: workbench/ip_trade_sim/{codebook,leakage}.py and
  * test_calculus_bound.py exercise derivedNotDeclared, closedAlphabet,
  * blockBeforeCeiling, and refusalsSimulatable against a malicious judge.
  */

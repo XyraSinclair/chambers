@@ -131,7 +131,7 @@ issuer front-end (`LeaseIssuer`, `KernelMeter`, `SettlementIssuer`,
   bytes, and the frozen corpora move by zero bytes.
 
 Standing lane: `test_identity_wiring.py`. The composed pipeline
-(`chambers/pipeline/`) runs fully key-authored: issuers, mediator
+(`workbench/pipeline/`) runs fully key-authored: issuers, mediator
 node, and escrow authority are all keys; a tampered signature byte
 convicts on the A-surface.
 

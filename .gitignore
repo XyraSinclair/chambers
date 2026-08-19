@@ -5,7 +5,7 @@ target/
 .lake/
 .DS_Store
 .chamber/
-chambers/d1_bounty/out/
+workbench/d1_bounty/out/
 
 # operator-private: business strategy stays untracked
 docs/business/

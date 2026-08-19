@@ -28,7 +28,7 @@ Vitalik Buterin and Virgil Griffith. *Casper the Friendly Finality Gadget*. arXi
 
 **Relationship:** `comparison`
 
-**Applies to:** [`docs/FRAMEWORKS.md`](FRAMEWORKS.md)
+**Applies to:** [`workbench/notes/FRAMEWORKS.md`](../workbench/notes/FRAMEWORKS.md)
 
 **Import:** Slashing conditions are a salient example of designing violations to leave compact, transferable evidence against attributable actors.
 
@@ -40,7 +40,7 @@ Peiyao Sheng, Gerui Wang, Kartik Nayak, Sreeram Kannan, and Pramod Viswanath. *B
 
 **Relationship:** `comparison`
 
-**Applies to:** [`docs/FRAMEWORKS.md`](FRAMEWORKS.md)
+**Applies to:** [`workbench/notes/FRAMEWORKS.md`](../workbench/notes/FRAMEWORKS.md)
 
 **Import:** BFT forensics supplies the closest formal comparison for asking when a protocol violation necessarily leaves transferable evidence identifying culpable actors.
 
@@ -68,7 +68,7 @@ Ryan M. Rogers, Aaron Roth, Jonathan Ullman, and Salil Vadhan. *Privacy Odometer
 
 **Relationship:** `comparison`
 
-**Applies to:** [`docs/FRAMEWORKS.md`](FRAMEWORKS.md)
+**Applies to:** [`workbench/notes/FRAMEWORKS.md`](../workbench/notes/FRAMEWORKS.md)
 
 **Import:** Privacy odometers and filters provide a precise comparison for adaptive lifetime accounting and stopping rules under differential privacy.
 
@@ -80,7 +80,7 @@ Ilya Mironov. *Rényi Differential Privacy*. 30th IEEE Computer Security Foundat
 
 **Relationship:** `open-frontier`
 
-**Applies to:** [`docs/FRAMEWORKS.md`](FRAMEWORKS.md)
+**Applies to:** [`workbench/notes/FRAMEWORKS.md`](../workbench/notes/FRAMEWORKS.md)
 
 **Import:** Rényi differential privacy is recorded as a candidate mechanism-derived estimator lane with tractable composition for genuinely randomized aggregate mechanisms.
 
@@ -108,7 +108,7 @@ Dražen Prelec. *A Bayesian Truth Serum for Subjective Data*. Science 306(5695):
 
 **Relationship:** `comparison`
 
-**Applies to:** [`docs/FRAMEWORKS.md`](FRAMEWORKS.md)
+**Applies to:** [`workbench/notes/FRAMEWORKS.md`](../workbench/notes/FRAMEWORKS.md)
 
 **Import:** Bayesian Truth Serum is an adjacent no-ground-truth elicitation mechanism used to distinguish peer-prediction families and their information assumptions.
 
@@ -120,7 +120,7 @@ Nolan Miller, Paul Resnick, and Richard Zeckhauser. *Eliciting Informative Feedb
 
 **Relationship:** `foundation`
 
-**Applies to:** [`docs/frontier/judgement-markets/peer-prediction.md`](frontier/judgement-markets/peer-prediction.md)
+**Applies to:** [`workbench/notes/frontier/judgement-markets/peer-prediction.md`](../workbench/notes/frontier/judgement-markets/peer-prediction.md)
 
 **Import:** Peer prediction supplies the foundational possibility of incentive-compatible elicitation without direct ground truth.
 
@@ -132,7 +132,7 @@ Victor Shnayder, Arpit Agarwal, Rafael Frongillo, and David C. Parkes. *Informed
 
 **Relationship:** `adaptation`
 
-**Applies to:** [`chambers/peer_sim/run_peer_prediction.py`](../chambers/peer_sim/run_peer_prediction.py), [`docs/frontier/judgement-markets/peer-prediction.md`](frontier/judgement-markets/peer-prediction.md)
+**Applies to:** [`workbench/notes/frontier/judgement-markets/peer-prediction.md`](../workbench/notes/frontier/judgement-markets/peer-prediction.md), [`workbench/peer_sim/run_peer_prediction.py`](../workbench/peer_sim/run_peer_prediction.py)
 
 **Import:** The Correlated Agreement mechanism is adapted as exact ledger arithmetic over repeated reports, with the mechanism's own redundant readership charged explicitly.
 
@@ -214,7 +214,7 @@ Marcela S. Melara, Aaron Blankstein, Joseph Bonneau, Edward W. Felten, and Micha
 
 **Relationship:** `comparison`
 
-**Applies to:** [`docs/FRAMEWORKS.md`](FRAMEWORKS.md)
+**Applies to:** [`workbench/notes/FRAMEWORKS.md`](../workbench/notes/FRAMEWORKS.md)
 
 **Import:** CONIKS is a comparison point for authenticated partial views and efficient user-verifiable consistency over a provider-maintained map.
 
@@ -252,7 +252,7 @@ Roger B. Myerson. *Graphs and Cooperation in Games*. Mathematics of Operations R
 
 **Relationship:** `comparison`
 
-**Applies to:** [`docs/FRAMEWORKS.md`](FRAMEWORKS.md)
+**Applies to:** [`workbench/notes/FRAMEWORKS.md`](../workbench/notes/FRAMEWORKS.md)
 
 **Import:** The Myerson value is the graph-aware cooperative-game comparison point for attribution over a provenance network.
 
