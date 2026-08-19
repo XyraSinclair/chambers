@@ -1,0 +1,199 @@
+name: agent public-surface polish
+
+on:
+  push:
+    branches:
+      - agent/consolidate-chamber
+
+permissions:
+  contents: write
+
+jobs:
+  polish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: agent/consolidate-chamber
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Tighten the front doors
+        run: |
+          git config user.name "chambers-structure-bot"
+          git config user.email "actions@users.noreply.github.com"
+          test -d workbench/experiments
+          test -d workbench/notes
+          test -f docs/ARCHITECTURE.md
+          test "$(head -n 1 chambers/CHAMBER.md)" = "# Chamber Law"
+
+          mkdir -p tests/reference
+          if test -f chambers/test_requester_bundle.py; then
+            git mv chambers/test_requester_bundle.py tests/reference/test_requester_bundle.py
+          fi
+          if test -f chambers/test_chamber_kernel_meter.py; then
+            git mv chambers/test_chamber_kernel_meter.py tests/reference/test_chamber_kernel_meter.py
+          fi
+
+          cat > README.md <<'EOF'
+          # Chambers
+
+          [![ci](https://github.com/XyraSinclair/chambers/actions/workflows/ci.yml/badge.svg)](https://github.com/XyraSinclair/chambers/actions/workflows/ci.yml)
+
+          **Private worlds become partially computable without becoming public.**
+
+          Chambers is a protocol and reference implementation for bounded computation across private data. A requester receives a scoped result and a verifiable record of how that result was authorized, metered, reviewed, and released. The private inputs do not become a shared product database.
+
+          A chamber has five relevant objects:
+
+          1. a grant naming the permitted computation;
+          2. a confined transform over one or more private sources;
+          3. a closed or explicitly bounded output channel;
+          4. a reader-relative exposure account charged before release;
+          5. a court file from which the release decision can be replayed.
+
+          The accounting path uses exact integer millibits. It meters declared channel capacity, not semantic harm, and it does not turn confidentiality into a boolean. When a channel cannot be bounded, the system records that limit rather than asserting privacy.
+
+          ## Evidence and limits
+
+          | Claim | Public evidence | Limit |
+          |---|---|---|
+          | The charge decisions are deterministic | Frozen conformance corpora and integer-only decision paths | Corpus agreement is finite evidence, not an all-input refinement proof |
+          | Two implementations agree on the published corpus | Python reference and Rust ports | The ports are same-author implementations, not independent replications |
+          | Core accounting laws are machine-checked | Lean proofs for the charge algebra, settlement conservation, caps, and monotonicity properties | The proofs do not cover the full application or semantic confidentiality |
+          | A local release gate can produce replayable artifacts | The reference chamber, court-file verifier, requester-bundle verifier, and confinement demo | The execution ladder is local/reproducible; TEE attestation is not implemented |
+
+          The full claim boundary is in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) and the refusal register in [`docs/BOOK.md`](docs/BOOK.md).
+
+          ## Repository map
+
+          | Path | Status | Read it for |
+          |---|---|---|
+          | [`docs/BOOK.md`](docs/BOOK.md) | maintained canon | the minimal system: objects, axioms, theorems, refusals |
+          | [`docs/primitives/`](docs/primitives/) | maintained canon | the type vocabulary that constrains the prose |
+          | [`chambers/kernel/`](chambers/kernel/) | maintained implementation | ledger, metering, scope, identity, attribution, settlement, and versioned specs |
+          | [`chambers/conformance/`](chambers/conformance/) | maintained counterparty surface | language-independent decision law and frozen traces |
+          | [`chambers/lean/`](chambers/lean/) | maintained formal kernel | theorem statements and their exact proof boundary |
+          | [`chambers/runtime/`](chambers/runtime/) | maintained runtime | reproducible local execution of bounded bundles |
+          | [`chambers/reference/`](chambers/reference/) | maintained reference application | operating the local chamber and verifying its outputs |
+          | [`chambers/compliance_kit/`](chambers/compliance_kit/) | maintained evidence | assembling and replaying a portable conformance kit |
+          | [`workbench/`](workbench/) | non-normative | experiments, research records, discarded directions, and narrative material |
+
+          Maintained Python may not import `workbench`. That dependency direction is tested.
+
+          ## Run the public evidence
+
+          ```bash
+          python3 -m pytest -q
+          python3 -m chambers.kernel.demo_work_economy
+          python3 -m chambers.conformance.check_conformance
+          python3 -m chambers.compliance_kit.check
+
+          cd chambers/kernel/rust_ledger && cargo test
+          cd ../../lean && lake build
+          ```
+
+          Python 3.9 or newer plus `pytest` runs the Python suite; the implementation itself is standard-library only. Rust uses `cargo`. Lean reads the pinned toolchain in `chambers/lean/lean-toolchain`.
+
+          The exploratory demonstrations remain runnable from the workbench, for example:
+
+          ```bash
+          python3 -m workbench.experiments.pipeline.run_pipeline
+          python3 -m workbench.experiments.intro_clearing.run_clearing
+          ```
+
+          They are not part of the conformance claim.
+
+          ## Reference chamber
+
+          The local application is documented in [`chambers/reference/README.md`](chambers/reference/README.md). Its model-facing policy is [`chambers/CHAMBER.md`](chambers/CHAMBER.md); that file contains law only, not deployment instructions. The two offline verifiers intentionally repeat some parsing and hashing logic so that neither verifier depends on the writer it checks.
+
+          ## Status
+
+          The accounting layer runs, the public traces replay across Python and Rust, and the modeled charge laws build in Lean. The application remains a reference integration rather than a hosted service. Identity is Sybil-soft. The meter prices channel width rather than harm. Operator review and deterministic scans reduce disclosure risk but do not prove semantic safety.
+
+          [`IP-MANIFEST.md`](IP-MANIFEST.md) names what this release includes and what remains private.
+
+          ## License
+
+          [The Harvest License](LICENSE.md). Once per year at most, the steward may ask what the work has been worth to you. An honest answer, including zero, satisfies the license. Silence after an ask does not.
+
+          ## Prior art
+
+          Chambers draws on quantitative information flow and g-leakage; differential privacy composition; contextual integrity; Certificate Transparency and fork consistency; peer prediction; Shapley data valuation; Ed25519; and Lean 4. Specific literature connections and non-transfer boundaries are recorded in the maintained and workbench papers that use them.
+
+          Conformance divergences and spec ambiguities belong in an issue naming the relevant identifier from [`docs/SPECS.md`](docs/SPECS.md). Security reports follow [`SECURITY.md`](SECURITY.md).
+          EOF
+
+          cat > docs/README.md <<'EOF'
+          # Documentation
+
+          File location signals claim status.
+
+          ## Canon
+
+          - [`BOOK.md`](BOOK.md) states the minimal system and its refusal register.
+          - [`primitives/`](primitives/) contains the type vocabulary and calculus.
+          - [`SPECS.md`](SPECS.md) is the registry of versioned executable contracts.
+
+          ## Assurance
+
+          - [`ARCHITECTURE.md`](ARCHITECTURE.md) separates claims, implementations, evidence, and exploration.
+          - [`ASSURANCE.md`](ASSURANCE.md) defines the assurance ladder and records the current rung of each surface.
+          - [`OPERATIONS.md`](OPERATIONS.md) grades operations rather than treating “supported” as a boolean.
+          - [`MACHINES.md`](MACHINES.md) gives one command for each maintained executable surface.
+
+          ## Runtime and licensing
+
+          - [`RUNTIME.md`](RUNTIME.md) describes bounded bundle execution.
+          - [`LICENSING.md`](LICENSING.md) explains the license mechanics; [`../LICENSE.md`](../LICENSE.md) is authoritative.
+
+          ## Research record
+
+          Exploratory implementations, autoresearch, ideation, frontier papers, and stories live under [`../workbench/`](../workbench/). They are public research material, not protocol law. Maintained code is forbidden from importing them.
+          EOF
+
+          cat > chambers/README.md <<'EOF'
+          # Maintained Python surfaces
+
+          This package contains the executable surfaces that support public Chambers claims.
+
+          - `kernel/`: accounting, ledger, scope, identity, attribution, settlement, and the normative protocol specifications.
+          - `conformance/`: the language-independent decision surface and frozen traces.
+          - `runtime/`: reproducible local execution of bounded bundles.
+          - `review_audit/`: reviewer-coherence probes used by the public evidence suite.
+          - `corpus_demo/`: the synthetic confinement demonstration.
+          - `compliance_kit/`: portable specifications, corpora, and verifiers.
+          - `chamber.py` and `reference/`: the local reference application and its operator documentation.
+          - `lean/`: the formal kernel and replayed trace fixtures.
+
+          Experimental economies and research programs are not package siblings. They live in [`../workbench/`](../workbench/), and this package must not import them.
+          EOF
+
+          cat > tests/README.md <<'EOF'
+          # Tests
+
+          Repository-wide contract and boundary tests live here. Component-local tests remain beside the component when their fixtures and conformance corpora are part of that component's public evidence.
+
+          `reference/` holds the large end-to-end contracts for the local chamber. Keeping those tests outside `chambers/` prevents test volume from obscuring the import surface without weakening discovery: `python -m pytest -q` still runs them.
+          EOF
+
+      - name: Verify the polished surface
+        run: |
+          python -m pip install pytest
+          python -m compileall -q chambers workbench tests
+          python -m pytest -q
+          python -m chambers.compliance_kit.make_kit --check
+          git diff --check
+
+      - name: Commit the public-surface polish
+        run: |
+          rm .github/workflows/agent-polish.yml
+          git add -A
+          git diff --cached --check
+          git commit -m "docs: make claims, limits, and reading order explicit"
+          git push origin HEAD:agent/consolidate-chamber
