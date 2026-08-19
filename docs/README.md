@@ -68,16 +68,20 @@ leakage, the lifetime exposure ledger), IP trades (the feasibility floor at
 model scale), generative private-data moats, g-leakage measurement, and
 judgement markets.
 
-## Private artifacts
+## The research record
 
-Canon occasionally cites artifacts that are not part of this release: the
-operator's live chamber deployment, its dogfood log and runbook, the raw
-research record (a 207-agent stress test that retired three overclaims, the
-economy atlas that killed 28 of 32 candidate domains, the ideation series),
-and demos over the operator's own private corpus. Citations to them are
-marked "private" where they occur. Every protocol-grade finding they
-produced has landed in the specs and tests that *are* here; what stays home
-is the operator's working record, not any law of the substrate.
+The record that produced this canon is in the book: the autoresearch runs
+(a 207-agent stress test that retired three overclaims, the economy atlas
+that killed 28 of 32 candidate domains) in [`autoresearch/`](autoresearch/),
+the ideation series in [`ideation/`](ideation/), and the deep-read syntheses
+in [`research/`](research/). The demo chamber and its runbook, the corpus
+confinement demo, and the compliance kit live in `chambers/`.
+
+A small residue still stays home: the operator's live chamber deployment
+(its deploy machinery, egress harness, and dogfood log) and every run
+artifact over the operator's own private corpus. Citations to that residue
+are marked "private" where they occur; every protocol-grade finding it
+produced has landed in the specs and tests that *are* here.
 
 ## Working rule
 

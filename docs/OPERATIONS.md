@@ -1,8 +1,8 @@
 # Operations, graded — what can actually run, at what comfort
 
 > Source-column citations marked "(private)" refer to the operator's
-> withheld artifacts — see the Private artifacts note in `../README.md`
-> and `IP-MANIFEST.md` at the repo root.
+> withheld artifacts — see "The research record" in `README.md` (this
+> directory) and `IP-MANIFEST.md` at the repo root.
 
 ## 1. Purpose
 
@@ -102,7 +102,7 @@ Every other axis in the corpus refines one of the six:
 | estimate provenance (corpus_relative vs buyer_conditioned) | extraction posture (whose budget debits) |
 | independence class (attester/estimator) | contingency closure (who may attest the external outcome) |
 | oracle mechanicalness (in-chamber vs attested vs refused) | this IS axis 4's source (`stories/gardener.md`) |
-| ObservableClass × precision × cadence atlas (`private: autoresearch/2026-06-29-orthogonal-type-systems/01-orthogonal-type-atlas.md` §6) | alphabet class — the concrete enumeration checklist the calculus proviso needs; currently ignored by CALCULUS/STRUCTURE (§6) |
+| ObservableClass × precision × cadence atlas (`docs/autoresearch/2026-06-29-orthogonal-type-systems/01-orthogonal-type-atlas.md` §6) | alphabet class — the concrete enumeration checklist the calculus proviso needs; currently ignored by CALCULUS/STRUCTURE (§6) |
 | gain-function class (`FRAMEWORKS.md` F1) | alphabet class (design-time input: the alphabet is designed against a declared gain function) |
 | schedule discipline (fixed/bucketed/padded) | alphabet class (timing is a channel the ceiling never sees) |
 | deal-intimacy ladder (`stories/frontier-lab-ip-mediation.md`) | not an axis: a path through the spine, alphabet widening and silo deepening per step |
@@ -156,13 +156,13 @@ in-ch/ext/refused/`—` · rung: R1/R2/R3/any · extr: 1shot/meter/campgn/`—`.
 
 | Operation | alph | silo | lane | closure | rung | extr | status | tier | source |
 |---|---|---|---|---|---|---|---|---|---|
-| `work` (pure confined worker) | — | self/2T | trust | — | R1 | meter | IMPL | A | `primitives/CALCULUS.md` §3(i); the chamber wedge and corpus-demo harness (both private) |
+| `work` (pure confined worker) | — | self/2T | trust | — | R1 | meter | IMPL | A | `primitives/CALCULUS.md` §3(i); `chambers/chamber.py`; `chambers/corpus_demo/harness.py` |
 | `judge` (evidence → closed verdict) | closed | self/2T | trust | — | R1 | meter | IMPL | A | `primitives/CALCULUS.md` §3(ii); `chambers/ip_trade_sim/test_calculus_bound.py` |
 | `release` (consent-gated crossing) | closed | any | prov | — | R1 | meter | IMPL | A | `primitives/CALCULUS.md` §3(iii); `primitives/CANON.md` CORE_LAWS |
-| `gatePub` (public-inputs envelope) | closed | — | prov (L5) | — | any | 1shot | IMPL | A | `primitives/CALCULUS.md` §3(iv); `stories/MARKETS.md` §6; the chamber wedge (private) |
+| `gatePub` (public-inputs envelope) | closed | — | prov (L5) | — | any | 1shot | IMPL | A | `primitives/CALCULUS.md` §3(iv); `stories/MARKETS.md` §6; `chambers/chamber.py` |
 | `gatePriv` (= release at Bool) | closed | 2T | trust | — | R1 | meter | SPEC | B(build) | `primitives/CALCULUS.md` §3(iv) |
-| `ablate` / `influence` (counterfactual review) | closed | 2T | trust | — | R1 | meter | IMPL | A | `primitives/CALCULUS.md` §4; `primitives/STRUCTURE.md` §5; the corpus demo and egress harness (both private) |
-| Guest transform (third-party-authored, contract-only) | closed | 2T | trust | — | R1 | meter | IMPL | A | the corpus demo's guest contract (private) |
+| `ablate` / `influence` (counterfactual review) | closed | 2T | trust | — | R1 | meter | IMPL | A | `primitives/CALCULUS.md` §4; `primitives/STRUCTURE.md` §5; `chambers/corpus_demo/`; the egress harness (private) |
+| Guest transform (third-party-authored, contract-only) | closed | 2T | trust | — | R1 | meter | IMPL | A | `chambers/corpus_demo/GUEST_SPEC.md` |
 | In-chamber derivation / annotation | — | self | prov (zero-charge, `chambers/lean/ChargeKernel/Algebra.lean`) | — | any | — | SPEC | B(build) | `LICENSING.md` rights 1–2; `stories/gardener.md` |
 | Elicitation (typed questions to an owner) | schema | 2T | trust | — | R1 | meter | NAMED | B(schema) | `stories/party-matchmaker.md` Act 1; G12 |
 | In-chamber reframing (never crosses) | — | self | trust | — | any | — | NAMED | B(build) | `stories/attention-guardian.md` |
@@ -177,9 +177,9 @@ in-ch/ext/refused/`—` · rung: R1/R2/R3/any · extr: 1shot/meter/campgn/`—`.
 | Verified partition (proven[]/trusted[]/unprovable[]) | closed | any | (the lane machinery itself) | — | any | — | SPEC | B(build) | `primitives/iptrade.ts` via `frontier/ip-trades/README.md` §2 |
 | Novelty / OOD estimation (price haircut, never a gate) | declared | self | est | — | R1 | meter | IMPL | B(est) | `frontier/ip-trades/valuation-and-research.md`; `chambers/ip_trade_sim/novelty.py` |
 | Ranking (full order charges log₂ n!) | closed | self | trust | — | R2 | meter | IMPL | A | `frontier/private-data-moats/lens-economics.md` §1.2; `chambers/cardinal_wedge/run_sort_metered.py` |
-| Selection / shortlist (pick-k, fixed reason codes) | closed | self | trust | — | R1 | meter | IMPL | A | the corpus demo's guest contract and sink schema (private) |
-| Redact-summarize (word-capped diligence prose) | declared | self | trust | — | R1 | meter | IMPL | B(declared) | the chamber runbook's output law (private); `stories/MARKETS.md` §1 |
-| Drill-down facet (fixed 5-element menu, 3.00 bits) | closed | self | trust | — | R1 | meter | IMPL | A | the chamber runbook (private); `primitives/CALCULUS.md` §7 |
+| Selection / shortlist (pick-k, fixed reason codes) | closed | self | trust | — | R1 | meter | IMPL | A | `chambers/corpus_demo/GUEST_SPEC.md`; `chambers/corpus_demo/sink_schema.py` |
+| Redact-summarize (word-capped diligence prose) | declared | self | trust | — | R1 | meter | IMPL | B(declared) | `chambers/CHAMBER.md` (output law); `stories/MARKETS.md` §1 |
+| Drill-down facet (fixed 5-element menu, 3.00 bits) | closed | self | trust | — | R1 | meter | IMPL | A | `chambers/CHAMBER.md`; `primitives/CALCULUS.md` §7 |
 | Reference check (~60-bit schema + subject consent) | schema | 2T+subject | trust | — | R1 | meter | SPEC | B(schema) | `stories/reference-check.md`; `stories/MARKETS.md` §2; G4 |
 | Match card projection (13-bit card, no identity) | closed | 2T | trust | — | R2 | meter | IMPL | A | `stories/party-matchmaker.md` Act 3; `chambers/kernel/demo_attention_notify.py`; runtime `match_card` golden bundle |
 | Fit / complement / risk / non-relation judgements | closed | kT | trust | — | R1 | meter | SPEC; intro path IMPL | B(build) | `primitives/CANON.md` MEDIATION_LAWS; `stories/consult-storyweaver.md`; `chambers/intro_clearing/` |
@@ -192,7 +192,7 @@ in-ch/ext/refused/`—` · rung: R1/R2/R3/any · extr: 1shot/meter/campgn/`—`.
 | Committed alpha attestation (hash now, score later) | closed | self | est | ext (neutral harness vs public prices) | R2 | meter | NAMED | B(est) | `stories/MARKETS.md` §3 |
 | Cohort aggregate (N-party, real DP ε) | declared | kT | est | — | R1 | meter | NAMED | B(est) | `stories/MARKETS.md` §7 |
 | Expert confidential consult (typed severity verdict) | schema | 2T | trust | ext (audited samples) | R1 | meter | NAMED | B(schema) | `stories/MARKETS.md` §4 |
-| Oracle-approved patch acceptance (quantized bands) | closed | 2T | trust | in-ch | R2 | meter | SPEC | B(build) | `private: autoresearch/2026-07-01-premier-use-cases/README.md` §3; `primitives/market.ts`, `primitives/pricing.ts` |
+| Oracle-approved patch acceptance (quantized bands) | closed | 2T | trust | in-ch | R2 | meter | SPEC | B(build) | `docs/autoresearch/2026-07-01-premier-use-cases/README.md` §3; `primitives/market.ts`, `primitives/pricing.ts` |
 | CI-verdict-as-oracle (pay-on-green) | closed | 2T | trust | in-ch | R2 | meter | SPEC; kernel binding IMPL | B(build) | `stories/gardener.md`; kernel charge_ids law |
 
 ### C. Verification, attestation, audit
@@ -202,9 +202,9 @@ in-ch/ext/refused/`—` · rung: R1/R2/R3/any · extr: 1shot/meter/campgn/`—`.
 | Outcome attestation (bonded, quorum'd, slashable) | closed | ext parties | trust | ext (it IS the ext-closure machinery) | R1 | meter | IMPL | B(ext) | charge-settlement/2, `ASSURANCE.md` L2; `stories/party-matchmaker.md` Act 4 |
 | Retroactive appreciation tap (glad/neutral/noise) | closed | 2T | trust | ext | R1 | meter | NAMED | B(ext) | `stories/attention-guardian.md` |
 | R2 deterministic run + stranger re-run | — | self | prov | — | R2 | — | IMPL | A | `chambers/runtime/RUNNER-SPEC.md` |
-| Environment observation (R1 hashes) | — | self | trust | — | R1 | — | IMPL (claimClass stamping open) | A | `RUNTIME.md`; ENVIRONMENT_LAWS; the chamber wedge's `finalize_claims` (private) |
+| Environment observation (R1 hashes) | — | self | trust | — | R1 | — | IMPL (claimClass stamping open) | A | `RUNTIME.md`; ENVIRONMENT_LAWS; `chambers/chamber.py` (`finalize_claims`) |
 | TEE attestation-gated key release | — | self | prov | — | R3 | — | NAMED | B(R3) | `RUNTIME.md` R3 |
-| Denial canaries (demonstrated OS denial) | closed | self | trust | — | R1 | — | IMPL | A | the corpus demo's confinement canaries (private) |
+| Denial canaries (demonstrated OS denial) | closed | self | trust | — | R1 | — | IMPL | A | `chambers/corpus_demo/test_confinement.py` |
 | Estimator adversarial probe (sound + tight over 1472 emissions) | — | self | trust (L3 empirical) | — | R1 | — | IMPL | A | `ASSURANCE.md` L3; `chambers/d1_bounty/estimator_probe.py` |
 | Conformance replay (two shared-nothing impls, bit-for-bit) | — | any | prov | — | any | — | IMPL | A | `ASSURANCE.md` L1; `chambers/conformance/`, `chambers/kernel/rust_ledger/` |
 | Peer-prediction quality scoring | closed | kT | trust | — | R1 | meter | IMPL sim | B(build) | `FRAMEWORKS.md` F5; `chambers/peer_sim/` |
@@ -217,17 +217,17 @@ in-ch/ext/refused/`—` · rung: R1/R2/R3/any · extr: 1shot/meter/campgn/`—`.
 
 | Operation | alph | silo | lane | closure | rung | extr | status | tier | source |
 |---|---|---|---|---|---|---|---|---|---|
-| Priced introduction clearing | closed | 2T | trust | in-ch | R1 | meter | IMPL (contingent-fee leg = named residue, `PARTY_LANE_GAPS`) | A | `private: autoresearch/2026-07-01-premier-use-cases/README.md` §2; PRICING_LAWS; `chambers/intro_clearing/` |
+| Priced introduction clearing | closed | 2T | trust | in-ch | R1 | meter | IMPL (contingent-fee leg = named residue, `PARTY_LANE_GAPS`) | A | `docs/autoresearch/2026-07-01-premier-use-cases/README.md` §2; PRICING_LAWS; `chambers/intro_clearing/` |
 | Attention notification (credits AND bits, atomic) | closed | 2T+3rd | trust | in-ch | R1 | meter | IMPL | A | `chambers/kernel/attention_node.py`, `chambers/kernel/demo_attention_notify.py`; `stories/party-matchmaker.md` Act 3 |
-| Denominator control (bucketed pool sizes) | closed | kT | trust | — | R1 | meter | SPEC | B(build) | MATCHING_LAWS; `private: autoresearch/2026-06-29-orthogonal-type-systems/01-orthogonal-type-atlas.md` §11 |
+| Denominator control (bucketed pool sizes) | closed | kT | trust | — | R1 | meter | SPEC | B(build) | MATCHING_LAWS; `docs/autoresearch/2026-06-29-orthogonal-type-systems/01-orthogonal-type-atlas.md` §11 |
 | Bilateral reveal / identity widening | closed | 2T | prov (`chambers/lean/ChargeKernel/Widening.lean`) | — | R1 | 1shot (one-way) | SPEC; algebra IMPL | B(build) | `stories/consult-storyweaver.md` runs 2/6; COALITION_LAWS |
 
 ### E. Trade and negotiation lifecycle
 
 | Operation | alph | silo | lane | closure | rung | extr | status | tier | source |
 |---|---|---|---|---|---|---|---|---|---|
-| Claim commitment (hash first, salted) | closed | self | prov | — | R1 | 1shot | IMPL sim / SPEC | B(build) | `private: autoresearch/2026-07-01-premier-use-cases/README.md` §1; `chambers/ip_trade_sim/SIM.md`; `primitives/negotiation.ts` |
-| Staged reveal ladder (reciprocity-gated) | schema | 2T | trust | — | R1 | campgn (walk-away timing is an emission) | SPEC | B(schema) | NEGOTIATION_LAWS; `private: autoresearch/2026-07-01-premier-use-cases/README.md` §1 |
+| Claim commitment (hash first, salted) | closed | self | prov | — | R1 | 1shot | IMPL sim / SPEC | B(build) | `docs/autoresearch/2026-07-01-premier-use-cases/README.md` §1; `chambers/ip_trade_sim/SIM.md`; `primitives/negotiation.ts` |
+| Staged reveal ladder (reciprocity-gated) | schema | 2T | trust | — | R1 | campgn (walk-away timing is an emission) | SPEC | B(schema) | NEGOTIATION_LAWS; `docs/autoresearch/2026-07-01-premier-use-cases/README.md` §1 |
 | Black-box probe (the distillation channel) | declared | 2T | est | — | R1 | campgn | IMPL sim | B(declared) | `chambers/ip_trade_sim/SIM.md` |
 | Appraisal / valuation (benchmark-normalized marginal) | declared | self | est | — | R1 | meter | IMPL sim | B(est) | `chambers/ip_trade_sim/economics.py` |
 | Price negotiation (metered rounds, commitments persist) | declared | 2T | est | — | R1 | meter | IMPL sim | B(declared) | `chambers/ip_trade_sim/price_debate.py`, `chambers/ip_trade_sim/SIM.md` |
@@ -269,13 +269,13 @@ disclosure axes are marked `—` and rung is `any` (the accounting ladder,
 
 | Operation | alph | silo | lane | closure | rung | extr | status | tier | source |
 |---|---|---|---|---|---|---|---|---|---|
-| Preflight review ×2 (adversarial-safety + proportionality) | — | self | trust | — | R1 | — | IMPL | A | the chamber runbook's four gates (private) |
-| Release review ×2 (privacy + injection/truthfulness) | — | self | trust | — | R1 | — | IMPL | A | the chamber runbook (private) |
-| Deterministic scans (secrets, paths, timestamps, blobs) | — | self | prov (deterministic) | — | R1 | — | IMPL | A | the chamber runbook (private) |
+| Preflight review ×2 (adversarial-safety + proportionality) | — | self | trust | — | R1 | — | IMPL | A | `chambers/CHAMBER.md` (four gates) |
+| Release review ×2 (privacy + injection/truthfulness) | — | self | trust | — | R1 | — | IMPL | A | `chambers/CHAMBER.md` |
+| Deterministic scans (secrets, paths, timestamps, blobs) | — | self | prov (deterministic) | — | R1 | — | IMPL | A | `chambers/CHAMBER.md` |
 | Canonicality / admission review (requested vs justified capacity) | — | any | trust | — | R1 | — | SPEC | B(build) | `primitives/CANON.md` MEDIATION_LAWS; `stories/consult-storyweaver.md` runs 1/2/7 |
 | Inferential-target (collateral leakage) screen | — | kT | est (`unenumeratedTargetsRemain: true` standing) | — | R1 | — | SPEC | B(est) | `primitives/coalition.ts` frontier #16 |
 | Subject consent gate + response right | schema | 2T+subject | trust | — | R1 | meter | NAMED (G4) | B(build) | `stories/reference-check.md` |
-| Owner release decision (human gate on content) | — | self | trust | — | R1 | — | IMPL | A | CORE_LAWS; the chamber wedge (private) |
+| Owner release decision (human gate on content) | — | self | trust | — | R1 | — | IMPL | A | CORE_LAWS; `chambers/chamber.py` |
 
 ## 5. The premier case, walked
 
@@ -289,7 +289,7 @@ The 22-step IP-mediation protocol (`primitives/CALCULUS.md` §7,
   entropy figure it records is an `est`-lane input (B-grade; see step 11).
 - Step 3, gatePub envelope check — free by simulatability (L5).
 - Step 14, influence pass — the paired-ablation harness runs
-  (the corpus demo and egress harness (both private)); its
+  (`chambers/corpus_demo/`; the egress harness (private)); its
   *protocol position* as a pre-release consent-time pass is still SPEC.
 - Step 15, release + one drill-down facet under the printed cut bound.
 - Step 16 (core), settlement — escrow bound to exact charge ids,
@@ -391,7 +391,7 @@ Axis reconciliations owed:
   across the sim/kernel boundary (`chambers/ip_trade_sim/types.py` vs
   kernel/stories).
 - **The atlas ObservableClass × precision × cadence taxonomy**
-  (`private: autoresearch/2026-06-29-orthogonal-type-systems/01-orthogonal-type-atlas.md`
+  (`docs/autoresearch/2026-06-29-orthogonal-type-systems/01-orthogonal-type-atlas.md`
   §6) is the richest emission-surface axis in the corpus and is ignored by
   CALCULUS/STRUCTURE — it is the concrete checklist the calculus's
   every-observable-enumerated proviso needs.

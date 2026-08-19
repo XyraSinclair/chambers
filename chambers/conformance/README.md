@@ -2,7 +2,7 @@
 
 Every receipt in every Chamber slice (`ip_trade_sim`, `d1_bounty`,
 `intro_clearing`) carries the same non-claim, and it is the top item on the D1
-build decision's kill list (`private: autoresearch/2026-07-02-cooperative-economy-atlas/README.md`) (§4):
+build decision's kill list (`docs/autoresearch/2026-07-02-cooperative-economy-atlas/README.md`) (§4):
 
 > counterparty-compilable accounting is **ASSERTED here, not shown** — one
 > process, one trusted object; a second independent implementation agreeing

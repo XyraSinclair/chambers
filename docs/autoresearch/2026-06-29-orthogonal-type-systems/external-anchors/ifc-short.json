@@ -1,0 +1,75 @@
+{
+  "query": "information flow control",
+  "sources": [
+    "arxiv"
+  ],
+  "count": 2,
+  "results": [
+    {
+      "source": "arxiv",
+      "source_id": "2606.23277v1",
+      "title": "GIF: Locally Sound Geometric Information Flow Control for LLMs",
+      "authors": [
+        "Adam Storek",
+        "Nikolaus Holzer",
+        "Zhuo Zhang",
+        "Suman Jana"
+      ],
+      "abstract": "Large language models increasingly mediate interactions between sensitive data, untrusted inputs, and privileged actions in agentic systems, creating security and privacy risks. These range from prompt injections that manipulate downstream tool use to leakage of confidential information through model outputs. Recent Information Flow Control (IFC)-based defenses show promise but lack a principled semantic foundation for reasoning about information flow through the model itself. Since any input token may influence any output token in an autoregressive LLM, existing approaches suffer from severe taint explosion. We present Geometric Information Flow (GIF), a semantic framework for tracking information flow from input tokens to outputs. GIF uses the LLM Jacobian and local output geometry to upper-bound the Shannon mutual information between perturbed input spans and model outputs, yielding a scalable measure computable on large models via automatic differentiation and low-rank approximation. Unlike attention-based or correlational attribution heuristics, GIF satisfies local geometric soundness, and we provide a fully mechanized Lean 4 proof that it upper-bounds the true information flow induced by a given prompt under local regularity assumptions. We evaluate GIF on integrity and confidentiality tasks across multiple prompt-injection and privacy-leakage benchmarks. GIF achieves near-perfect recall even without a downstream declassifier, outperforming attention-based baselines. Combined with lightweight LLM-based declassifiers, it matches or exceeds the F1 of direct LLM-as-judge baselines such as GPT-5.5 xhigh reasoning while using up to 81x lower token cost. GIF flows detected with small surrogate models transfer to larger state-of-the-art models and other model families, even when the surrogate is up to 200x smaller, suggesting black-box deployment without gradient access.",
+      "published_date": "2026-06-22",
+      "updated_date": "2026-06-22",
+      "categories": [
+        "cs.AI"
+      ],
+      "doi": null,
+      "version": "1",
+      "landing_page_url": "https://arxiv.org/abs/2606.23277v1",
+      "pdf_url": "https://arxiv.org/pdf/2606.23277v1",
+      "text_url": null,
+      "repo_url": null,
+      "journal_publication": null,
+      "retrieval_capabilities": {
+        "can_fetch_pdf": true,
+        "can_fetch_text": false,
+        "text_format": null,
+        "section_extraction_quality": "low",
+        "blocked_reason": null
+      },
+      "retrieval_note": null,
+      "relevance_score": 28.526
+    },
+    {
+      "source": "arxiv",
+      "source_id": "2606.20655v1",
+      "title": "Input-schema identifiability limits in physics-informed surrogates for mechanics-governed flow",
+      "authors": [
+        "Daniel Cieslak",
+        "Andrzej Czyzewski"
+      ],
+      "abstract": "Physics-informed and data-driven surrogates are increasingly used to approximate mechanics-governed flow fields, but the target quantities assigned to such models are not always identifiable from the input variables available at prediction time. We introduce an input-schema identifiability certificate for computational surrogates. Starting from a reduced physical model, the certificate decomposes a target field into components that are measurable from geometry, components that require boundary-condition information, and components identifiable only up to a symmetry quotient. This yields a pre-training audit: it predicts which oracle-channel interventions should reduce error, which should fail, and which ambiguity cannot be removed by changing the architecture, loss, optimizer, or sample size. We instantiate the framework for incompressible tubular flow using a Cosserat-rod reduction, where lumen velocity separates into a mesh-measurable tangent direction, a boundary-condition-dependent magnitude, and a signed-orientation ambiguity. Controlled experiments on patient-specific aortic CFD geometries, analytic Womersley flows, and an advection-diffusion transfer problem confirm the predicted pattern: supplying signed direction collapses angular error to the oracle regime, whereas supplying magnitude without orientation leaves the predicted sign ambiguity and yields 16-33 percent per-node sign flips. The results provide a mechanics-based diagnostic for deciding whether a surrogate modelling task is physically identifiable before training, and expose failure modes that aggregate error metrics can hide.",
+      "published_date": "2026-06-08",
+      "updated_date": "2026-06-08",
+      "categories": [
+        "physics.comp-ph",
+        "cs.LG",
+        "physics.flu-dyn"
+      ],
+      "doi": null,
+      "version": "1",
+      "landing_page_url": "https://arxiv.org/abs/2606.20655v1",
+      "pdf_url": "https://arxiv.org/pdf/2606.20655v1",
+      "text_url": null,
+      "repo_url": null,
+      "journal_publication": null,
+      "retrieval_capabilities": {
+        "can_fetch_pdf": true,
+        "can_fetch_text": false,
+        "text_format": null,
+        "section_extraction_quality": "low",
+        "blocked_reason": null
+      },
+      "retrieval_note": null,
+      "relevance_score": 7.467
+    }
+  ]
+}

@@ -160,7 +160,7 @@ in the alphabet has an unmetered channel.
 ```haskell
 -- Unforgeable witness that party p signed codebook v for protocol π.
 -- Canon: the owner-token approval in core.ts; program-level consent
--- per the clean-room analysis (private: research/data-clean-rooms-alpha.md):
+-- per the clean-room analysis (docs/research/data-clean-rooms-alpha.md):
 -- legal reviews (codebook, worker program) ONCE, before data enters.
 Consent :: Silo -> Type -> Type
 sign    :: PrivateKey p -> CodebookHash v -> ProgramHash -> Consent {p} v

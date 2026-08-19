@@ -27,17 +27,22 @@ Capabilities, not files:
   trading under a leakage meter, priced introductions, metered security
   research, peer prediction with metered redundancy — all running on the
   same kernel path a deployment would use.
+- **The working chamber and its record.** The single-file demo chamber and
+  its runbook (`chambers/chamber.py`, `chambers/CHAMBER.md`), the court-file
+  and requester-bundle verifiers, the corpus confinement demo, the
+  compliance kit, and the research record that produced the canon
+  (`docs/autoresearch/`, `docs/ideation/`, `docs/research/`).
 
 ## What this withholds, and where the seam is
 
 - **The business layer**: revenue mechanics, pricing, go-to-market, and the
   gap-audit roadmap. The seam is clean: nothing in this repo depends on
   them.
-- **The deployment record**: the operator's live chamber, its dogfood log,
-  and its runbook. Cited here as "private" where canon leans on them; the
-  findings they produced have landed in the specs.
-- **The personal substrate**: demos that run against the operator's own
-  private corpus, and every run artifact derived from it.
+- **The live deployment**: the operator's running chamber — its deploy
+  machinery, egress harness, and dogfood log. Cited here as "private" where
+  canon leans on them; the findings they produced have landed in the specs.
+- **The personal substrate**: runs against the operator's own private
+  corpus, and every artifact derived from them.
 - **The operating position**: calibration history, counterparty
   relationships, and the evidence trail of real trades. These accrue only
   by running trades and cannot be exported at all.

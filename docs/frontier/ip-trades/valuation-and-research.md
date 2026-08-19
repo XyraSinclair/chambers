@@ -3,7 +3,7 @@
 Synthesis of a 56-agent deep pass on the two hard truths of IP trading: **value
 is not a scalar**, and **the unprovable can be estimated**. All three design
 debates resolved to synthesis at high confidence. Raw result:
-`private: autoresearch/` journal for run `wf_1a542b2c-284` (archived reasoning).
+`docs/autoresearch/` journal for run `wf_1a542b2c-284` (archived reasoning).
 
 Method: 7 mechanism families and 6 novelty/OOD estimators characterized with
 real theory and failure modes; 6 real-party personas (the priceless-yet-
