@@ -1,0 +1,382 @@
+name: agent workbench depth repair
+
+on:
+  push:
+    branches:
+      - agent/consolidate-chamber
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+
+env:
+  GH_TOKEN: ${{ github.token }}
+
+concurrency:
+  group: chambers-workbench-depth-repair
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: agent/consolidate-chamber
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Settle earlier jobs and take the latest branch state
+        run: |
+          sleep 120
+          git config user.name "chambers-structure-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git fetch origin agent/consolidate-chamber main
+          git reset --hard origin/agent/consolidate-chamber
+          git merge --no-edit origin/main
+
+      - name: Put experiments at their depth-preserving workbench paths
+        run: |
+          set -euo pipefail
+          mkdir -p workbench workbench/notes chambers/reference tests/reference
+
+          move_experiment() {
+            name="$1"
+            if test -e "workbench/experiments/$name" && ! test -e "workbench/$name"; then
+              git mv "workbench/experiments/$name" "workbench/$name"
+            elif test -e "chambers/$name" && ! test -e "workbench/$name"; then
+              git mv "chambers/$name" "workbench/$name"
+            elif test -e "workbench/$name"; then
+              :
+            else
+              echo "missing experiment: $name" >&2
+              exit 1
+            fi
+          }
+
+          for name in cardinal_wedge d1_bounty intro_clearing ip_trade_sim peer_sim pipeline; do
+            move_experiment "$name"
+          done
+
+          if test -d workbench/experiments; then
+            git rm -f workbench/experiments/__init__.py 2>/dev/null || true
+            rmdir workbench/experiments 2>/dev/null || true
+          fi
+
+          move_note() {
+            old="$1"
+            new="$2"
+            if test -e "$old" && ! test -e "$new"; then
+              mkdir -p "$(dirname "$new")"
+              git mv "$old" "$new"
+            fi
+          }
+          move_note docs/autoresearch workbench/notes/autoresearch
+          move_note docs/ideation workbench/notes/ideation
+          move_note docs/research workbench/notes/research
+          move_note docs/frontier workbench/notes/frontier
+          move_note docs/stories workbench/notes/stories
+          move_note docs/FRAMEWORKS.md workbench/notes/FRAMEWORKS.md
+          move_note docs/STORIES.md workbench/notes/STORIES.md
+
+          printf '%s\n' '"""Non-normative research and experiments."""' > workbench/__init__.py
+
+          if test -f chambers/test_requester_bundle.py && ! test -f tests/reference/test_requester_bundle.py; then
+            git mv chambers/test_requester_bundle.py tests/reference/test_requester_bundle.py
+          fi
+          if test -f chambers/test_chamber_kernel_meter.py && ! test -f tests/reference/test_chamber_kernel_meter.py; then
+            git mv chambers/test_chamber_kernel_meter.py tests/reference/test_chamber_kernel_meter.py
+          fi
+
+          python - <<'PY'
+          from pathlib import Path
+
+          names = (
+              "cardinal_wedge",
+              "d1_bounty",
+              "intro_clearing",
+              "ip_trade_sim",
+              "peer_sim",
+              "pipeline",
+          )
+          replacements = {}
+          for name in names:
+              replacements[f"workbench.experiments.{name}"] = f"workbench.{name}"
+              replacements[f"workbench/experiments/{name}"] = f"workbench/{name}"
+              replacements[f"chambers.{name}"] = f"workbench.{name}"
+              replacements[f"chambers/{name}"] = f"workbench/{name}"
+              replacements[f"from chambers import {name}"] = f"from workbench import {name}"
+          replacements.update(
+              {
+                  "docs/autoresearch": "workbench/notes/autoresearch",
+                  "docs/ideation": "workbench/notes/ideation",
+                  "docs/research": "workbench/notes/research",
+                  "docs/frontier": "workbench/notes/frontier",
+                  "docs/stories": "workbench/notes/stories",
+                  "docs/FRAMEWORKS.md": "workbench/notes/FRAMEWORKS.md",
+                  "docs/STORIES.md": "workbench/notes/STORIES.md",
+              }
+          )
+          suffixes = {".py", ".md", ".toml", ".yml", ".yaml", ".ts", ".rs", ".lean", ".txt", ".cff"}
+          for path in sorted(Path(".").rglob("*")):
+              if not path.is_file() or ".git" in path.parts or path.suffix not in suffixes:
+                  continue
+              try:
+                  original = path.read_text(encoding="utf-8")
+              except UnicodeDecodeError:
+                  continue
+              rewritten = original
+              for old, new in sorted(replacements.items(), key=lambda item: -len(item[0])):
+                  rewritten = rewritten.replace(old, new)
+              if rewritten != original:
+                  path.write_text(rewritten, encoding="utf-8")
+
+          law = Path("chambers/CHAMBER.md")
+          text = law.read_text(encoding="utf-8")
+          marker = "# Chamber Law"
+          if marker not in text:
+              raise SystemExit("CHAMBER.md has no Chamber Law marker")
+          if not text.startswith(marker):
+              law.write_text(text[text.index(marker):].rstrip() + "\n", encoding="utf-8")
+          PY
+
+      - name: Write the depth-preserving indexes and boundary test
+        run: |
+          cat > workbench/README.md <<'EOF'
+          # Workbench
+
+          This directory is non-normative. It holds executable experiments, research notebooks, literature syntheses, discarded mechanisms, and narrative use cases.
+
+          Nothing here defines Chambers behavior. Workbench code may import maintained interfaces to test an idea. Maintained code may not import the workbench.
+
+          ## Executable experiments
+
+          `cardinal_wedge/`, `d1_bounty/`, `intro_clearing/`, `ip_trade_sim/`, `peer_sim/`, and `pipeline/` retain the same path depth they had under `chambers/`. This is deliberate: quarantine should not alter file-relative fixture and repository-root behavior.
+
+          ## Research record
+
+          `notes/` contains autoresearch runs, ideation, deep research, frontier papers, frameworks, and story material.
+
+          ## Promotion
+
+          An idea leaves the workbench only when its public contract is named, its failure modes are stated, its executable behavior has deterministic evidence, and maintained documentation points to that evidence. Moving a file is not promotion.
+          EOF
+
+          cat > chambers/reference/README.md <<'EOF'
+          # Reference chamber
+
+          `chambers/chamber.py` integrates the maintained components into a local, requester-facing release gate. It is an application, not the protocol definition.
+
+          Its model-facing policy is [`../CHAMBER.md`](../CHAMBER.md). That file contains law only. Operating instructions live here so deployment prose is not injected into every model review.
+
+          ## Run
+
+          ```bash
+          CHAMBER_WORKSPACE=/path/to/curated-scope \
+          CHAMBER_CONTEXT_PACKET=/path/to/curated-scope/context.txt \
+          python -m chambers.chamber
+          ```
+
+          The process prints a requester URL, an owner URL, and a passcode. It binds to `127.0.0.1` unless `CHAMBER_HOST` says otherwise. A tunnel is an operator choice; bearer URLs are not authentication proofs.
+
+          Use `CHAMBER_AUTOMATIC=0` for per-run owner approval. Fixed-question mode requires `CHAMBER_FREEFORM_QUESTIONS=0` and an explicit `CHAMBER_ALLOWED_QUESTION` or `CHAMBER_ALLOWED_QUESTIONS`. State and court files under `chambers/.chamber/` are operator-private.
+
+          The worker's outer confinement is macOS-specific today. The inner model sandbox, review gates, and deterministic scans are defense in depth; none proves semantic confidentiality.
+
+          ## Verify an output
+
+          ```bash
+          python -m chambers.check_court_file RUN_DIR \
+            --expect-manifest-root sha256:...
+          python -m chambers.check_requester_bundle requester_bundle.zip \
+            --expect-bundle-root sha256:...
+          ```
+
+          The requester-bundle verifier is deliberately pure standard library and textually independent of the writer. Similar-looking hash and ZIP checks across the two verifiers are therefore not candidates for a shared helper.
+          EOF
+
+          cat > docs/ARCHITECTURE.md <<'EOF'
+          # Repository architecture
+
+          Chambers separates claims, implementations, evidence, and exploration. A reader should be able to tell whether a file states law, executes it, checks it, or merely investigates it.
+
+          ## Maintained surfaces
+
+          | Surface | Location | Role |
+          |---|---|---|
+          | Canon | `docs/BOOK.md`, `docs/primitives/` | Objects, axioms, refusals, and type vocabulary |
+          | Protocol specifications | `chambers/kernel/*-SPEC.md`, `chambers/conformance/SPEC.md` | Versioned decision and serialization contracts |
+          | Python implementation | `chambers/kernel/`, `chambers/conformance/`, `chambers/runtime/` | Reference execution and replay |
+          | Rust checks | `chambers/conformance/rust/`, `chambers/kernel/rust_ledger/` | Implementations checked against frozen corpora |
+          | Formal kernel | `chambers/lean/` | Theorems over the charge algebra and replayed golden traces |
+          | Reference application | `chambers/chamber.py`, `chambers/reference/` | Local release-gate integration and operator runbook |
+          | Portable evidence | `chambers/compliance_kit/`, `chambers/corpus_demo/` | Distributable conformance material and confinement demonstration |
+
+          ## Workbench
+
+          `workbench/` is the sole home for exploratory code and research records. It may depend on maintained interfaces. The maintained package must not depend on it. No workbench result raises the assurance level of the maintained system.
+
+          ## Claim discipline
+
+          The Rust ports are same-author implementations, not independent replications. The Lean development proves the modeled charge algebra, not end-to-end confidentiality. Golden-trace agreement is finite evidence, not an all-input refinement theorem. The reference chamber is locally reproducible; TEE attestation is not implemented.
+
+          ## Reading order
+
+          1. `README.md` for the claim and its limits.
+          2. `docs/BOOK.md` for the minimal system.
+          3. `chambers/kernel/PROTOCOL.md` for executable accounting law.
+          4. `chambers/conformance/SPEC.md` and its traces for the counterparty surface.
+          5. `chambers/lean/README.md` for the exact proof boundary.
+          6. `workbench/README.md` only when investigating discarded or unpromoted directions.
+          EOF
+
+          cat > tests/test_repository_boundaries.py <<'EOF'
+          from __future__ import annotations
+
+          import ast
+          from pathlib import Path
+
+          ROOT = Path(__file__).resolve().parents[1]
+          EXPERIMENTS = (
+              "cardinal_wedge",
+              "d1_bounty",
+              "intro_clearing",
+              "ip_trade_sim",
+              "peer_sim",
+              "pipeline",
+          )
+
+          def test_experiments_live_only_in_the_workbench() -> None:
+              for name in EXPERIMENTS:
+                  assert not (ROOT / "chambers" / name).exists(), name
+                  assert (ROOT / "workbench" / name).is_dir(), name
+
+          def test_research_records_live_only_in_the_workbench() -> None:
+              for name in ("autoresearch", "ideation", "research", "frontier", "stories"):
+                  assert not (ROOT / "docs" / name).exists(), name
+                  assert (ROOT / "workbench" / "notes" / name).is_dir(), name
+
+          def test_maintained_python_does_not_import_the_workbench() -> None:
+              violations: list[str] = []
+              for path in sorted((ROOT / "chambers").rglob("*.py")):
+                  tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+                  for node in ast.walk(tree):
+                      if isinstance(node, ast.Import):
+                          modules = [alias.name for alias in node.names]
+                      elif isinstance(node, ast.ImportFrom) and node.module:
+                          modules = [node.module]
+                      else:
+                          modules = []
+                      for module in modules:
+                          if module == "workbench" or module.startswith("workbench."):
+                              violations.append(f"{path.relative_to(ROOT)} imports {module}")
+              assert not violations, "\n".join(violations)
+
+          def test_model_policy_is_not_an_operator_runbook() -> None:
+              law = (ROOT / "chambers" / "CHAMBER.md").read_text(encoding="utf-8")
+              assert law.startswith("# Chamber Law\n")
+              assert "unzip chamber_v2.zip" not in law
+              assert "cloudflared tunnel" not in law
+              assert (ROOT / "chambers" / "reference" / "README.md").is_file()
+          EOF
+
+          python - <<'PY'
+          from pathlib import Path
+          for path in (Path("README.md"), Path("docs/README.md"), Path("chambers/README.md"), Path("tests/README.md")):
+              if path.exists():
+                  text = path.read_text(encoding="utf-8")
+                  text = text.replace("workbench/experiments/", "workbench/")
+                  text = text.replace("workbench.experiments.", "workbench.")
+                  path.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Regenerate evidence metadata and run every Python contract
+        id: verify
+        run: |
+          set -euo pipefail
+          python -m pip install pytest
+          python -m chambers.compliance_kit.make_kit
+          python -m compileall -q chambers workbench tests
+          python -m pytest -q | tee "$RUNNER_TEMP/pytest.txt"
+          python -m chambers.compliance_kit.make_kit --check | tee "$RUNNER_TEMP/kit.txt"
+          git diff --check
+          echo "pytest_summary=$(tail -n 1 "$RUNNER_TEMP/pytest.txt")" >> "$GITHUB_OUTPUT"
+          echo "kit_summary=$(tail -n 1 "$RUNNER_TEMP/kit.txt")" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and remove all one-shot machinery
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/agent-checkout-export.yml
+          rm -f .github/workflows/agent-polish.yml
+          rm -f .github/workflows/agent-finalize.yml
+          rm -f .github/workflows/agent-recover.yml
+          rm -f .github/workflows/agent-flatten.yml
+          git add -A
+          git diff --cached --check
+          git commit -m "structure: quarantine research without changing path depth"
+          git fetch origin agent/consolidate-chamber
+          git rebase origin/agent/consolidate-chamber || {
+            git rebase --abort
+            echo "remote advanced during repair; refusing to overwrite it" >&2
+            exit 1
+          }
+          git push origin HEAD:agent/consolidate-chamber
+
+      - name: Wait for the final Python, Rust, and Lean checks
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 15); do
+            sleep 10
+            if gh pr checks 2 --repo XyraSinclair/chambers --watch --fail-fast; then
+              exit 0
+            fi
+          done
+          exit 1
+
+      - name: Update the draft PR after final-head verification
+        env:
+          PYTEST_SUMMARY: ${{ steps.verify.outputs.pytest_summary }}
+          KIT_SUMMARY: ${{ steps.verify.outputs.kit_summary }}
+        run: |
+          cat > "$RUNNER_TEMP/pr-body.md" <<EOF
+          ## Purpose
+
+          Make the repository legible as a maintained technical system rather than as an undifferentiated research dump.
+
+          ## Structural cut
+
+          - Moved executable economies and mechanism probes directly under the non-normative \`workbench/\`. Their path depth is unchanged, preserving file-relative fixture and repository-root behavior.
+          - Moved autoresearch, ideation, deep research, frontier papers, frameworks, and stories into \`workbench/notes/\`.
+          - Added an enforced dependency direction: workbench code may exercise maintained interfaces; maintained Python may not import the workbench.
+          - Moved the two large reference-application contract suites out of the import surface and into \`tests/reference/\`.
+
+          ## Reference application
+
+          - Split operator instructions from model-facing law. \`chambers/CHAMBER.md\` contains Chamber Law; \`chambers/reference/README.md\` is the operator runbook.
+          - Kept the application, court-file verifier, requester-bundle verifier, confinement demo, and compliance kit on the maintained side.
+          - Did **not** merge the two offline verifiers. Their repeated parsing and hashing logic is an independence property: the requester checker remains pure standard library and textually independent of the writer.
+
+          ## Public reading surface
+
+          - Added \`docs/ARCHITECTURE.md\` as the map of canon, protocol specs, implementations, proof scope, reference integration, and workbench.
+          - Replaced package and documentation indexes with short, status-bearing maps.
+          - Updated imports, commands, and repository links to the workbench paths.
+
+          ## Compatibility
+
+          Normative protocol identifiers, frozen trace bytes, charge arithmetic, finding codes, settlement law, and theorem statements are unchanged. Import paths for explicitly experimental packages changed from \`chambers.<experiment>\` to \`workbench.<experiment>\`; those paths are intentionally outside the maintained compatibility surface.
+
+          ## Verification
+
+          - Python: \`${PYTEST_SUMMARY}\`
+          - Portable evidence manifest: \`${KIT_SUMMARY}\`
+          - Final-head GitHub Actions: Python, Rust, and Lean checks passed before this body was published.
+          EOF
+          gh api --method PATCH repos/XyraSinclair/chambers/pulls/2 \
+            --raw-field title='Separate the maintained system from the workbench' \
+            --raw-field body="$(cat "$RUNNER_TEMP/pr-body.md")" >/dev/null
