@@ -1,0 +1,23 @@
+name: agent checkout export
+
+on:
+  push:
+    branches:
+      - agent/consolidate-chamber
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pack credential-free checkout
+        run: tar --exclude=.git -czf "$RUNNER_TEMP/chambers-checkout.tgz" .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chambers-checkout-${{ github.sha }}
+          path: ${{ runner.temp }}/chambers-checkout.tgz
+          retention-days: 1
+          if-no-files-found: error
