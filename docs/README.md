@@ -18,6 +18,22 @@ your question.
 The machine-readable source for the literature map is
 [`../LITERATURE.json`](../LITERATURE.json).
 
+## Code families
+
+The documents cite short codes; each family has one defining home:
+
+- `A1–A12` axioms and `R1–R14` refusal-register rows — [`BOOK.md`](BOOK.md).
+- `I`/`S`/`X`/`C`/`P`/`V`/`W` + number — audit finding codes, defined in the
+  kernel specifications ([`SPECS.md`](SPECS.md) maps each surface).
+- `L0–L5` — assurance-ladder rungs — [`ASSURANCE.md`](ASSURANCE.md).
+- `E1–E8` — endpoint-register rows — [`MACHINES.md`](MACHINES.md).
+- `R1–R3` — runtime rungs — [`RUNTIME.md`](RUNTIME.md); distinct from the
+  refusal rows above.
+- `G` + number — gaps named in the story record
+  ([`workbench/notes/STORIES.md`](../workbench/notes/STORIES.md)).
+- `F1–F9` — adjacent-framework entries
+  ([`workbench/notes/FRAMEWORKS.md`](../workbench/notes/FRAMEWORKS.md)).
+
 ## Execution and operations
 
 - [`MACHINES.md`](MACHINES.md) lists runnable machines and one command for each.

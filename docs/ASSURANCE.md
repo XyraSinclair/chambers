@@ -1,4 +1,4 @@
-# Assurance: how we will KNOW the stack is solved
+# Assurance — the ladder from types to deployment
 
 "Solved" is not a feeling and not a proof of everything. It is a **layered
 assurance case** where every layer is machine-checked at its own level, the
@@ -10,9 +10,8 @@ shipped wedge and the kernel.
 ## The ladder
 
 **L0 — Types.** Illegal states unrepresentable. Fourteen modules, laws as
-exported consts, admission-gated. Status: HOLDS (`deno check
---sloppy-imports` green; survived
-one 207-agent adversarial pass).
+exported consts, admission-gated. Status: HOLDS (`tsc --strict` green in CI
+over `docs/primitives/`; survived a 207-agent adversarial review pass).
 
 **L1 — Conformance.** A reference implementation plus a trace checker: every
 implementation must emit court files that replay against `SPEC.md`. Status:
@@ -347,7 +346,7 @@ Reality filed protocol-grade bugs no sim or proof caught (run-scoped
 accumulation hole; last-writer-wins persist) — both fixed same-day with
 the kernel's own primitives (pair-lifetime account; CRDT merge-on-persist).
 
-## The calculus decision (yes, and it already has a shape)
+## The calculus decision
 
 We do need a special calculus for information leakage, and it is small: one
 **indexed charge algebra**, three instantiations.
@@ -382,7 +381,7 @@ Users do not upload because of proofs. They upload because of:
 4. **Cards, not corpora** — canonicality-reviewed agents, attention laws,
    autonomy envelopes. The user reads four lines and a price.
 
-## Build order (fast, without lying)
+## Build order
 
 1. Extend `conformance/SPEC.md` to coalition + mediation records; court
    files gain ExposureAccount / StructureJudgement / WideningEvent /
@@ -401,8 +400,3 @@ Users do not upload because of proofs. They upload because of:
 5. Wedges to design partners: D1 bounty (committed decision) and intro
    clearing v2 with pool-cleared pricing + tuple judgement store. (L5 contact
    with reality)
-
-Fleet discipline: canon and review stay with the lead; sims and conformance
-extensions parallelize across workers on disjoint files; archive freely — a wedge
-that doesn't survive contact goes to `archive/` with its lessons, not into
-the spine.

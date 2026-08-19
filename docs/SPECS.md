@@ -20,7 +20,7 @@ claim of conformance against one means.
 | `charge-identity/1`, `charge-identity/2` | [`chambers/kernel/IDENTITY-SPEC.md`](../chambers/kernel/IDENTITY-SPEC.md) (`/2` is §7, the authoring front-ends) |
 | `charge-attribution/1`, `charge-attribution/2` | [`chambers/kernel/ATTRIBUTION-SPEC.md`](../chambers/kernel/ATTRIBUTION-SPEC.md) Parts I and II |
 | `egress-accountant/1` | [`chambers/conformance/SPEC.md`](../chambers/conformance/SPEC.md) |
-| `chamber-node/1` | [`chambers/kernel/node.py`](../chambers/kernel/node.py) module header; endpoint table in [`MACHINES.md`](MACHINES.md) |
+| `chamber-node/1` | [`chambers/kernel/node.py`](../chambers/kernel/node.py) module header; endpoint entry in [`MACHINES.md`](MACHINES.md) |
 | `attention-node/1` | [`chambers/kernel/attention_node.py`](../chambers/kernel/attention_node.py) module header |
 | `review-audit/1` | [`chambers/review_audit/PROBE-SPEC.md`](../chambers/review_audit/PROBE-SPEC.md) |
 | `runtime-r2/1` | [`chambers/runtime/RUNNER-SPEC.md`](../chambers/runtime/RUNNER-SPEC.md) |

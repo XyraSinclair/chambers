@@ -279,7 +279,7 @@ Every law key in canon, mapped. Verdicts: `AXIOM An` (instance of axiom n), `COR
 
 Accounting: 146 law keys + the keyless L4 row + 5 gate tests = 152 rows, all mapped; 0 excluded, 0 dropped. Primary verdicts: 46 AXIOM, 92 COR, 2 THEOREM, 11 NAMED, 1 OBJECT (definitional); 23 rows in total carry a NAMED Rk, since several carry both a derivation and a refusal.
 
-## Climb log
+## Derivation notes
 
 - Merged the candidates' separate Emission axiom into ALPHABET (A3) and replaced its "unless public" escape clause with the Publicity biconditional (A4), so free-vs-charged is one iff rather than an exception.
 - Split the candidates' Money/Settlement axiom into derived instances — payment-as-symbol (A3+A8), authority-never-rides-payment (A1), value-moves-iff-metered-work-moved (A10+A6) — and re-derived every money law with nothing lost; 13 → 12 axioms held.
