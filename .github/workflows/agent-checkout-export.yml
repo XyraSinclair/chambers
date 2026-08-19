@@ -1,26 +1,356 @@
-name: agent checkout export
+name: agent consolidation
 
 on:
   push:
     branches:
       - agent/consolidate-chamber
-  pull_request:
-    branches:
-      - main
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  export:
+  consolidate:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - name: Pack credential-free checkout
-        run: tar --exclude=.git -czf "$RUNNER_TEMP/chambers-checkout.tgz" .
-      - uses: actions/upload-artifact@v4
         with:
-          name: chambers-checkout-${{ github.sha }}
-          path: ${{ runner.temp }}/chambers-checkout.tgz
-          retention-days: 1
-          if-no-files-found: error
+          fetch-depth: 0
+          ref: agent/consolidate-chamber
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Rebase the work on current main
+        run: |
+          git config user.name "chambers-structure-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git fetch origin main
+          git merge --no-edit origin/main
+
+      - name: Build the maintained/workbench boundary
+        run: |
+          cat > "$RUNNER_TEMP/consolidate.py" <<'PY'
+          from __future__ import annotations
+
+          import ast
+          import os
+          import posixpath
+          import re
+          import subprocess
+          from pathlib import Path, PurePosixPath
+
+          ROOT = Path.cwd()
+
+          EXPERIMENTS = (
+              "cardinal_wedge",
+              "d1_bounty",
+              "intro_clearing",
+              "ip_trade_sim",
+              "peer_sim",
+              "pipeline",
+          )
+
+          PREFIX_MOVES = {
+              **{
+                  f"chambers/{name}": f"workbench/experiments/{name}"
+                  for name in EXPERIMENTS
+              },
+              "docs/autoresearch": "workbench/notes/autoresearch",
+              "docs/ideation": "workbench/notes/ideation",
+              "docs/research": "workbench/notes/research",
+              "docs/frontier": "workbench/notes/frontier",
+              "docs/stories": "workbench/notes/stories",
+              "docs/FRAMEWORKS.md": "workbench/notes/FRAMEWORKS.md",
+              "docs/STORIES.md": "workbench/notes/STORIES.md",
+          }
+
+          def moved_path(path: str) -> str:
+              for old, new in sorted(PREFIX_MOVES.items(), key=lambda item: -len(item[0])):
+                  if path == old:
+                      return new
+                  if path.startswith(old + "/"):
+                      return new + path[len(old):]
+              return path
+
+          tracked_before = subprocess.check_output(
+              ["git", "ls-files"], text=True
+          ).splitlines()
+          old_to_new = {path: moved_path(path) for path in tracked_before}
+          new_to_old = {new: old for old, new in old_to_new.items()}
+
+          for old, new in PREFIX_MOVES.items():
+              src = ROOT / old
+              dst = ROOT / new
+              if not src.exists():
+                  continue
+              if dst.exists():
+                  raise SystemExit(f"refusing to overwrite {new}")
+              dst.parent.mkdir(parents=True, exist_ok=True)
+              subprocess.run(["git", "mv", old, new], check=True)
+
+          (ROOT / "workbench").mkdir(exist_ok=True)
+          (ROOT / "workbench" / "experiments").mkdir(parents=True, exist_ok=True)
+          (ROOT / "workbench" / "notes").mkdir(parents=True, exist_ok=True)
+          (ROOT / "workbench" / "__init__.py").write_text(
+              '"""Non-normative research and experiments."""\n',
+              encoding="utf-8",
+          )
+          (ROOT / "workbench" / "experiments" / "__init__.py").write_text(
+              '"""Executable experiments; no compatibility guarantee."""\n',
+              encoding="utf-8",
+          )
+
+          def rewrite_markdown_link(file_path: Path, old_file: str, text: str) -> str:
+              pattern = re.compile(r"(!?\[[^\]]*\]\()([^\n)]*)(\))")
+              new_file = file_path.relative_to(ROOT).as_posix()
+
+              def replace(match: re.Match[str]) -> str:
+                  destination = match.group(2)
+                  if not destination or destination.startswith(("#", "<")):
+                      return match.group(0)
+                  first, *title = destination.split(maxsplit=1)
+                  if re.match(r"^[A-Za-z][A-Za-z0-9+.-]*:", first):
+                      return match.group(0)
+                  if first.startswith("/"):
+                      return match.group(0)
+
+                  path_part, hashmark, anchor = first.partition("#")
+                  if not path_part:
+                      return match.group(0)
+                  old_target = posixpath.normpath(
+                      posixpath.join(posixpath.dirname(old_file), path_part)
+                  )
+                  new_target = moved_path(old_target)
+                  if new_target == old_target:
+                      return match.group(0)
+                  relative = posixpath.relpath(
+                      new_target,
+                      start=posixpath.dirname(new_file) or ".",
+                  )
+                  if path_part.endswith("/") and not relative.endswith("/"):
+                      relative += "/"
+                  rewritten = relative + (hashmark + anchor if hashmark else "")
+                  if title:
+                      rewritten += " " + title[0]
+                  return match.group(1) + rewritten + match.group(3)
+
+              return pattern.sub(replace, text)
+
+          for path in sorted(ROOT.rglob("*.md")):
+              if ".git" in path.parts:
+                  continue
+              rel = path.relative_to(ROOT).as_posix()
+              old_file = new_to_old.get(rel, rel)
+              text = path.read_text(encoding="utf-8")
+              rewritten = rewrite_markdown_link(path, old_file, text)
+              if rewritten != text:
+                  path.write_text(rewritten, encoding="utf-8")
+
+          replacements: dict[str, str] = {}
+          for name in EXPERIMENTS:
+              replacements[f"chambers.{name}"] = f"workbench.experiments.{name}"
+              replacements[f"chambers/{name}"] = f"workbench/experiments/{name}"
+              replacements[f"from chambers import {name}"] = (
+                  f"from workbench.experiments import {name}"
+              )
+          replacements.update(
+              {
+                  "docs/autoresearch": "workbench/notes/autoresearch",
+                  "docs/ideation": "workbench/notes/ideation",
+                  "docs/research": "workbench/notes/research",
+                  "docs/frontier": "workbench/notes/frontier",
+                  "docs/stories": "workbench/notes/stories",
+                  "docs/FRAMEWORKS.md": "workbench/notes/FRAMEWORKS.md",
+                  "docs/STORIES.md": "workbench/notes/STORIES.md",
+              }
+          )
+
+          text_suffixes = {
+              ".py", ".md", ".json", ".jsonl", ".toml", ".yml", ".yaml",
+              ".ts", ".rs", ".lean", ".txt", ".cff",
+          }
+          for path in sorted(ROOT.rglob("*")):
+              if not path.is_file() or ".git" in path.parts:
+                  continue
+              if path.suffix not in text_suffixes:
+                  continue
+              try:
+                  text = path.read_text(encoding="utf-8")
+              except UnicodeDecodeError:
+                  continue
+              rewritten = text
+              for old, new in sorted(replacements.items(), key=lambda item: -len(item[0])):
+                  rewritten = rewritten.replace(old, new)
+              if rewritten != text:
+                  path.write_text(rewritten, encoding="utf-8")
+
+          law_path = ROOT / "chambers" / "CHAMBER.md"
+          law_text = law_path.read_text(encoding="utf-8")
+          law_marker = "# Chamber Law"
+          if law_marker in law_text and not law_text.startswith(law_marker):
+              law_text = law_text[law_text.index(law_marker):]
+              law_path.write_text(law_text.rstrip() + "\n", encoding="utf-8")
+
+          reference_dir = ROOT / "chambers" / "reference"
+          reference_dir.mkdir(parents=True, exist_ok=True)
+          (reference_dir / "README.md").write_text(
+              """# Reference chamber\n\n"
+              "`chambers/chamber.py` is the reference integration of the protocol into a local, "
+              "requester-facing release gate. It is an application, not the protocol definition.\n\n"
+              "Its policy is [`../CHAMBER.md`](../CHAMBER.md). That file contains only model-facing "
+              "law; operating instructions live here so policy prompts do not carry deployment prose.\n\n"
+              "## Run\n\n"
+              "From the repository root, point the chamber at one curated context packet:\n\n"
+              "```bash\n"
+              "CHAMBER_WORKSPACE=/path/to/curated-scope \\\n"
+              "CHAMBER_CONTEXT_PACKET=/path/to/curated-scope/context.txt \\\n"
+              "python -m chambers.chamber\n"
+              "```\n\n"
+              "The process prints a requester URL, an owner URL, and a passcode. It binds to "
+              "`127.0.0.1` unless `CHAMBER_HOST` says otherwise. A tunnel is an operator choice; "
+              "bearer URLs are not access-control proofs.\n\n"
+              "Use `CHAMBER_AUTOMATIC=0` for per-run owner approval. Fixed-question mode requires "
+              "both `CHAMBER_FREEFORM_QUESTIONS=0` and an explicit `CHAMBER_ALLOWED_QUESTION` or "
+              "`CHAMBER_ALLOWED_QUESTIONS`. State and court files live under `chambers/.chamber/`; "
+              "they are operator-private and must not be published.\n\n"
+              "The worker sandbox is macOS-specific today. The inner model sandbox and reviewer "
+              "gates are defense in depth; neither proves semantic confidentiality.\n\n"
+              "## Verify an output\n\n"
+              "```bash\n"
+              "python -m chambers.check_court_file RUN_DIR \\\n"
+              "  --expect-manifest-root sha256:...\n"
+              "python -m chambers.check_requester_bundle requester_bundle.zip \\\n"
+              "  --expect-bundle-root sha256:...\n"
+              "```\n\n"
+              "The requester-bundle verifier is deliberately pure standard library and textually "
+              "independent of the writer. Similar-looking hash and ZIP checks across the two "
+              "verifiers are therefore not candidates for a shared helper.\n\n"
+              "## Adjacent evidence\n\n"
+              "- [`../corpus_demo/`](../corpus_demo/) exercises confinement against a synthetic corpus.\n"
+              "- [`../compliance_kit/`](../compliance_kit/) assembles the portable conformance kit.\n"
+              "- [`../check_court_file.py`](../check_court_file.py) verifies the owner-side court file.\n"
+              "- [`../check_requester_bundle.py`](../check_requester_bundle.py) verifies the released bundle offline.\n"
+              """,
+              encoding="utf-8",
+          )
+
+          (ROOT / "workbench" / "README.md").write_text(
+              """# Workbench\n\n"
+              "This directory is non-normative. It holds executable experiments, abandoned or "
+              "unpromoted mechanisms, research notebooks, literature syntheses, and narrative use cases.\n\n"
+              "Nothing here defines Chambers behavior. Maintained code may not import the workbench. "
+              "Workbench code may import maintained interfaces in order to test an idea.\n\n"
+              "## Contents\n\n"
+              "- `experiments/`: metered sorting, security-research bounties, introduction clearing, "
+              "IP barter, peer prediction, and the multi-machine pipeline.\n"
+              "- `notes/`: autoresearch runs, ideation, deep research, frontier papers, frameworks, "
+              "and story material.\n\n"
+              "## Promotion rule\n\n"
+              "An idea leaves the workbench only when its public contract is named, its failure modes "
+              "are stated, its executable behavior is covered by deterministic evidence, and the "
+              "maintained documentation points to that evidence. Moving a file is not promotion.\n"
+              """,
+              encoding="utf-8",
+          )
+
+          architecture = """# Repository architecture\n\n"
+          architecture += "Chambers separates claims, implementations, evidence, and exploration. "
+          architecture += "The separation is part of the assurance story: a reader should know whether a file states law, executes it, tests it, or merely investigates it.\n\n"
+          architecture += "## Maintained surfaces\n\n"
+          architecture += "| Surface | Location | Role |\n|---|---|---|\n"
+          architecture += "| Canon | `docs/BOOK.md`, `docs/primitives/` | Objects, axioms, refusals, and type vocabulary |\n"
+          architecture += "| Protocol specifications | `chambers/kernel/*-SPEC.md`, `chambers/conformance/SPEC.md` | Versioned decision and serialization contracts |\n"
+          architecture += "| Python implementation | `chambers/kernel/`, `chambers/conformance/`, `chambers/runtime/` | Reference execution and replay |\n"
+          architecture += "| Independent-language checks | `chambers/conformance/rust/`, `chambers/kernel/rust_ledger/` | Rust implementations checked against frozen corpora |\n"
+          architecture += "| Formal kernel | `chambers/lean/` | Theorems over the charge algebra and replayed golden traces |\n"
+          architecture += "| Reference application | `chambers/chamber.py`, `chambers/reference/` | Local release-gate integration and operator runbook |\n"
+          architecture += "| Portable evidence | `chambers/compliance_kit/`, `chambers/corpus_demo/` | Distributable conformance material and confinement demonstration |\n\n"
+          architecture += "## Workbench\n\n"
+          architecture += "`workbench/` is the sole home for exploratory code and research records. "
+          architecture += "It may depend on maintained interfaces. The maintained package must not depend on it. "
+          architecture += "No result in the workbench raises the assurance level of the maintained system.\n\n"
+          architecture += "## Claim discipline\n\n"
+          architecture += "The Rust ports are same-author implementations, not independent replications. "
+          architecture += "The Lean development proves the modeled charge algebra, not end-to-end confidentiality. "
+          architecture += "Golden-trace agreement is finite evidence, not an all-input refinement theorem. "
+          architecture += "The reference chamber is locally reproducible; TEE attestation is not implemented.\n\n"
+          architecture += "## Reading order\n\n"
+          architecture += "1. `README.md` for the claim and its limits.\n"
+          architecture += "2. `docs/BOOK.md` for the minimal system.\n"
+          architecture += "3. `chambers/kernel/PROTOCOL.md` for executable accounting law.\n"
+          architecture += "4. `chambers/conformance/SPEC.md` and its traces for the counterparty surface.\n"
+          architecture += "5. `chambers/lean/README.md` for the exact proof boundary.\n"
+          architecture += "6. `workbench/README.md` only when investigating discarded or unpromoted directions.\n"
+          (ROOT / "docs" / "ARCHITECTURE.md").write_text(architecture, encoding="utf-8")
+
+          readme_path = ROOT / "README.md"
+          readme = readme_path.read_text(encoding="utf-8")
+          architecture_note = (
+              "The maintained surface and the non-normative workbench are separated explicitly; "
+              "see [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).\n\n"
+          )
+          marker = "## What is here\n\n"
+          if "docs/ARCHITECTURE.md" not in readme and marker in readme:
+              readme = readme.replace(marker, marker + architecture_note, 1)
+          readme_path.write_text(readme, encoding="utf-8")
+
+          tests_dir = ROOT / "tests"
+          tests_dir.mkdir(exist_ok=True)
+          (tests_dir / "test_repository_boundaries.py").write_text(
+              '''from __future__ import annotations\n\n'''
+              '''import ast\n'''
+              '''from pathlib import Path\n\n'''
+              '''ROOT = Path(__file__).resolve().parents[1]\n'''
+              f'''EXPERIMENTS = {EXPERIMENTS!r}\n\n'''
+              '''def test_experiments_live_only_in_the_workbench() -> None:\n'''
+              '''    for name in EXPERIMENTS:\n'''
+              '''        assert not (ROOT / "chambers" / name).exists(), name\n'''
+              '''        assert (ROOT / "workbench" / "experiments" / name).is_dir(), name\n\n'''
+              '''def test_research_records_live_only_in_the_workbench() -> None:\n'''
+              '''    for name in ("autoresearch", "ideation", "research", "frontier", "stories"):\n'''
+              '''        assert not (ROOT / "docs" / name).exists(), name\n'''
+              '''        assert (ROOT / "workbench" / "notes" / name).is_dir(), name\n\n'''
+              '''def test_maintained_python_does_not_import_the_workbench() -> None:\n'''
+              '''    violations: list[str] = []\n'''
+              '''    for path in sorted((ROOT / "chambers").rglob("*.py")):\n'''
+              '''        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))\n'''
+              '''        for node in ast.walk(tree):\n'''
+              '''            modules: list[str] = []\n'''
+              '''            if isinstance(node, ast.Import):\n'''
+              '''                modules.extend(alias.name for alias in node.names)\n'''
+              '''            elif isinstance(node, ast.ImportFrom) and node.module:\n'''
+              '''                modules.append(node.module)\n'''
+              '''            for module in modules:\n'''
+              '''                if module == "workbench" or module.startswith("workbench."):\n'''
+              '''                    violations.append(f"{path.relative_to(ROOT)} imports {module}")\n'''
+              '''    assert not violations, "\\n".join(violations)\n\n'''
+              '''def test_model_policy_is_not_an_operator_runbook() -> None:\n'''
+              '''    law = (ROOT / "chambers" / "CHAMBER.md").read_text(encoding="utf-8")\n'''
+              '''    assert law.startswith("# Chamber Law\\n")\n'''
+              '''    assert "unzip chamber_v2.zip" not in law\n'''
+              '''    assert "cloudflared tunnel" not in law\n'''
+              '''    assert (ROOT / "chambers" / "reference" / "README.md").is_file()\n''',
+              encoding="utf-8",
+          )
+
+          # Syntax-check every maintained and workbench Python file before pytest.
+          for path in sorted((ROOT / "chambers").rglob("*.py")) + sorted((ROOT / "workbench").rglob("*.py")):
+              ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+          PY
+          python "$RUNNER_TEMP/consolidate.py"
+
+      - name: Verify Python and portable evidence
+        run: |
+          python -m pip install pytest
+          python -m pytest -q
+          python -m chambers.compliance_kit.make_kit --check
+
+      - name: Commit the consolidation
+        run: |
+          rm .github/workflows/agent-checkout-export.yml
+          git add -A
+          git diff --cached --check
+          git commit -m "structure: separate the maintained system from the workbench [consolidated]"
+          git push origin HEAD:agent/consolidate-chamber
