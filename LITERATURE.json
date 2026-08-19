@@ -1,0 +1,421 @@
+{
+  "schema": "chambers-literature/1",
+  "sources": [
+    {
+      "applies_to": [
+        "chambers/kernel/PROTOCOL.md"
+      ],
+      "authors": [
+        "Bowen Alpern",
+        "Fred B. Schneider"
+      ],
+      "boundary": "The citation supplies the monitorability doctrine, not a proof that every Chambers obligation has been reduced correctly or that the system guarantees liveness.",
+      "id": "alpern-schneider-1985-liveness",
+      "import": "The safety/liveness distinction disciplines protocol obligations: a finitely auditable court can convict safety violations, while progress obligations must be reduced to deadlines plus permissionless resolution.",
+      "locator": {
+        "kind": "doi",
+        "url": "https://doi.org/10.1016/0020-0190(85)90056-0",
+        "value": "10.1016/0020-0190(85)90056-0"
+      },
+      "relationship": "adaptation",
+      "theme": "monitorability",
+      "title": "Defining Liveness",
+      "venue": "Information Processing Letters 21(4):181–185",
+      "year": 1985
+    },
+    {
+      "applies_to": [
+        "chambers/conformance/SPEC.md",
+        "docs/primitives/entropy.ts"
+      ],
+      "authors": [
+        "Mário S. Alvim",
+        "Konstantinos Chatzikokolakis",
+        "Annabelle McIver",
+        "Carroll Morgan",
+        "Catuscia Palamidessi",
+        "Geoffrey Smith"
+      ],
+      "boundary": "Chambers' integer millibit accountant is a deliberately narrower engineering contract. It meters declared channel capacity and does not inherit a theorem about downstream harm, attacker goals, or deployment coverage.",
+      "id": "alvim-et-al-2020-qif",
+      "import": "Reader-relative leakage, adversarial gain, channel composition, and refinement supply the formal lineage for treating release as an information channel rather than as an informal privacy label.",
+      "locator": {
+        "kind": "doi",
+        "url": "https://doi.org/10.1007/978-3-319-96131-6",
+        "value": "10.1007/978-3-319-96131-6"
+      },
+      "relationship": "foundation",
+      "theme": "quantitative-information-flow",
+      "title": "The Science of Quantitative Information Flow",
+      "venue": "Springer",
+      "year": 2020
+    },
+    {
+      "applies_to": [
+        "docs/FRAMEWORKS.md"
+      ],
+      "authors": [
+        "Vitalik Buterin",
+        "Virgil Griffith"
+      ],
+      "boundary": "Chambers is not a consensus protocol or proof-of-stake system and inherits no finality, fault-threshold, or accountable-safety theorem from Casper.",
+      "id": "buterin-griffith-2017-casper-ffg",
+      "import": "Slashing conditions are a salient example of designing violations to leave compact, transferable evidence against attributable actors.",
+      "locator": {
+        "kind": "arxiv",
+        "url": "https://arxiv.org/abs/1710.09437",
+        "value": "1710.09437"
+      },
+      "relationship": "comparison",
+      "theme": "accountability",
+      "title": "Casper the Friendly Finality Gadget",
+      "venue": "arXiv preprint arXiv:1710.09437",
+      "year": 2017
+    },
+    {
+      "applies_to": [
+        "chambers/lean/README.md"
+      ],
+      "authors": [
+        "Leonardo de Moura",
+        "Soonho Kong",
+        "Jeremy Avigad",
+        "Floris van Doorn",
+        "Jakob von Raumer"
+      ],
+      "boundary": "Lean verifies only the formal statements and assumptions encoded under chambers/lean; it does not certify the whole Python or Rust implementation, the runtime, or any deployment claim.",
+      "id": "de-moura-et-al-2015-lean",
+      "import": "Lean is the proof checker used for the repository's stated algebraic theorems and replayed golden facts.",
+      "locator": {
+        "kind": "doi",
+        "url": "https://doi.org/10.1007/978-3-319-21401-6_26",
+        "value": "10.1007/978-3-319-21401-6_26"
+      },
+      "relationship": "implementation",
+      "theme": "proof-engineering",
+      "title": "The Lean Theorem Prover (System Description)",
+      "venue": "CADE-25, Lecture Notes in Computer Science 9195:378–388",
+      "year": 2015
+    },
+    {
+      "applies_to": [
+        "chambers/kernel/IDENTITY-SPEC.md"
+      ],
+      "authors": [
+        "Simon Josefsson",
+        "Ilari Liusvaara"
+      ],
+      "boundary": "A valid signature attributes bytes to possession of a key. It does not establish a human identity, beneficial ownership, independence, or Sybil resistance.",
+      "id": "ietf-2017-rfc8032",
+      "import": "The identity layer implements Ed25519 verification and pins its implementation against the RFC's test vectors and strict encoding requirements.",
+      "locator": {
+        "kind": "rfc",
+        "url": "https://www.rfc-editor.org/rfc/rfc8032.html",
+        "value": "RFC8032"
+      },
+      "relationship": "implementation",
+      "theme": "cryptographic-identity",
+      "title": "Edwards-Curve Digital Signature Algorithm (EdDSA)",
+      "venue": "Internet Engineering Task Force, RFC 8032",
+      "year": 2017
+    },
+    {
+      "applies_to": [
+        "chambers/kernel/SCOPE-SPEC.md"
+      ],
+      "authors": [
+        "Ben Laurie",
+        "Erran Messeri",
+        "Rob Stradling"
+      ],
+      "boundary": "Inclusion and consistency do not prove completeness, solvency, honest scoping, or signed-head authenticity beyond the exact guarantees stated by charge-scope/1.",
+      "id": "ietf-2021-rfc9162",
+      "import": "Merkle membership and append-only consistency proofs are adapted to reader-scoped court views so served facts can be checked against a committed whole.",
+      "locator": {
+        "kind": "rfc",
+        "url": "https://www.rfc-editor.org/rfc/rfc9162.html",
+        "value": "RFC9162"
+      },
+      "relationship": "adaptation",
+      "theme": "transparency",
+      "title": "Certificate Transparency Version 2.0",
+      "venue": "Internet Engineering Task Force, RFC 9162",
+      "year": 2021
+    },
+    {
+      "applies_to": [
+        "chambers/kernel/SCOPE-SPEC.md"
+      ],
+      "authors": [
+        "Jinyuan Li",
+        "Maxwell N. Krohn",
+        "David Mazières",
+        "Dennis Shasha"
+      ],
+      "boundary": "Detection depends on cross-reader comparison or gossip. The adaptation does not promise a globally consistent view, availability, or protection against permanently isolated forks.",
+      "id": "li-et-al-2004-sundr",
+      "import": "Fork consistency motivates treating inconsistent reader histories as evidence that becomes detectable when views meet.",
+      "locator": {
+        "kind": "url",
+        "url": "https://www.usenix.org/conference/osdi-04/secure-untrusted-data-repository-sundr",
+        "value": "https://www.usenix.org/conference/osdi-04/secure-untrusted-data-repository-sundr"
+      },
+      "relationship": "adaptation",
+      "theme": "transparency",
+      "title": "Secure Untrusted Data Repository (SUNDR)",
+      "venue": "6th USENIX Symposium on Operating Systems Design and Implementation (OSDI 04):121–136",
+      "year": 2004
+    },
+    {
+      "applies_to": [
+        "docs/FRAMEWORKS.md"
+      ],
+      "authors": [
+        "Marcela S. Melara",
+        "Aaron Blankstein",
+        "Joseph Bonneau",
+        "Edward W. Felten",
+        "Michael J. Freedman"
+      ],
+      "boundary": "Chambers does not implement CONIKS, a hidden-user key directory, or its monitoring and privacy model; the citation narrows an adjacent design space.",
+      "id": "melara-et-al-2015-coniks",
+      "import": "CONIKS is a comparison point for authenticated partial views and efficient user-verifiable consistency over a provider-maintained map.",
+      "locator": {
+        "kind": "url",
+        "url": "https://www.usenix.org/conference/usenixsecurity15/technical-sessions/presentation/melara",
+        "value": "https://www.usenix.org/conference/usenixsecurity15/technical-sessions/presentation/melara"
+      },
+      "relationship": "comparison",
+      "theme": "transparency",
+      "title": "CONIKS: Bringing Key Transparency to End Users",
+      "venue": "24th USENIX Security Symposium (USENIX Security 15):383–398",
+      "year": 2015
+    },
+    {
+      "applies_to": [
+        "docs/frontier/judgement-markets/peer-prediction.md"
+      ],
+      "authors": [
+        "Nolan Miller",
+        "Paul Resnick",
+        "Richard Zeckhauser"
+      ],
+      "boundary": "The result depends on model assumptions and does not make correlation truth, prevent collusion, establish judge independence, or pay the leakage cost of redundant reports.",
+      "id": "miller-et-al-2005-peer-prediction",
+      "import": "Peer prediction supplies the foundational possibility of incentive-compatible elicitation without direct ground truth.",
+      "locator": {
+        "kind": "doi",
+        "url": "https://doi.org/10.1287/mnsc.1050.0379",
+        "value": "10.1287/mnsc.1050.0379"
+      },
+      "relationship": "foundation",
+      "theme": "information-elicitation",
+      "title": "Eliciting Informative Feedback: The Peer-Prediction Method",
+      "venue": "Management Science 51(9):1359–1373",
+      "year": 2005
+    },
+    {
+      "applies_to": [
+        "docs/FRAMEWORKS.md"
+      ],
+      "authors": [
+        "Ilya Mironov"
+      ],
+      "boundary": "No current Chambers component claims differential privacy or converts an arbitrary judgement channel into an RDP mechanism.",
+      "id": "mironov-2017-renyi-dp",
+      "import": "Rényi differential privacy is recorded as a candidate mechanism-derived estimator lane with tractable composition for genuinely randomized aggregate mechanisms.",
+      "locator": {
+        "kind": "doi",
+        "url": "https://doi.org/10.1109/CSF.2017.11",
+        "value": "10.1109/CSF.2017.11"
+      },
+      "relationship": "open-frontier",
+      "theme": "differential-privacy",
+      "title": "Rényi Differential Privacy",
+      "venue": "30th IEEE Computer Security Foundations Symposium (CSF):263–275",
+      "year": 2017
+    },
+    {
+      "applies_to": [
+        "docs/FRAMEWORKS.md"
+      ],
+      "authors": [
+        "Roger B. Myerson"
+      ],
+      "boundary": "charge-attribution/1 implements a declared Shapley game over a Chambers-specific capacity function, not the Myerson value, unless a future spec says otherwise.",
+      "id": "myerson-1977-graphs-cooperation",
+      "import": "The Myerson value is the graph-aware cooperative-game comparison point for attribution over a provenance network.",
+      "locator": {
+        "kind": "doi",
+        "url": "https://doi.org/10.1287/moor.2.3.225",
+        "value": "10.1287/moor.2.3.225"
+      },
+      "relationship": "comparison",
+      "theme": "value-attribution",
+      "title": "Graphs and Cooperation in Games",
+      "venue": "Mathematics of Operations Research 2(3):225–229",
+      "year": 1977
+    },
+    {
+      "applies_to": [
+        "docs/primitives/contexts.ts"
+      ],
+      "authors": [
+        "Helen Nissenbaum"
+      ],
+      "boundary": "The type system records and constrains declared context; it does not mechanically prove social appropriateness, consent, legitimacy, or justice.",
+      "id": "nissenbaum-2004-contextual-integrity",
+      "import": "Context-relative transmission norms motivate representing disclosure as a typed relation among source, subject, recipient, purpose, and governing context rather than as a global private/public bit.",
+      "locator": {
+        "kind": "url",
+        "url": "https://digitalcommons.law.uw.edu/wlr/vol79/iss1/10/",
+        "value": "https://digitalcommons.law.uw.edu/wlr/vol79/iss1/10/"
+      },
+      "relationship": "foundation",
+      "theme": "privacy-theory",
+      "title": "Privacy as Contextual Integrity",
+      "venue": "Washington Law Review 79:119–158",
+      "year": 2004
+    },
+    {
+      "applies_to": [
+        "docs/FRAMEWORKS.md"
+      ],
+      "authors": [
+        "Dražen Prelec"
+      ],
+      "boundary": "It is not implemented by Chambers, and the citation imports neither its equilibrium assumptions nor a general certificate of truthful subjective judgement.",
+      "id": "prelec-2004-bayesian-truth-serum",
+      "import": "Bayesian Truth Serum is an adjacent no-ground-truth elicitation mechanism used to distinguish peer-prediction families and their information assumptions.",
+      "locator": {
+        "kind": "doi",
+        "url": "https://doi.org/10.1126/science.1102081",
+        "value": "10.1126/science.1102081"
+      },
+      "relationship": "comparison",
+      "theme": "information-elicitation",
+      "title": "A Bayesian Truth Serum for Subjective Data",
+      "venue": "Science 306(5695):462–466",
+      "year": 2004
+    },
+    {
+      "applies_to": [
+        "docs/FRAMEWORKS.md"
+      ],
+      "authors": [
+        "Ryan M. Rogers",
+        "Aaron Roth",
+        "Jonathan Ullman",
+        "Salil Vadhan"
+      ],
+      "boundary": "The Chambers lifetime exposure ledger is not a differential-privacy odometer: its charges are declared channel bounds, not realized DP privacy loss, and it inherits no ε,δ guarantee.",
+      "id": "rogers-et-al-2016-privacy-odometers",
+      "import": "Privacy odometers and filters provide a precise comparison for adaptive lifetime accounting and stopping rules under differential privacy.",
+      "locator": {
+        "kind": "url",
+        "url": "https://proceedings.neurips.cc/paper/2016/hash/58c54802a9fb9526cd0923353a34a7ae-Abstract.html",
+        "value": "https://proceedings.neurips.cc/paper/2016/hash/58c54802a9fb9526cd0923353a34a7ae-Abstract.html"
+      },
+      "relationship": "comparison",
+      "theme": "differential-privacy",
+      "title": "Privacy Odometers and Filters: Pay-as-You-Go Composition",
+      "venue": "Advances in Neural Information Processing Systems 29:1921–1929",
+      "year": 2016
+    },
+    {
+      "applies_to": [
+        "chambers/kernel/KERNEL-SPEC.md"
+      ],
+      "authors": [
+        "Marc Shapiro",
+        "Nuno Preguiça",
+        "Carlos Baquero",
+        "Marek Zawirski"
+      ],
+      "boundary": "The Chambers ledger is a narrow content-addressed grow-only set. The citation does not establish availability, dissemination, network-fault tolerance, or correctness of every derived fold.",
+      "id": "shapiro-et-al-2011-crdts",
+      "import": "Convergent replicated data types supply the lineage for grow-only, order-insensitive merge under a deterministic fold.",
+      "locator": {
+        "kind": "doi",
+        "url": "https://doi.org/10.1007/978-3-642-24550-3_29",
+        "value": "10.1007/978-3-642-24550-3_29"
+      },
+      "relationship": "foundation",
+      "theme": "distributed-systems",
+      "title": "Conflict-Free Replicated Data Types",
+      "venue": "Stabilization, Safety, and Security of Distributed Systems, LNCS 6976:386–400",
+      "year": 2011
+    },
+    {
+      "applies_to": [
+        "chambers/kernel/ATTRIBUTION-SPEC.md"
+      ],
+      "authors": [
+        "Lloyd S. Shapley"
+      ],
+      "boundary": "The characteristic function is Chambers-specific capacity arithmetic. The resulting split is not a causal-value estimate, moral entitlement, or universal data-valuation theorem.",
+      "id": "shapley-1953-value",
+      "import": "The Shapley value supplies the symmetric marginal-contribution allocation rule used over a declared, exactly recomputable cooperative game.",
+      "locator": {
+        "kind": "doi",
+        "url": "https://doi.org/10.1515/9781400881970-018",
+        "value": "10.1515/9781400881970-018"
+      },
+      "relationship": "adaptation",
+      "theme": "value-attribution",
+      "title": "A Value for n-Person Games",
+      "venue": "Contributions to the Theory of Games II:307–317",
+      "year": 1953
+    },
+    {
+      "applies_to": [
+        "docs/FRAMEWORKS.md"
+      ],
+      "authors": [
+        "Peiyao Sheng",
+        "Gerui Wang",
+        "Kartik Nayak",
+        "Sreeram Kannan",
+        "Pramod Viswanath"
+      ],
+      "boundary": "Chambers is not BFT consensus. Detector completeness is claimed only for the exact laws formally proved or exhaustively characterized here, never by analogy to the cited protocols.",
+      "id": "sheng-et-al-2020-bft-forensics",
+      "import": "BFT forensics supplies the closest formal comparison for asking when a protocol violation necessarily leaves transferable evidence identifying culpable actors.",
+      "locator": {
+        "kind": "arxiv",
+        "url": "https://arxiv.org/abs/2010.06785",
+        "value": "2010.06785"
+      },
+      "relationship": "comparison",
+      "theme": "accountability",
+      "title": "BFT Protocol Forensics",
+      "venue": "arXiv preprint arXiv:2010.06785",
+      "year": 2020
+    },
+    {
+      "applies_to": [
+        "chambers/peer_sim/run_peer_prediction.py",
+        "docs/frontier/judgement-markets/peer-prediction.md"
+      ],
+      "authors": [
+        "Victor Shnayder",
+        "Arpit Agarwal",
+        "Rafael Frongillo",
+        "David C. Parkes"
+      ],
+      "boundary": "Informed-truthfulness assumptions remain assumptions; correlation is not truth, collusion and permutation strategies remain live, and metered redundancy can make the mechanism infeasible.",
+      "id": "shnayder-et-al-2016-correlated-agreement",
+      "import": "The Correlated Agreement mechanism is adapted as exact ledger arithmetic over repeated reports, with the mechanism's own redundant readership charged explicitly.",
+      "locator": {
+        "kind": "doi",
+        "url": "https://doi.org/10.1145/2940716.2940790",
+        "value": "10.1145/2940716.2940790"
+      },
+      "relationship": "adaptation",
+      "theme": "information-elicitation",
+      "title": "Informed Truthfulness in Multi-Task Peer Prediction",
+      "venue": "17th ACM Conference on Economics and Computation (EC '16):179–196",
+      "year": 2016
+    }
+  ]
+}

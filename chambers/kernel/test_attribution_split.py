@@ -3,13 +3,13 @@ split-bound escrows (S11/S12) and the V-court join.
 
 The law: a pot bound to the split rule can only leave along the rule's
 recomputed rows. The load-bearing story is the stiff: the issuer who
-tries to pay the whole \$100M pot to bob is convicted from bytes, and
-alice collects her \$12,500 row herself after expiry with no one's
+tries to pay the whole $100M pot to bob is convicted from bytes, and
+alice collects her $12,500 row herself after expiry with no one's
 permission (F4: the obligation arrives safety-shaped).
 
 Families:
   1. HONEST FLOW — split escrow, both rows paid exactly, CLEAN across
-     every family, conservation exact, alice's account holds \$12,500.
+     every family, conservation exact, alice's account holds $12,500.
   2. CONVICTIONS — S11 (no beneficiary / phantom / wrong amount /
      unauditable game), S12 (row double-pay), S8 (premature default),
      S6 (malformed split, split+outcome, bad default direction).
@@ -72,7 +72,7 @@ def _economy(default_on_expiry: str = "refund_to_payer",
              required_clean: bool = True):
     """The alpha economy with a funded, split-bound pot: alice's idea
     (capacity 1) and bob's build (7999) feed FACT; requesterR escrows
-    \$100M bound to the emission's split. Returns (ledger, bank, escrow,
+    $100M bound to the emission's split. Returns (ledger, bank, escrow,
     receipt charge ids)."""
     ledger = Ledger()
     meter = KernelMeter(node="n1", issuer="chamberA", ledger=ledger)
@@ -118,7 +118,7 @@ def _s(codes, prefix):
 
 def test_honest_split_pays_both_rows_exactly_and_verifies() -> None:
     """The whole point, green: both rows released by the honest issuer,
-    alice's account holds exactly \$12,500, every family CLEAN,
+    alice's account holds exactly $12,500, every family CLEAN,
     conservation exact under the stranger's verifier."""
     ledger, bank, escrow, receipts = _economy()
     ra = bank.release_split(escrow, "alice", receipts, tick=5)
