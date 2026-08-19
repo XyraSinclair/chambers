@@ -2305,11 +2305,11 @@ class SeatbeltConfinementTests(_LifetimeIsolationMixin, unittest.TestCase):
 
     def test_proxy_identity_matcher(self) -> None:
         self.assertTrue(chamber._is_cxp_proxy_command(
-            "/usr/bin/python3 /Users/xyra/.codexpool/cxp-agent proxy"))
+            "/usr/bin/python3 /Users/owner/.codexpool/cxp-agent proxy"))
         self.assertFalse(chamber._is_cxp_proxy_command(""))
-        self.assertFalse(chamber._is_cxp_proxy_command("sshd: xyra [priv]"))
+        self.assertFalse(chamber._is_cxp_proxy_command("sshd: owner [priv]"))
         self.assertFalse(chamber._is_cxp_proxy_command(
-            "/usr/bin/python3 /Users/xyra/.codexpool/cxp-agent status"))
+            "/usr/bin/python3 /Users/owner/.codexpool/cxp-agent status"))
         self.assertFalse(chamber._is_cxp_proxy_command(
             "/usr/bin/python3 /tmp/cxp-agent proxy"),
             "a cxp-agent named script OUTSIDE a codexpool dir is not the proxy")
