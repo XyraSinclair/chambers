@@ -37,7 +37,7 @@ The machine-readable source for the literature map is
 - [`FRAMEWORKS.md`](FRAMEWORKS.md) surveys adjacent formal machinery that may be
   useful but is not necessarily implemented.
 
-## Private artifacts
+## The research record
 
 The record that produced this canon is in the repository: the autoresearch
 runs in [`autoresearch/`](autoresearch/), the ideation series in
