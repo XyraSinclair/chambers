@@ -76,21 +76,20 @@ import re
 import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(_HERE, "..", "..", "chambers", "kernel"))
-sys.path.insert(0, os.path.join(_HERE, "..", "..", "chambers", "review_audit"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 
-from accountant import CapacityEstimate, EstimatorAttestation, exposure_key  # noqa: E402
-from attention_node import ATTN_ESTIMATOR, att_key  # noqa: E402
-from events import canonical_json, event_id  # noqa: E402
-import identity as ID  # noqa: E402
-from leases import LeaseIssuer  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from meter import KernelMeter  # noqa: E402
-from settlement import SettlementIssuer, conservation_identity, settlement_fold  # noqa: E402
-import verify as verify_mod  # noqa: E402
+from chambers.kernel.accountant import CapacityEstimate, EstimatorAttestation, exposure_key  # noqa: E402
+from chambers.kernel.attention_node import ATTN_ESTIMATOR, att_key  # noqa: E402
+from chambers.kernel.events import canonical_json, event_id  # noqa: E402
+from chambers.kernel import identity as ID  # noqa: E402
+from chambers.kernel.leases import LeaseIssuer  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.meter import KernelMeter  # noqa: E402
+from chambers.kernel.settlement import SettlementIssuer, conservation_identity, settlement_fold  # noqa: E402
+from chambers.kernel import verify as verify_mod  # noqa: E402
 
-import battery as coherence  # noqa: E402  (review_audit)
-import reviewers as pathological  # noqa: E402
+from chambers.review_audit import battery as coherence  # noqa: E402  (review_audit)
+from chambers.review_audit import reviewers as pathological  # noqa: E402
 
 FIXTURES = os.path.join(_HERE, "fixtures")
 REPOS = {"bobs_service": "bob", "carols_lib": "carol"}

@@ -22,17 +22,14 @@ recorded in docs/SPECS.md).
 """
 from __future__ import annotations
 
-import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-import attribution as attribution_mod  # noqa: E402
-import covenant as covenant_mod  # noqa: E402
-import identity as identity_mod  # noqa: E402
-from events import canonical_json  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from settlement import (  # noqa: E402
+from . import attribution as attribution_mod  # noqa: E402
+from . import covenant as covenant_mod  # noqa: E402
+from . import identity as identity_mod  # noqa: E402
+from .events import canonical_json  # noqa: E402
+from .ledger import Ledger  # noqa: E402
+from .settlement import (  # noqa: E402
     audit_settlement_codes,
     conservation_identity,
     settlement_fold_canonical_v2,

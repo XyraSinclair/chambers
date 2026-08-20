@@ -52,15 +52,15 @@ import io
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from accountant import CapacityEstimate, exposure_key  # noqa: E402
-from attention_node import ATTN_ESTIMATOR, CARD_ESTIMATOR, att_key  # noqa: E402
-from leases import LeaseIssuer  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from meter import KernelMeter  # noqa: E402
-from settlement import SettlementIssuer, conservation_identity, settlement_fold  # noqa: E402
-import verify as verify_mod  # noqa: E402
+from chambers.kernel.accountant import CapacityEstimate, exposure_key  # noqa: E402
+from chambers.kernel.attention_node import ATTN_ESTIMATOR, CARD_ESTIMATOR, att_key  # noqa: E402
+from chambers.kernel.leases import LeaseIssuer  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.meter import KernelMeter  # noqa: E402
+from chambers.kernel.settlement import SettlementIssuer, conservation_identity, settlement_fold  # noqa: E402
+from chambers.kernel import verify as verify_mod  # noqa: E402
 
 # The card's information content: topic facet (6 bits) + strength bucket
 # (2) + why-safe line (5) = 13 bits = 13,000 mbits (party-matchmaker.md).

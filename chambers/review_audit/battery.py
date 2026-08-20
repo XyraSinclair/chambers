@@ -27,10 +27,9 @@ import os
 import sys
 from typing import Callable, Dict, List, Optional, Tuple
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "kernel"))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from events import event_id  # noqa: E402
+from chambers.kernel.events import event_id  # noqa: E402
 
 SPEC = "review-audit/1"
 GOLDEN_SEED = "review-audit-golden-1"

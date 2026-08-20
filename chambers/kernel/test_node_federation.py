@@ -18,11 +18,11 @@ import sys
 import threading
 import urllib.request
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-import node as node_mod  # noqa: E402
-from demo_work_economy import build_economy  # noqa: E402
-from events import event_id  # noqa: E402
+from chambers.kernel import node as node_mod  # noqa: E402
+from chambers.kernel.demo_work_economy import build_economy  # noqa: E402
+from chambers.kernel.events import event_id  # noqa: E402
 
 
 def _start():

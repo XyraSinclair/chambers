@@ -24,9 +24,9 @@ import sys
 import tempfile
 from typing import Optional, Tuple
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "kernel"))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from events import canonical_json, event_id  # noqa: E402
+from chambers.kernel.events import canonical_json, event_id  # noqa: E402
 
 SPEC = "runtime-r2/1"
 CLAIM_CLASS = "reproducible_local"

@@ -18,13 +18,13 @@ import json
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-import emit_attribution_traces as eat  # noqa: E402
-from attribution import attribution_codes  # noqa: E402
-from events import canonical_json  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from settlement import (  # noqa: E402
+from chambers.kernel import emit_attribution_traces as eat  # noqa: E402
+from chambers.kernel.attribution import attribution_codes  # noqa: E402
+from chambers.kernel.events import canonical_json  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.settlement import (  # noqa: E402
     audit_settlement_codes,
     conservation_identity,
     settlement_fold_canonical_v2,

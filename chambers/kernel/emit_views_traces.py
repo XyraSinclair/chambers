@@ -21,10 +21,10 @@ import json
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from events import canonical_json  # noqa: E402
-from views import LEGACY_DEFAULT_POLICY, view  # noqa: E402
+from chambers.kernel.events import canonical_json  # noqa: E402
+from chambers.kernel.views import LEGACY_DEFAULT_POLICY, view  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "views_traces")

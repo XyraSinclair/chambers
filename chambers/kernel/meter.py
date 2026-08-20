@@ -34,17 +34,17 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
 
-from accountant import (
+from .accountant import (
     Accountant,
     CapacityEstimate,
     Decision,
     EstimatorAttestation,
     Key,
 )
-from events import ChargeEvent, LeaseEvent
-from identity import Signer, require_signer
-from leases import LeaseIssuer
-from ledger import Ledger
+from .events import ChargeEvent, LeaseEvent
+from .identity import Signer, require_signer
+from .leases import LeaseIssuer
+from .ledger import Ledger
 
 # A meter's self-granted lease never expires on its own authority; expiry
 # discipline is a multi-node concern (session.py). Large, explicit, integer.

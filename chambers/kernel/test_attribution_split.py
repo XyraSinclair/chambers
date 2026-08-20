@@ -29,15 +29,15 @@ import os
 import random
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-import verify as verify_mod  # noqa: E402
-from accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
-from attribution import compile_report  # noqa: E402
-from events import DerivationEvent, canonical_json, event_id  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from meter import KernelMeter  # noqa: E402
-from settlement import (  # noqa: E402
+from chambers.kernel import verify as verify_mod  # noqa: E402
+from chambers.kernel.accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
+from chambers.kernel.attribution import compile_report  # noqa: E402
+from chambers.kernel.events import DerivationEvent, canonical_json, event_id  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.meter import KernelMeter  # noqa: E402
+from chambers.kernel.settlement import (  # noqa: E402
     DefaultResolutionEvent,
     SettlementIssuer,
     SettlementRefused,

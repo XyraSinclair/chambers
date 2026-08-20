@@ -16,7 +16,7 @@ import json
 from dataclasses import asdict, dataclass
 from typing import Any, Dict, Optional, Tuple
 
-from accountant import CapacityEstimate, Decision, EstimatorAttestation, Key
+from .accountant import CapacityEstimate, Decision, EstimatorAttestation, Key
 
 
 def canonical_json(payload: Dict[str, Any]) -> str:

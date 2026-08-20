@@ -27,14 +27,14 @@ import threading
 import urllib.request
 from urllib.parse import quote
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-import node as node_mod  # noqa: E402
-from accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
-from events import event_id  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from meter import KernelMeter  # noqa: E402
-from scope import (  # noqa: E402
+from chambers.kernel import node as node_mod  # noqa: E402
+from chambers.kernel.accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
+from chambers.kernel.events import event_id  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.meter import KernelMeter  # noqa: E402
+from chambers.kernel.scope import (  # noqa: E402
     consistency_proof,
     inclusion_proof,
     merkle_root,
@@ -44,7 +44,7 @@ from scope import (  # noqa: E402
     verify_inclusion,
     verify_scope,
 )
-from settlement import (  # noqa: E402
+from chambers.kernel.settlement import (  # noqa: E402
     OutcomeCondition,
     SettlementIssuer,
     attest_outcome,

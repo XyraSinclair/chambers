@@ -23,16 +23,16 @@ from __future__ import annotations
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-import identity as ID  # noqa: E402
-from accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
-from covenant import declare_covenant  # noqa: E402
-from events import RegisterEvent, event_id  # noqa: E402
-from leases import LeaseIssuer, LeaseRefused  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from meter import KernelMeter  # noqa: E402
-from settlement import (  # noqa: E402
+from chambers.kernel import identity as ID  # noqa: E402
+from chambers.kernel.accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
+from chambers.kernel.covenant import declare_covenant  # noqa: E402
+from chambers.kernel.events import RegisterEvent, event_id  # noqa: E402
+from chambers.kernel.leases import LeaseIssuer, LeaseRefused  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.meter import KernelMeter  # noqa: E402
+from chambers.kernel.settlement import (  # noqa: E402
     OutcomeCondition,
     SettlementIssuer,
     attest_outcome,

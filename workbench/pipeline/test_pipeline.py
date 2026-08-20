@@ -15,14 +15,14 @@ import tempfile
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, _HERE)
-sys.path.insert(0, os.path.join(_HERE, "..", "..", "chambers", "kernel"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 
 
 def test_pipeline_end_to_end_and_stranger_rederives() -> None:
     import run_pipeline as P
-    from ledger import Ledger
-    import verify as verify_mod
-    import identity as ID
+    from chambers.kernel.ledger import Ledger
+    from chambers.kernel import verify as verify_mod
+    from chambers.kernel import identity as ID
 
     with tempfile.TemporaryDirectory(prefix="pipeline_") as out:
         P.build(out)

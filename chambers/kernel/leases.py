@@ -25,11 +25,11 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, Optional
 
-from accountant import Key
-from covenant import grant_violates_covenants
-from events import LeaseEvent, RegisterEvent
-from identity import Signer, require_signer
-from ledger import Ledger
+from .accountant import Key
+from .covenant import grant_violates_covenants
+from .events import LeaseEvent, RegisterEvent
+from .identity import Signer, require_signer
+from .ledger import Ledger
 
 
 class LeaseRefused(Exception):

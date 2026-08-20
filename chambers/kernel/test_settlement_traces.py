@@ -14,11 +14,11 @@ import json
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-import emit_settlement_traces as est  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from settlement import (  # noqa: E402
+from chambers.kernel import emit_settlement_traces as est  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.settlement import (  # noqa: E402
     audit_settlement_codes,
     conservation_identity,
     settlement_fold_canonical,

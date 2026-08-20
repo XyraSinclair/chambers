@@ -80,16 +80,13 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import sys
 from typing import Optional, Tuple
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-import node as node_mod  # noqa: E402
-from accountant import CapacityEstimate, EstimatorAttestation, Key, exposure_key  # noqa: E402
-from events import LeaseEvent, event_id, is_uint as _is_uint  # noqa: E402
-from meter import KernelMeter  # noqa: E402
-from settlement import (  # noqa: E402
+from . import node as node_mod  # noqa: E402
+from .accountant import CapacityEstimate, EstimatorAttestation, Key, exposure_key  # noqa: E402
+from .events import LeaseEvent, event_id, is_uint as _is_uint  # noqa: E402
+from .meter import KernelMeter  # noqa: E402
+from .settlement import (  # noqa: E402
     SETTLEMENT_KINDS,
     SettlementIssuer,
     SettlementRefused,

@@ -18,13 +18,13 @@ import os
 import random
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
-from events import canonical_json, event_id  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from meter import KernelMeter  # noqa: E402
-from settlement import (  # noqa: E402
+from chambers.kernel.accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
+from chambers.kernel.events import canonical_json, event_id  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.meter import KernelMeter  # noqa: E402
+from chambers.kernel.settlement import (  # noqa: E402
     OutcomeCondition,
     SettlementIssuer,
     attest_outcome,
@@ -234,7 +234,7 @@ def test_r2_live_release_refuses_nested_key_receipt() -> None:
     TypeError. Crashed at the `tuple(ch.get('key')) not in key_set`
     membership before the fix."""
     import pytest
-    from settlement import SettlementRefused
+    from chambers.kernel.settlement import SettlementRefused
     led = Ledger()
     bank = SettlementIssuer(issuer="bank", ledger=led)
     bank.deposit("p", 10_000, tick=0)
@@ -273,9 +273,9 @@ def test_r2_skeleton_mutation_fuzz_totality() -> None:
     conservation must hold on every probe. (The review sweep ran 8,103
     probes: 0 crashes, 0 conservation breaks; this is the standing
     floor.)"""
-    from accountant import CapacityEstimate
-    from covenant import declare_covenant
-    from settlement import resolve_bond, resolve_default
+    from chambers.kernel.accountant import CapacityEstimate
+    from chambers.kernel.covenant import declare_covenant
+    from chambers.kernel.settlement import resolve_bond, resolve_default
 
     def build_skeleton() -> Ledger:
         led = Ledger()

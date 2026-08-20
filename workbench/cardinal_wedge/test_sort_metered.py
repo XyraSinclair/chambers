@@ -12,7 +12,7 @@ import sys
 import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "chambers", "kernel"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 
 import run_sort_metered as wedge  # noqa: E402
 
@@ -48,7 +48,7 @@ def test_small_and_large_n_build_or_refuse_honestly() -> None:
             wedge.build(bad)
     for n in (2, 50, 80):
         ledger = wedge.build(n)
-        from settlement import conservation_identity
+        from chambers.kernel.settlement import conservation_identity
         lhs, rhs = conservation_identity(ledger)
         assert lhs == rhs == 1_000_000, n
     # the declared read bound is sound: no source exceeded its ceiling
@@ -74,9 +74,9 @@ def test_ranking_emission_is_atomic_across_sources() -> None:
 def test_tight_ceiling_refuses_whole_ranking() -> None:
     # If one source's ceiling cannot absorb the ordering emission, the
     # coupled charge must refuse for ALL sources — no partial ranking.
-    from accountant import CapacityEstimate, EstimatorAttestation, exposure_key
-    from ledger import Ledger
-    from meter import KernelMeter
+    from chambers.kernel.accountant import CapacityEstimate, EstimatorAttestation, exposure_key
+    from chambers.kernel.ledger import Ledger
+    from chambers.kernel.meter import KernelMeter
 
     ledger = Ledger()
     meter = KernelMeter(node="n", issuer=wedge.RANKER, ledger=ledger)

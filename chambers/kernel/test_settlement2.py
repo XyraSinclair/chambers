@@ -24,13 +24,13 @@ import os
 import random
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
-from events import event_id  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from meter import KernelMeter  # noqa: E402
-from settlement import (  # noqa: E402
+from chambers.kernel.accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
+from chambers.kernel.events import event_id  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.meter import KernelMeter  # noqa: E402
+from chambers.kernel.settlement import (  # noqa: E402
     OutcomeCondition,
     SettlementIssuer,
     SettlementRefused,

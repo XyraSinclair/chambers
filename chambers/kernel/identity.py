@@ -36,13 +36,9 @@ from __future__ import annotations
 
 import dataclasses
 import hashlib
-import os
-import sys
 from typing import List, Optional, Tuple
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from events import canonical_json  # noqa: E402
+from .events import canonical_json  # noqa: E402
 
 SPEC = "charge-identity/1"
 KEY_PREFIX = "ed25519:"

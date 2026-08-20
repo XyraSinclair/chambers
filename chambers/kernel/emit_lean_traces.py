@@ -23,9 +23,9 @@ import json
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from accountant import (  # noqa: E402
+from chambers.kernel.accountant import (  # noqa: E402
     Accountant,
     CapacityEstimate,
     EstimatorAttestation,

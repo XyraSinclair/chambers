@@ -24,8 +24,8 @@ from dataclasses import dataclass
 from math import factorial
 from typing import Any, Dict, List, Optional, Tuple
 
-from events import canonical_json, event_id
-from ledger import Ledger, _dpi_maxflow, _is_uint
+from .events import canonical_json, event_id
+from .ledger import Ledger, _dpi_maxflow, _is_uint
 
 #: SPEC V.2 — reports over more sources than this are unauditable in
 #: bounded work (2^n max-flows) and convict V5: denial-of-audit refusal.

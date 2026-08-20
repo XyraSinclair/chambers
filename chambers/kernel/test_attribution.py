@@ -31,20 +31,20 @@ import random
 import sys
 from math import factorial
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-import verify as verify_mod  # noqa: E402
-from accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
-from attribution import (  # noqa: E402
+from chambers.kernel import verify as verify_mod  # noqa: E402
+from chambers.kernel.accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
+from chambers.kernel.attribution import (  # noqa: E402
     NMAX,
     allocate,
     attribution_codes,
     compile_report,
     shapley_numerators,
 )
-from events import DerivationEvent, canonical_json, event_id  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from meter import KernelMeter  # noqa: E402
+from chambers.kernel.events import DerivationEvent, canonical_json, event_id  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.meter import KernelMeter  # noqa: E402
 
 TOR = EstimatorAttestation("indep", "adversarial_review", "m", True)
 FACT = "sha256:" + "d" * 64

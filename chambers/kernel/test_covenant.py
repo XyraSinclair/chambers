@@ -23,19 +23,19 @@ import os
 import random
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
-from covenant import (  # noqa: E402
+from chambers.kernel.accountant import CapacityEstimate, EstimatorAttestation  # noqa: E402
+from chambers.kernel.covenant import (  # noqa: E402
     CovenantRefused,
     covenant_codes,
     declare_covenant,
 )
-from events import canonical_json, event_id  # noqa: E402
-from leases import LeaseIssuer, LeaseRefused  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from meter import KernelMeter  # noqa: E402
-from settlement import (  # noqa: E402
+from chambers.kernel.events import canonical_json, event_id  # noqa: E402
+from chambers.kernel.leases import LeaseIssuer, LeaseRefused  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.meter import KernelMeter  # noqa: E402
+from chambers.kernel.settlement import (  # noqa: E402
     SettlementIssuer,
     SettlementRefused,
     audit_settlement_codes,

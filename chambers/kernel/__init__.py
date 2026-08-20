@@ -9,12 +9,7 @@ observation and every emission of incremental third-party work.
 See PROTOCOL.md in this directory for the normative protocol document.
 """
 
-import os as _os
-import sys as _sys
-
-_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
-
-from accountant import (
+from .accountant import (
     Accountant,
     AccountState,
     CapacityEstimate,
@@ -25,12 +20,12 @@ from accountant import (
     exposure_key,
     leakage_class,
 )
-from events import ChargeEvent, LeaseEvent, RegisterEvent, canonical_json, event_id
-from leases import LeaseIssuer, LeaseRefused
-from ledger import GlobalAccount, Ledger, LeaseUsage, MergeConflict
-from meter import KernelMeter, MeterRefused
-from session import EmissionResult, MediationSession, ObservationResult, SessionRefused
-from settlement import (
+from .events import ChargeEvent, LeaseEvent, RegisterEvent, canonical_json, event_id
+from .leases import LeaseIssuer, LeaseRefused
+from .ledger import GlobalAccount, Ledger, LeaseUsage, MergeConflict
+from .meter import KernelMeter, MeterRefused
+from .session import EmissionResult, MediationSession, ObservationResult, SessionRefused
+from .settlement import (
     BondResolutionEvent,
     DefaultResolutionEvent,
     DepositEvent,

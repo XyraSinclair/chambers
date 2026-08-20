@@ -13,11 +13,11 @@ import os
 import sys
 import tempfile
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
 def test_attention_demo_end_to_end() -> None:
-    import demo_attention_notify as demo
+    from chambers.kernel import demo_attention_notify as demo
 
     with tempfile.TemporaryDirectory(prefix="attention_demo_") as out:
         assert demo.main(["--out", out]) == 0
@@ -25,7 +25,7 @@ def test_attention_demo_end_to_end() -> None:
 
 
 def test_refused_ring_leaks_nothing() -> None:
-    import demo_attention_notify as demo
+    from chambers.kernel import demo_attention_notify as demo
 
     ledger = demo.build()
     folded = ledger.fold()

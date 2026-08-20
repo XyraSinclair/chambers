@@ -31,13 +31,13 @@ import sys
 from typing import Dict, List, Tuple
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(_HERE, "..", "..", "chambers", "kernel"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 
-import verify as verify_mod  # noqa: E402
-from accountant import CapacityEstimate, EstimatorAttestation, exposure_key  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from meter import KernelMeter  # noqa: E402
-from settlement import SettlementIssuer, SettlementRefused  # noqa: E402
+from chambers.kernel import verify as verify_mod  # noqa: E402
+from chambers.kernel.accountant import CapacityEstimate, EstimatorAttestation, exposure_key  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.meter import KernelMeter  # noqa: E402
+from chambers.kernel.settlement import SettlementIssuer, SettlementRefused  # noqa: E402
 
 TOR = EstimatorAttestation("indep-est", "adversarial_review", "m", True)
 

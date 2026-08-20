@@ -16,9 +16,9 @@ import os
 import sys
 import unittest
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from views import (
+from chambers.kernel.views import (
     LEGACY_DEFAULT_POLICY,
     policy_admissible,
     policy_sha256,
@@ -309,7 +309,7 @@ class TestGoldenViewsCorpus(unittest.TestCase):
         self.assertGreaterEqual(len(glob.glob(self.VIEWS_GLOB)), 6)
 
     def test_replay_bit_for_bit(self):
-        from events import canonical_json
+        from chambers.kernel.events import canonical_json
 
         for in_path in sorted(glob.glob(self.VIEWS_GLOB)):
             with open(in_path) as fh:
@@ -323,7 +323,7 @@ class TestGoldenViewsCorpus(unittest.TestCase):
     def test_emitter_is_deterministic(self):
         import tempfile
 
-        import emit_views_traces as evt
+        from chambers.kernel import emit_views_traces as evt
 
         with tempfile.TemporaryDirectory() as tmp:
             n = evt.emit(tmp)

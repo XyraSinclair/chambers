@@ -22,14 +22,14 @@ import random
 import sys
 from typing import Dict, Tuple
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from accountant import CapacityEstimate, EstimatorAttestation, exposure_key  # noqa: E402
-from events import ChargeEvent, event_id  # noqa: E402
-from leases import LeaseIssuer  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from session import MediationSession  # noqa: E402
-from settlement import (  # noqa: E402
+from chambers.kernel.accountant import CapacityEstimate, EstimatorAttestation, exposure_key  # noqa: E402
+from chambers.kernel.events import ChargeEvent, event_id  # noqa: E402
+from chambers.kernel.leases import LeaseIssuer  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.session import MediationSession  # noqa: E402
+from chambers.kernel.settlement import (  # noqa: E402
     DepositEvent,
     EscrowEvent,
     RefundEvent,
@@ -318,7 +318,7 @@ def test_silent_holdup_defeated_by_default_resolution() -> None:
     # The sharpest attack on /1-as-drafted: the issuer simply never acts on
     # a clean, fully-metered escrow. Now the PAYEE self-serves after expiry
     # — permissionless, and the audit stays clean because the claim is true.
-    from settlement import resolve_default
+    from chambers.kernel.settlement import resolve_default
 
     ledger = Ledger()
     lessor = LeaseIssuer(issuer="issuerOfRecord", ledger=ledger)
@@ -368,7 +368,7 @@ def test_silent_holdup_defeated_by_default_resolution() -> None:
 
 
 def test_s8_premature_and_receiptless_defaults_convicted() -> None:
-    from settlement import DefaultResolutionEvent
+    from chambers.kernel.settlement import DefaultResolutionEvent
 
     ledger, bank, escrow, receipt = _paid_judgement()  # default: refund_to_payer
     # premature refund-direction default (escrow expires at 100)
@@ -393,7 +393,7 @@ def test_s8_premature_and_receiptless_defaults_convicted() -> None:
     assert any(c == f"S8 {d2}" for c in codes), codes
     # refund-direction default after expiry with true remainder: legitimate,
     # and the fold routes it to the PAYER regardless of who submitted
-    from settlement import resolve_default
+    from chambers.kernel.settlement import resolve_default
     resolve_default(ledger, escrow, "anyone", 20_000, tick=102)
     accounts, _ = settlement_fold(ledger)
     # 20_000 legitimate + 1_000 from the CONVICTED premature default: the
@@ -408,7 +408,7 @@ def test_s8_premature_and_receiptless_defaults_convicted() -> None:
 def test_verifier_clean_and_convicting() -> None:
     import io
 
-    import verify as verify_mod
+    from chambers.kernel import verify as verify_mod
 
     ledger, bank, escrow, receipt = _paid_judgement()
     bank.release(escrow, 100_000, receipt, tick=5)

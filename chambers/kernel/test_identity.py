@@ -17,11 +17,11 @@ from __future__ import annotations
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-import identity as ID  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from events import event_id  # noqa: E402
+from chambers.kernel import identity as ID  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.events import event_id  # noqa: E402
 
 VEC = [
     ("9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",

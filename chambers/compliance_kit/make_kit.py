@@ -87,6 +87,7 @@ CORPUS_DIRS = {
 }
 
 PYTHON_VERIFIER_SOURCES = [
+    "chambers/__init__.py",
     "chambers/kernel/__init__.py",
     "chambers/kernel/accountant.py",
     "chambers/kernel/attribution.py",
@@ -144,10 +145,10 @@ def _corpus_entries() -> Iterable[Dict[str, Any]]:
 
 def _python_verifier_entries() -> Iterable[Dict[str, Any]]:
     for source in PYTHON_VERIFIER_SOURCES:
-        name = Path(source).name
+        rel = Path(source).relative_to("chambers")
         yield _entry(
             source,
-            f"verifier/python/chambers/kernel/{name}",
+            f"verifier/python/chambers/{rel.as_posix()}",
             "reference_verifier",
             verifier="python",
         )

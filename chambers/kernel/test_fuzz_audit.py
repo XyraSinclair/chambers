@@ -28,17 +28,17 @@ import random
 import sys
 from typing import Dict, List, Tuple
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from accountant import (  # noqa: E402
+from chambers.kernel.accountant import (  # noqa: E402
     Accountant,
     CapacityEstimate,
     EstimatorAttestation,
     composition_key,
 )
-from events import ChargeEvent, RegisterEvent, event_id  # noqa: E402
-from leases import LeaseIssuer  # noqa: E402
-from ledger import Ledger  # noqa: E402
+from chambers.kernel.events import ChargeEvent, RegisterEvent, event_id  # noqa: E402
+from chambers.kernel.leases import LeaseIssuer  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
 
 TOR = EstimatorAttestation("indep", "adversarial_review", "m", True)
 SELFISH = EstimatorAttestation("selfmeter", "self_interested", "m", True)

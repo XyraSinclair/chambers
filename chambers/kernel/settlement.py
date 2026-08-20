@@ -31,12 +31,12 @@ import json
 from dataclasses import dataclass
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
-from accountant import Key
-from attribution import attribution_findings, recomputed_shares
-from covenant import covenant_findings
-from events import canonical_json, event_id
-from identity import Signer, require_signer
-from ledger import Ledger, _hashable_key, _is_uint
+from .accountant import Key
+from .attribution import attribution_findings, recomputed_shares
+from .covenant import covenant_findings
+from .events import canonical_json, event_id
+from .identity import Signer, require_signer
+from .ledger import Ledger, _hashable_key, _is_uint
 
 
 def _court_findings(ledger: Ledger) -> "List[Tuple[str, str, str]]":

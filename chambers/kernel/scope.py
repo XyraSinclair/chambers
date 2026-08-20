@@ -35,8 +35,8 @@ import bisect
 import hashlib
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
-from events import canonical_json, event_id
-from ledger import Ledger
+from .events import canonical_json, event_id
+from .ledger import Ledger
 
 # ---- RFC 6962-shaped hashing (domain-separated) ----
 

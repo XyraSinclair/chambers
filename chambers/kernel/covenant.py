@@ -45,10 +45,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
-from accountant import Key
-from events import canonical_json, event_id
-from identity import Signer, require_signer
-from ledger import Ledger, _is_uint
+from .accountant import Key
+from .events import canonical_json, event_id
+from .identity import Signer, require_signer
+from .ledger import Ledger, _is_uint
 
 COVENANT_ACTIONS = ("cease_lease_issuance", "cap_lease_total")
 

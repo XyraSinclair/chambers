@@ -20,11 +20,11 @@ from __future__ import annotations
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-import battery as B  # noqa: E402
-import reviewers as R  # noqa: E402
-from events import canonical_json  # noqa: E402  (via battery's kernel path)
+from chambers.review_audit import battery as B  # noqa: E402
+from chambers.review_audit import reviewers as R  # noqa: E402
+from chambers.kernel.events import canonical_json  # noqa: E402
 
 GOLDEN_BATTERY_ID = (
     "sha256:c8a004cb448824e65f10710de1f58f38f3240c476c005a15fcadfe1a08875765"

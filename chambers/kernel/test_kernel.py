@@ -23,20 +23,20 @@ import os
 import sys
 from typing import Dict, List
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from accountant import (  # type: ignore  # noqa: E402
+from chambers.kernel.accountant import (  # type: ignore  # noqa: E402
     Accountant,
     CapacityEstimate,
     EstimatorAttestation,
     composition_key,
     exposure_key,
 )
-from events import ChargeEvent, LeaseEvent, RegisterEvent, event_id
-from leases import LeaseIssuer, LeaseRefused
-from ledger import Ledger, MergeConflict
-from meter import KernelMeter, MeterRefused
-from session import MediationSession, SessionRefused
+from chambers.kernel.events import ChargeEvent, LeaseEvent, RegisterEvent, event_id
+from chambers.kernel.leases import LeaseIssuer, LeaseRefused
+from chambers.kernel.ledger import Ledger, MergeConflict
+from chambers.kernel.meter import KernelMeter, MeterRefused
+from chambers.kernel.session import MediationSession, SessionRefused
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TRACES = os.path.join(HERE, "..", "conformance", "traces")
@@ -543,7 +543,7 @@ def test_ledger_trace_corpus_replays() -> None:
     # The golden ledger corpus (KERNEL-SPEC.md §5) must replay bit-for-bit
     # from the artifacts alone: parse jsonl -> fold + audit_codes -> compare
     # to expected; re-serialization must reproduce the artifact bytes.
-    import emit_ledger_traces as elt
+    from chambers.kernel import emit_ledger_traces as elt
 
     traces_dir = os.path.join(HERE, "ledger_traces")
     names = sorted(
@@ -552,7 +552,7 @@ def test_ledger_trace_corpus_replays() -> None:
         if f.endswith(".ledger.jsonl")
     )
     assert len(names) >= 14, names
-    from events import canonical_json
+    from chambers.kernel.events import canonical_json
 
     for name in names:
         with open(os.path.join(traces_dir, f"{name}.ledger.jsonl"), encoding="ascii") as fh:
@@ -575,7 +575,7 @@ def test_nonstring_issuer_cannot_authorize_leases() -> None:
     # same non-string issuer — or an empty-string issuer against a
     # missing-issuer register — evaded I5, and two deviant registers of
     # mixed types crashed the auditor on sort. All three must convict/parse.
-    from events import event_id
+    from chambers.kernel.events import event_id
 
     key = ["comp", "evader", "reachability", "cardinal"]
 
@@ -595,7 +595,7 @@ def test_nonstring_issuer_cannot_authorize_leases() -> None:
         return Ledger.from_jsonl(lines)
 
     def _canonical_line(payload: dict) -> str:
-        from events import canonical_json
+        from chambers.kernel.events import canonical_json
         return canonical_json(payload) + "\n"
 
     # forged lease echoes the non-string issuer -> must still be I5
@@ -630,7 +630,7 @@ def test_lean_golden_traces_reemit_identical() -> None:
     # artifacts. If accountant.py's behavior drifts, THIS goes red here;
     # if the Lean model drifts, `lake build` goes red there. (The lane is
     # live: a corrupted golden value was shown to stop the Lean build.)
-    import emit_lean_traces as elt
+    from chambers.kernel import emit_lean_traces as elt
 
     committed = {}
     for path in (elt.JSON_OUT, elt.LEAN_OUT):

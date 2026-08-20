@@ -39,14 +39,12 @@ def _entry_path(entry: Dict[str, Any]) -> Path:
     return REPO_ROOT / entry["source"]
 
 
-def _kernel_dir() -> Path:
+def _python_root() -> Path:
+    """The directory containing the `chambers` package — what PYTHONPATH
+    must carry to run `python3 -m chambers.kernel.verify`."""
     if _is_dist():
-        return KIT_DIR / "verifier/python/chambers/kernel"
-    return REPO_ROOT / "chambers/kernel"
-
-
-def _verify_script() -> Path:
-    return _kernel_dir() / "verify.py"
+        return KIT_DIR / "verifier/python"
+    return REPO_ROOT
 
 
 def _rust_manifest() -> Path:
@@ -176,7 +174,7 @@ def replay_ledgers(manifest: Dict[str, Any]) -> Tuple[List[str], Dict[str, int]]
     failures: List[str] = []
     stats = {"clean": 0, "convicted": 0, "artifacts": 0}
     by_path = _entries_by_path(manifest)
-    verify_script = _verify_script()
+    python_root = _python_root()
     for artifact_entry in ledger_artifact_entries(manifest):
         artifact_path = _entry_path(artifact_entry)
         expected_entry = _expected_entry_for_artifact(artifact_entry, by_path)
@@ -187,11 +185,14 @@ def replay_ledgers(manifest: Dict[str, Any]) -> Tuple[List[str], Dict[str, int]]
             failures.append(f"{expected_entry['path']}: {exc}")
             continue
         expected_exit = 0 if not expected_codes else 1
+        env = os.environ.copy()
+        env["PYTHONPATH"] = str(python_root)
         proc = subprocess.run(
-            [sys.executable, str(verify_script), str(artifact_path)],
+            [sys.executable, "-m", "chambers.kernel.verify", str(artifact_path)],
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
+            env=env,
             check=False,
         )
         actual_codes = _parse_verdict_codes(proc.stdout)
@@ -217,15 +218,15 @@ def replay_ledgers(manifest: Dict[str, Any]) -> Tuple[List[str], Dict[str, int]]
 
 
 def _import_kernel_helpers() -> None:
-    kernel_dir = str(_kernel_dir())
-    if kernel_dir not in sys.path:
-        sys.path.insert(0, kernel_dir)
+    python_root = str(_python_root())
+    if python_root not in sys.path:
+        sys.path.insert(0, python_root)
 
 
 def replay_views(manifest: Dict[str, Any]) -> Tuple[List[str], int]:
     _import_kernel_helpers()
-    from events import canonical_json  # type: ignore
-    from views import view  # type: ignore
+    from chambers.kernel.events import canonical_json  # type: ignore
+    from chambers.kernel.views import view  # type: ignore
 
     failures: List[str] = []
     by_path = _entries_by_path(manifest)
@@ -255,7 +256,7 @@ def replay_views(manifest: Dict[str, Any]) -> Tuple[List[str], int]:
 
 def replay_lean_accountant(manifest: Dict[str, Any]) -> Tuple[List[str], int]:
     _import_kernel_helpers()
-    from accountant import Accountant, CapacityEstimate, EstimatorAttestation  # type: ignore
+    from chambers.kernel.accountant import Accountant, CapacityEstimate, EstimatorAttestation  # type: ignore
 
     failures: List[str] = []
     traces_entry: Optional[Dict[str, Any]] = None

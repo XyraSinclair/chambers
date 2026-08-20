@@ -28,14 +28,14 @@ import os
 import random
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-import verify as verify_mod  # noqa: E402
-from accountant import CapacityEstimate, EstimatorAttestation, exposure_key  # noqa: E402
-from events import DerivationEvent, canonical_json, event_id  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from meter import KernelMeter  # noqa: E402
-from settlement import (  # noqa: E402
+from chambers.kernel import verify as verify_mod  # noqa: E402
+from chambers.kernel.accountant import CapacityEstimate, EstimatorAttestation, exposure_key  # noqa: E402
+from chambers.kernel.events import DerivationEvent, canonical_json, event_id  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.meter import KernelMeter  # noqa: E402
+from chambers.kernel.settlement import (  # noqa: E402
     SettlementIssuer,
     SettlementRefused,
     audit_settlement_codes,
@@ -451,7 +451,7 @@ def test_node_audit_serves_p_codes_and_clean_requires_them_empty() -> None:
     import threading
     import urllib.request
 
-    import node as node_mod
+    from chambers.kernel import node as node_mod
 
     ledger, _m, _bank, _escrow, _receipt, k_src = _dirty_provenance_economy()
     server = node_mod.serve("127.0.0.1", 0, None, 4 * 1024 * 1024)

@@ -24,12 +24,11 @@ import sys
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.join(HERE, "..", "kernel"))
+sys.path.insert(0, os.path.dirname(os.path.dirname(HERE)))
 
-import runner as R  # noqa: E402
-from events import canonical_json, event_id  # noqa: E402
-from ledger import Ledger  # noqa: E402
+from chambers.runtime import runner as R  # noqa: E402
+from chambers.kernel.events import canonical_json, event_id  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
 
 BUNDLES = os.path.join(HERE, "bundles")
 

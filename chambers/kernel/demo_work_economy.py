@@ -30,14 +30,14 @@ import io
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from accountant import CapacityEstimate, EstimatorAttestation, exposure_key  # noqa: E402
-from leases import LeaseIssuer  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from session import MediationSession  # noqa: E402
-from settlement import SettlementIssuer, conservation_identity, settlement_fold  # noqa: E402
-import verify as verify_mod  # noqa: E402
+from chambers.kernel.accountant import CapacityEstimate, EstimatorAttestation, exposure_key  # noqa: E402
+from chambers.kernel.leases import LeaseIssuer  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.session import MediationSession  # noqa: E402
+from chambers.kernel.settlement import SettlementIssuer, conservation_identity, settlement_fold  # noqa: E402
+from chambers.kernel import verify as verify_mod  # noqa: E402
 
 TOR = EstimatorAttestation("indep", "adversarial_review", "static_schema_bound", True)
 

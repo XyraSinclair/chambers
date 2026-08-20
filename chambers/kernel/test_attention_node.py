@@ -26,15 +26,15 @@ import tempfile
 import threading
 import urllib.request
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-import attention_node as att_mod  # noqa: E402
-import node as node_mod  # noqa: E402
-from accountant import exposure_key  # noqa: E402
-from attention_node import att_key  # noqa: E402
-from leases import LeaseIssuer  # noqa: E402
-from ledger import Ledger  # noqa: E402
-from settlement import SettlementIssuer  # noqa: E402
+from chambers.kernel import attention_node as att_mod  # noqa: E402
+from chambers.kernel import node as node_mod  # noqa: E402
+from chambers.kernel.accountant import exposure_key  # noqa: E402
+from chambers.kernel.attention_node import att_key  # noqa: E402
+from chambers.kernel.leases import LeaseIssuer  # noqa: E402
+from chambers.kernel.ledger import Ledger  # noqa: E402
+from chambers.kernel.settlement import SettlementIssuer  # noqa: E402
 
 EPOCH1, EPOCH2 = "epoch:2026-07-05", "epoch:2026-07-06"
 RING = 1_000          # interrupt units per notification

@@ -1262,10 +1262,18 @@
       ]
     },
     {
-      "bytes": 2669,
+      "bytes": 294,
+      "path": "verifier/python/chambers/__init__.py",
+      "role": "reference_verifier",
+      "sha256": "ca2951ebedab8a115b679b4de482b800c8cf718a10ce4269ae2a89e792530cc2",
+      "source": "chambers/__init__.py",
+      "verifier": "python"
+    },
+    {
+      "bytes": 2572,
       "path": "verifier/python/chambers/kernel/__init__.py",
       "role": "reference_verifier",
-      "sha256": "4c2563d3a9135058c57f743e923c9731aaaf120100dcb83510f85ad2bccff24e",
+      "sha256": "533406d24825fed7a154b328e6c1d5de88f57a87507f1839027f93ca86ddb0fa",
       "source": "chambers/kernel/__init__.py",
       "verifier": "python"
     },
@@ -1278,66 +1286,66 @@
       "verifier": "python"
     },
     {
-      "bytes": 14161,
+      "bytes": 14163,
       "path": "verifier/python/chambers/kernel/attribution.py",
       "role": "reference_verifier",
-      "sha256": "2e75de07bcddd4fbcc0b99be35a46f6bd6d35068b2559bea685e0710720a225f",
+      "sha256": "cfb441fb62b2a0b441680d1f27d7686a3634ff9143cf4e5cf6854375ad8248c1",
       "source": "chambers/kernel/attribution.py",
       "verifier": "python"
     },
     {
-      "bytes": 13115,
+      "bytes": 13119,
       "path": "verifier/python/chambers/kernel/covenant.py",
       "role": "reference_verifier",
-      "sha256": "15f71b68bdda8e0a06ed2d23efc77d90677ababc506643827de0a18c7ece9d44",
+      "sha256": "a201f42e36a3efa53002928464713082728fdc3dd2a1210e95757635a917e40a",
       "source": "chambers/kernel/covenant.py",
       "verifier": "python"
     },
     {
-      "bytes": 8890,
+      "bytes": 8891,
       "path": "verifier/python/chambers/kernel/events.py",
       "role": "reference_verifier",
-      "sha256": "182453e111998d8d2a0f484c15a41b69febb44e9b3175f55690a30cbfc397519",
+      "sha256": "f07e429202be8656be5eaee2bafe2ab1ca5f5a9353eb7c8b4113565c3c91a671",
       "source": "chambers/kernel/events.py",
       "verifier": "python"
     },
     {
-      "bytes": 12710,
+      "bytes": 12626,
       "path": "verifier/python/chambers/kernel/identity.py",
       "role": "reference_verifier",
-      "sha256": "1626333b12dbed1c671693dc43ad7be3e12eeadda8f096c3baa2e69e805841a5",
+      "sha256": "7bbbd2f429455797899c7a660cf5537a376df0f625f469440b3108afbd58e270",
       "source": "chambers/kernel/identity.py",
       "verifier": "python"
     },
     {
-      "bytes": 38862,
+      "bytes": 38864,
       "path": "verifier/python/chambers/kernel/ledger.py",
       "role": "reference_verifier",
-      "sha256": "db8f564c0405459266f68bfc8acb34dd1edcb56ba41b5f0a351b1570e77ea376",
+      "sha256": "d82b42134fe6159ac9e92b886eeb30c5ba315a180a986d176db65167a74e43ba",
       "source": "chambers/kernel/ledger.py",
       "verifier": "python"
     },
     {
-      "bytes": 81258,
+      "bytes": 81264,
       "path": "verifier/python/chambers/kernel/settlement.py",
       "role": "reference_verifier",
-      "sha256": "1095104b998becfeb59a6515f0a30d4e8af3c468d5de1cf06ab482f478bafc6c",
+      "sha256": "0717bd169cd55d06e77b4241e660cfabd64cd755737365c1706824da641f9c64",
       "source": "chambers/kernel/settlement.py",
       "verifier": "python"
     },
     {
-      "bytes": 5176,
+      "bytes": 5126,
       "path": "verifier/python/chambers/kernel/verify.py",
       "role": "reference_verifier",
-      "sha256": "f3112a86aa4b0ae578e0122ec67a29a7b7f7ca6a9f1ab521d3d7cefdf1eccded",
+      "sha256": "5ed6f2eaad96dd3f30c8ab6bfdf64dc675a292e6b19c1fdf567c76d3c8d88f08",
       "source": "chambers/kernel/verify.py",
       "verifier": "python"
     },
     {
-      "bytes": 7388,
+      "bytes": 7304,
       "path": "verifier/python/chambers/kernel/views.py",
       "role": "reference_verifier",
-      "sha256": "69cdbe01c0f1747ceb3ca371c86a34f2acb96c71501003bd6a025278a5a1d6f6",
+      "sha256": "d76f104fa7d8d1aa46a352083ecfc8ae04cbba4d8d8c77bc1c7129cfa617ec89",
       "source": "chambers/kernel/views.py",
       "verifier": "python"
     },
@@ -1390,7 +1398,7 @@
       "verifier": "rust"
     }
   ],
-  "entry_count": 131,
+  "entry_count": 132,
   "generated_by": "chambers/compliance_kit/make_kit.py",
   "manifest_version": 1
 }

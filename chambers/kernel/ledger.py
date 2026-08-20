@@ -41,8 +41,8 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple
 
-from accountant import Key, UNSAFE_PERMILLE, leakage_class
-from events import (
+from .accountant import Key, UNSAFE_PERMILLE, leakage_class
+from .events import (
     ChargeEvent,
     DerivationEvent,
     LeaseEvent,

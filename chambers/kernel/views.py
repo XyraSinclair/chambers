@@ -18,13 +18,9 @@ Integer-only: cross-multiplication, no division, no floats anywhere.
 from __future__ import annotations
 
 import hashlib
-import os
-import sys
 from typing import Any, Dict, List, Optional, Tuple
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from events import canonical_json, is_uint as _is_uint
+from .events import canonical_json, is_uint as _is_uint
 
 SPEC = "charge-views/1"
 

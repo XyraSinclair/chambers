@@ -197,11 +197,7 @@ class CourtReplicationTests(_ContextPacketMixin, unittest.TestCase):
         import json as _json
         import threading
         import urllib.request
-        sys_path_kernel = str(Path(chamber.__file__).parent / "kernel")
-        import sys as _sys
-        if sys_path_kernel not in _sys.path:
-            _sys.path.insert(0, sys_path_kernel)
-        import node as node_mod
+        from chambers.kernel import node as node_mod
 
         server = node_mod.serve("127.0.0.1", 0, None, 4 * 1024 * 1024)
         threading.Thread(target=server.serve_forever, daemon=True).start()

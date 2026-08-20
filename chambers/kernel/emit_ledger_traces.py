@@ -18,20 +18,20 @@ from __future__ import annotations
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from accountant import (  # noqa: E402
+from chambers.kernel.accountant import (  # noqa: E402
     Accountant,
     CapacityEstimate,
     EstimatorAttestation,
     composition_key,
     exposure_key,
 )
-from events import ChargeEvent, LeaseEvent, RegisterEvent, canonical_json, event_id  # noqa: E402
-from leases import LeaseIssuer  # noqa: E402
-from ledger import Ledger, fold_canonical  # noqa: E402  (re-exported: test_kernel.py replays through this module)
-from meter import KernelMeter  # noqa: E402
-from session import MediationSession  # noqa: E402
+from chambers.kernel.events import ChargeEvent, LeaseEvent, RegisterEvent, canonical_json, event_id  # noqa: E402
+from chambers.kernel.leases import LeaseIssuer  # noqa: E402
+from chambers.kernel.ledger import Ledger, fold_canonical  # noqa: E402  (re-exported: test_kernel.py replays through this module)
+from chambers.kernel.meter import KernelMeter  # noqa: E402
+from chambers.kernel.session import MediationSession  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "ledger_traces")
