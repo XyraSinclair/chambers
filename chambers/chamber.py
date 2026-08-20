@@ -722,11 +722,6 @@ def classify_demo_question(question: str) -> Tuple[bool, str, str]:
     return True, "freeform", "Freeform bounded diligence question; preflight reviewers still decide whether it runs."
 
 
-def is_allowed_demo_question(question: str) -> bool:
-    ok, _kind, _msg = classify_demo_question(question)
-    return ok
-
-
 def build_wrapped_task(question: str) -> str:
     return f"""
 Owner-authored Chamber task wrapper. These invariants override requester wording.
@@ -913,30 +908,6 @@ def deterministic_public_artifact_scan(artifact: Dict[str, Any], max_words: int)
     scan["ok"] = not scan["flags"]
     scan["word_count"] = word_count(text)
     return scan
-
-
-
-def trim_to_words(text: str, max_words: int) -> str:
-    words = re.findall(r"\S+", text or "")
-    if len(words) <= max_words:
-        return text.strip()
-    return " ".join(words[:max_words]).strip()
-
-
-def clean_env() -> Dict[str, str]:
-    keep = {
-        "HOME", "USER", "LOGNAME", "PATH", "SHELL", "TMPDIR", "TEMP", "TMP",
-        "LANG", "LC_ALL", "TERM", "CODEX_HOME", "XDG_CONFIG_HOME", "XDG_DATA_HOME",
-    }
-    env = {k: v for k, v in os.environ.items() if k in keep}
-    if PASS_API_KEYS:
-        for k in ["CODEX_API_KEY", "OPENAI_API_KEY"]:
-            if k in os.environ:
-                env[k] = os.environ[k]
-    # Reasonable defaults if caller is launched from a sparse environment.
-    env.setdefault("PATH", os.environ.get("PATH", "/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"))
-    env.setdefault("HOME", str(Path.home()))
-    return env
 
 
 @dataclasses.dataclass
