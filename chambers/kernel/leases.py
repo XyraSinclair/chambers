@@ -1,4 +1,5 @@
-"""Lease issuance for charge-kernel/2 — how a ceiling holds across nodes.
+"""Lease issuance and spending for charge-kernel/2 — how a ceiling holds
+across nodes.
 
 Eventual consistency alone cannot enforce a ceiling: two nodes spending the
 same budget concurrently can jointly overspend it and merge will only report
@@ -25,11 +26,104 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, Optional
 
-from .accountant import Key
+from .accountant import CapacityEstimate, Decision, EstimatorAttestation, Key
 from .covenant import grant_violates_covenants
-from .events import LeaseEvent, RegisterEvent
+from .events import ChargeEvent, LeaseEvent, RegisterEvent
 from .identity import Signer, require_signer
 from .ledger import Ledger
+
+
+class LeaseSpender:
+    """The issuer's counterpart: shared lease-SPENDING core for the
+    kernel's two charging front-ends (KernelMeter, MediationSession).
+    One implementation of the declared-tick clock, per-lease charge
+    sequencing, honest-resumption hydration, charge-identity/2 signed
+    recording, and the court-file fold — so the two front-ends cannot
+    drift on any of them. A front-end supplies the attributes `node`,
+    `clock`, `ledger`, `accountant`, `node_signer`, `_next_seq`, and
+    the `_spent_leases()` hook naming the leases it spends."""
+
+    def _spent_leases(self) -> Dict[Key, LeaseEvent]:
+        raise NotImplementedError
+
+    # ---- clock (issuer domain: declared ticks, else a local counter) ----
+
+    def _resolve_tick(self, tick: Optional[int]) -> int:
+        if tick is None:
+            self.clock += 1
+            return self.clock
+        self.clock = max(self.clock, tick)
+        return tick
+
+    # ---- sequencing and honest resumption ----
+
+    def _take_seq(self, lease: LeaseEvent) -> int:
+        seq = self._next_seq[lease.id]
+        self._next_seq[lease.id] = seq + 1
+        return seq
+
+    def _hydrate_lease(
+        self, key: Key, lease: LeaseEvent, subject_entropy_mbits: int
+    ) -> None:
+        """Register the local accountant with the LEASE as the ceiling,
+        then replay every prior charge bound to the lease (restart-safe:
+        cumulative, demand, the latches, and the next charge_seq)."""
+        state = self.accountant.register(
+            key,
+            subject_entropy_mbits=subject_entropy_mbits,
+            ceiling_mbits=lease.amount_mbits,
+        )
+        usage = self.ledger.lease_usage(lease.id)
+        self._next_seq[lease.id] = usage.hydrate(
+            state, lease.amount_mbits, subject_entropy_mbits
+        )
+
+    # ---- recording ----
+
+    def _record_charge(
+        self,
+        key: Key,
+        lease: LeaseEvent,
+        tick: int,
+        estimate: CapacityEstimate,
+        estimator: EstimatorAttestation,
+        decision: Decision,
+    ) -> str:
+        """One ChargeEvent in the shared ledger, whatever the decision
+        was (refusals are facts) — signed when the node authors under a
+        key (charge-identity/2)."""
+        event = ChargeEvent.from_decision(
+            key=key,
+            node=self.node,
+            lease_id=lease.id,
+            charge_seq=self._take_seq(lease),
+            tick=tick,
+            estimate=estimate,
+            estimator=estimator,
+            decision=decision,
+        )
+        if self.node_signer is not None:
+            event = self.node_signer.sign(event)
+        return self.ledger.add(event)
+
+    # ---- evidence ----
+
+    def court_file(self) -> Dict[Key, dict]:
+        """The ledger fold restricted to this spender's keys — the
+        record a stranger recomputes from the merged ledger."""
+        touched = set(self._spent_leases().keys())
+        out: Dict[Key, dict] = {}
+        for key, acct in self.ledger.fold().items():
+            if key in touched:
+                out[key] = {
+                    "cumulative_mbits": acct.cumulative_mbits,
+                    "demanded_mbits": acct.demanded_mbits,
+                    "ceiling_mbits": acct.ceiling_mbits,
+                    "leakage_class": acct.leakage_class,
+                    "incident": acct.incident,
+                    "conflicted": acct.conflicted,
+                }
+        return out
 
 
 class LeaseRefused(Exception):

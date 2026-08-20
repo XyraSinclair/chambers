@@ -44,7 +44,7 @@ that lies about ticks is exactly what audit I4 catches after merge.
 
 Every accepted or refused step is a ChargeEvent in the shared ledger, so the
 session's court file is just the ledger's fold restricted to this session's
-keys — a receipt a stranger can replay.
+keys — evidence a stranger can replay.
 """
 from __future__ import annotations
 
@@ -59,7 +59,9 @@ from .accountant import (
     Key,
     exposure_key,
 )
-from .events import ChargeEvent, LeaseEvent
+from .events import LeaseEvent
+from .identity import Signer, require_signer
+from .leases import LeaseSpender
 from .ledger import Ledger
 
 
@@ -87,16 +89,8 @@ class EmissionResult:
 
 
 @dataclass
-class MediationSession:
+class MediationSession(LeaseSpender):
     """One admitted guest agent working over one exact tuple of chambers.
-
-    KNOWN DRIFT, named: KernelMeter enforces the charge-identity/2
-    authoring law (require_signer; every recorded charge is key-signed)
-    while this front-end signs nothing — a key-shaped node id here emits
-    A1-convicted, unattributable charges through the maintained API.
-    The shared lease-spender extraction that carries the signing law
-    into both front-ends is queued semantic work; until it lands, use
-    KernelMeter where authorship must be attributable.
 
     node:        the executing node's id. Every lease this session holds MUST
                  be leased to this node (checked at construction) — a session
@@ -111,6 +105,11 @@ class MediationSession:
     ledger:      the shared, mergeable ledger every step is written to. Prior
                  charges against these leases are REPLAYED into the local
                  accountant at construction (honest resumption).
+    node_signer: charge-identity/2 (IDENTITY-SPEC §7): required when the
+                 node id is a key — every recorded charge is then signed;
+                 a key-shaped id without its signer refuses at
+                 construction (same law as KernelMeter, via the shared
+                 LeaseSpender core).
     """
 
     node: str
@@ -121,9 +120,11 @@ class MediationSession:
     ledger: Ledger
     accountant: Accountant = field(default_factory=Accountant)
     clock: int = 0  # last declared tick seen (issuer clock domain)
+    node_signer: Optional[Signer] = None
     _next_seq: Dict[str, int] = field(default_factory=dict)  # lease_id -> next charge_seq
 
     def __post_init__(self) -> None:
+        self.node_signer = require_signer(self.node, self.node_signer, "session node")
         if len(self.tuple_members) < 2:
             raise SessionRefused("a mediation tuple needs >= 2 members")
 
@@ -141,37 +142,18 @@ class MediationSession:
                     f"registration for {key} is conflicted; refusing to operate on it"
                 )
 
-            # Register the local accountant with the LEASE as the ceiling,
-            # then hydrate it from the ledger's replay of this lease.
-            state = self.accountant.register(
-                key,
-                subject_entropy_mbits=acct.subject_entropy_mbits,
-                ceiling_mbits=lease.amount_mbits,
-            )
-            usage = self.ledger.lease_usage(lease.id)
-            self._next_seq[lease.id] = usage.hydrate(
-                state, lease.amount_mbits, acct.subject_entropy_mbits
-            )
+            self._hydrate_lease(key, lease, acct.subject_entropy_mbits)
 
-    # ---- clock ----
+    def _spent_leases(self) -> Dict[Key, LeaseEvent]:
+        return self.leases
 
-    def _resolve_tick(self, tick: Optional[int]) -> int:
-        if tick is None:
-            self.clock += 1
-            return self.clock
-        self.clock = max(self.clock, tick)
-        return tick
+    # ---- liveness (a session refuses to spend an expired lease) ----
 
     def _check_live(self, lease: LeaseEvent, tick: int) -> None:
         if tick > lease.expires_tick:
             raise SessionRefused(
                 f"lease {lease.id} expired at tick {lease.expires_tick}, now {tick}"
             )
-
-    def _take_seq(self, lease: LeaseEvent) -> int:
-        seq = self._next_seq[lease.id]
-        self._next_seq[lease.id] = seq + 1
-        return seq
 
     # ---- observation ----
 
@@ -193,7 +175,7 @@ class MediationSession:
         t = self._resolve_tick(tick)
         self._check_live(lease, t)
         decision = self.accountant.charge(key, estimate, estimator, t)
-        eid = self._record(key, lease, t, estimate, estimator, decision)
+        eid = self._record_charge(key, lease, t, estimate, estimator, decision)
         return ObservationResult(member=member, decision=decision, event_id=eid)
 
     # ---- emission ----
@@ -232,7 +214,7 @@ class MediationSession:
         decisive: Optional[ObservationResult] = None
         for member, key in zip(self.tuple_members, keys):
             decision = decisions[key]
-            eid = self._record(key, self.leases[key], t, estimate, estimator, decision)
+            eid = self._record_charge(key, self.leases[key], t, estimate, estimator, decision)
             r = ObservationResult(member=member, decision=decision, event_id=eid)
             results.append(r)
             if decisive is None and not decision.accepted and decision.reason_class != "REFUSED_COUPLED":
@@ -249,45 +231,3 @@ class MediationSession:
             decision=decisive.decision,
             event_id=decisive.event_id,
         )
-
-    # ---- shared recording ----
-
-    def _record(
-        self,
-        key: Key,
-        lease: LeaseEvent,
-        tick: int,
-        estimate: CapacityEstimate,
-        estimator: EstimatorAttestation,
-        decision: Decision,
-    ) -> str:
-        event = ChargeEvent.from_decision(
-            key=key,
-            node=self.node,
-            lease_id=lease.id,
-            charge_seq=self._take_seq(lease),
-            tick=tick,
-            estimate=estimate,
-            estimator=estimator,
-            decision=decision,
-        )
-        return self.ledger.add(event)
-
-    # ---- receipt ----
-
-    def court_file(self) -> Dict[Key, dict]:
-        """This session's receipt: the ledger fold restricted to keys this
-        session touched. A stranger merges the ledger and recomputes it."""
-        touched = set(self.leases.keys())
-        out: Dict[Key, dict] = {}
-        for key, acct in self.ledger.fold().items():
-            if key in touched:
-                out[key] = {
-                    "cumulative_mbits": acct.cumulative_mbits,
-                    "demanded_mbits": acct.demanded_mbits,
-                    "ceiling_mbits": acct.ceiling_mbits,
-                    "leakage_class": acct.leakage_class,
-                    "incident": acct.incident,
-                    "conflicted": acct.conflicted,
-                }
-        return out

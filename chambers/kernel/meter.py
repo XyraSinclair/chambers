@@ -41,9 +41,9 @@ from .accountant import (
     EstimatorAttestation,
     Key,
 )
-from .events import ChargeEvent, LeaseEvent
+from .events import LeaseEvent
 from .identity import Signer, require_signer
-from .leases import LeaseIssuer
+from .leases import LeaseIssuer, LeaseSpender
 from .ledger import Ledger
 
 # A meter's self-granted lease never expires on its own authority; expiry
@@ -56,7 +56,7 @@ class MeterRefused(Exception):
 
 
 @dataclass
-class KernelMeter:
+class KernelMeter(LeaseSpender):
     """One node's complete, auditable metering front-end.
 
     node:   the executing node id (also the lease holder).
@@ -111,11 +111,7 @@ class KernelMeter:
             key, node=self.node, amount_mbits=ceiling_mbits, expires_tick=NEVER_EXPIRES_TICK
         )
         self._leases[key] = lease
-        state = self.accountant.register(
-            key, subject_entropy_mbits=subject_entropy_mbits, ceiling_mbits=ceiling_mbits
-        )
-        usage = self.ledger.lease_usage(lease.id)
-        self._next_seq[lease.id] = usage.hydrate(state, lease.amount_mbits, subject_entropy_mbits)
+        self._hydrate_lease(key, lease, subject_entropy_mbits)
 
     def adopt(self, key: Key, lease: LeaseEvent, subject_entropy_mbits: int) -> None:
         """Wire an EXTERNALLY-issued lease into this meter — the tail of
@@ -134,12 +130,11 @@ class KernelMeter:
             raise MeterRefused(
                 f"lease is addressed to node {lease.node!r}, not this node {self.node!r}"
             )
-        state = self.accountant.register(
-            key, subject_entropy_mbits=subject_entropy_mbits, ceiling_mbits=lease.amount_mbits
-        )
         self._leases[key] = lease
-        usage = self.ledger.lease_usage(lease.id)
-        self._next_seq[lease.id] = usage.hydrate(state, lease.amount_mbits, subject_entropy_mbits)
+        self._hydrate_lease(key, lease, subject_entropy_mbits)
+
+    def _spent_leases(self) -> Dict[Key, LeaseEvent]:
+        return self._leases
 
     def has(self, key: Key) -> bool:
         return key in self._leases
@@ -153,38 +148,6 @@ class KernelMeter:
         return self.accountant.state(key)
 
     # ---- charging ----
-
-    def _resolve_tick(self, tick: Optional[int]) -> int:
-        if tick is None:
-            self.clock += 1
-            return self.clock
-        self.clock = max(self.clock, tick)
-        return tick
-
-    def _record(
-        self,
-        key: Key,
-        tick: int,
-        estimate: CapacityEstimate,
-        estimator: EstimatorAttestation,
-        decision: Decision,
-    ) -> str:
-        lease = self._leases[key]
-        seq = self._next_seq[lease.id]
-        self._next_seq[lease.id] = seq + 1
-        event = ChargeEvent.from_decision(
-            key=key,
-            node=self.node,
-            lease_id=lease.id,
-            charge_seq=seq,
-            tick=tick,
-            estimate=estimate,
-            estimator=estimator,
-            decision=decision,
-        )
-        if self.node_signer is not None:
-            event = self.node_signer.sign(event)
-        return self.ledger.add(event)
 
     def charge(
         self,
@@ -205,13 +168,13 @@ class KernelMeter:
         tick: Optional[int] = None,
     ) -> Tuple[Decision, str]:
         """charge() plus the recorded ChargeEvent's ledger id — the exact
-        work receipt a settlement release binds to (SETTLEMENT-SPEC: value
+        work record a settlement release binds to (SETTLEMENT-SPEC: value
         moves iff metered work moved, referenced by event id)."""
         if key not in self._leases:
             raise MeterRefused(f"key not registered with this meter: {key}")
         t = self._resolve_tick(tick)
         decision = self.accountant.charge(key, estimate, estimator, t)
-        eid = self._record(key, t, estimate, estimator, decision)
+        eid = self._record_charge(key, self._leases[key], t, estimate, estimator, decision)
         return decision, eid
 
     def charge_coupled(
@@ -229,24 +192,5 @@ class KernelMeter:
         t = self._resolve_tick(tick)
         decisions = self.accountant.charge_coupled(keys, estimate, estimator, t)
         for key in keys:
-            self._record(key, t, estimate, estimator, decisions[key])
+            self._record_charge(key, self._leases[key], t, estimate, estimator, decisions[key])
         return decisions
-
-    # ---- receipts ----
-
-    def court_file(self) -> Dict[Key, dict]:
-        """The fold restricted to this meter's keys — the receipt a stranger
-        recomputes from the merged ledger."""
-        touched = set(self._leases.keys())
-        out: Dict[Key, dict] = {}
-        for key, acct in self.ledger.fold().items():
-            if key in touched:
-                out[key] = {
-                    "cumulative_mbits": acct.cumulative_mbits,
-                    "demanded_mbits": acct.demanded_mbits,
-                    "ceiling_mbits": acct.ceiling_mbits,
-                    "leakage_class": acct.leakage_class,
-                    "incident": acct.incident,
-                    "conflicted": acct.conflicted,
-                }
-        return out
