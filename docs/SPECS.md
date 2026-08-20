@@ -74,12 +74,15 @@ diverge on any ledger holding covenant, derivation, or attribution
 facts near a `required_clean` escrow — latent today only because the
 frozen corpora carry none of those kinds. Under this file's own rule
 that Python/Rust divergence is release-critical, this is the named
-open debt: the reconciling change is a single findings registry (per
-family: code prefix, permanence class, court membership) that the
-verifier, the node, the S4 gate, and the Rust twin all consume, landing
-as a versioned spec change with migrated corpora. Until it lands, do
-not rely on S4 gating of covenant/provenance/attribution dirt agreeing
-across implementations.
+open debt. The Python-side roster now lives in one place —
+`chambers/kernel/findings.py`, a registry (per family: code prefix,
+defining identifier, coverage, court and audit membership, and the
+recorded reason for every exclusion) that the verifier, the node's
+`/v1/audit`, and the S4 gate all consume — so the divergence is data,
+not scattered code. Reconciling the memberships themselves (and the
+Rust twin's court) remains the queued versioned spec change with
+migrated corpora. Until it lands, do not rely on S4 gating of
+covenant/provenance/attribution dirt agreeing across implementations.
 
 ## Findings
 

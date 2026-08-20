@@ -31,9 +31,9 @@ import json
 from dataclasses import dataclass
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
+from . import findings as findings_registry
 from .accountant import Key
-from .attribution import attribution_findings, recomputed_shares
-from .covenant import covenant_findings
+from .attribution import recomputed_shares
 from .events import canonical_json, event_id
 from .identity import Signer, require_signer
 from .ledger import Ledger, _hashable_key, _is_uint
@@ -41,20 +41,14 @@ from .ledger import Ledger, _hashable_key, _is_uint
 
 def _court_findings(ledger: Ledger) -> "List[Tuple[str, str, str]]":
     """The dirty-court stream S4/S8 police releases against: the
-    information verdict PLUS charge-covenant/1 (value against
-    covenant-broken authority fails closed — SETTLEMENT-SPEC §3;
-    COVENANT-SPEC §4) PLUS charge-provenance/1 (value against
-    ancestry-laundering emissions fails closed — KERNEL-SPEC Part III
-    P.6) PLUS charge-attribution/1 (value near a lying split claim fails
-    closed — ATTRIBUTION-SPEC V.7). Frozen corpora carry no covenants,
-    no derivations, and no attribution reports, so every join leaves
-    their verdicts byte-identical."""
-    return (
-        ledger.audit_findings()
-        + covenant_findings(ledger)
-        + ledger.provenance_findings()
-        + attribution_findings(ledger)
-    )
+    information verdict PLUS charge-covenant/1 (SETTLEMENT-SPEC §3;
+    COVENANT-SPEC §4) PLUS charge-provenance/1 (KERNEL-SPEC Part III
+    P.6) PLUS charge-attribution/1 (ATTRIBUTION-SPEC V.7). Frozen
+    corpora carry no covenants, no derivations, and no attribution
+    reports, so every join leaves their verdicts byte-identical. The
+    membership is registry data (findings.FAMILIES, settlement_court
+    flag) — the exclusions of X and A are recorded there with reasons."""
+    return findings_registry.court_findings(ledger)
 
 SETTLEMENT_KINDS = (
     "deposit", "escrow", "release", "refund", "default_resolution",

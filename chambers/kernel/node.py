@@ -74,11 +74,12 @@ import threading
 from typing import List, Optional
 from urllib.parse import parse_qs, urlparse
 
-from . import covenant as covenant_mod  # noqa: E402
+from . import findings as findings_registry  # noqa: E402
 from .ledger import Ledger, fold_canonical  # noqa: E402  (KERNEL-SPEC §3.3)
 from . import scope as scope_mod  # noqa: E402
 from .settlement import conservation_identity, settlement_fold_canonical_v2  # noqa: E402
 from . import verify as verify_mod  # noqa: E402
+
 
 class NodeState:
     """The whole node: one grow-only ledger, one node-local ingestion log
@@ -247,14 +248,18 @@ def make_handler(state: NodeState, max_body: int, scoped_only: bool = False):
             elif route == "/v1/fold":
                 self._send(200, fold_canonical(led))
             elif route == "/v1/audit":
-                codes = led.audit_codes()
-                x_codes = led.substrate_codes()
-                c_codes = covenant_mod.covenant_codes(led)
-                p_codes = led.provenance_codes()
-                self._send(200, {"clean": not (codes or x_codes or c_codes
-                                               or p_codes),
-                                 "codes": codes, "x_codes": x_codes,
-                                 "c_codes": c_codes, "p_codes": p_codes})
+                # the family set is registry data (findings.FAMILIES,
+                # node_audit flag); the wire key per family is
+                # chamber-node/1 transport naming and lives here.
+                wire_key = {"I": "codes", "X": "x_codes",
+                            "C": "c_codes", "P": "p_codes"}
+                by_family = {
+                    wire_key[fam.prefix]:
+                        findings_registry.family_codes(fam.prefix, led)
+                    for fam in findings_registry.node_audit_families()
+                }
+                clean = not any(by_family.values())
+                self._send(200, {"clean": clean, **by_family})
             elif route == "/v1/settlement":
                 lhs, rhs = conservation_identity(led)
                 self._send(200, {

@@ -93,6 +93,7 @@ PYTHON_VERIFIER_SOURCES = [
     "chambers/kernel/attribution.py",
     "chambers/kernel/covenant.py",
     "chambers/kernel/events.py",
+    "chambers/kernel/findings.py",
     "chambers/kernel/identity.py",
     "chambers/kernel/ledger.py",
     "chambers/kernel/settlement.py",

@@ -24,13 +24,10 @@ from __future__ import annotations
 
 import sys
 
-from . import attribution as attribution_mod  # noqa: E402
-from . import covenant as covenant_mod  # noqa: E402
-from . import identity as identity_mod  # noqa: E402
+from . import findings as findings_registry  # noqa: E402
 from .events import canonical_json  # noqa: E402
 from .ledger import Ledger  # noqa: E402
 from .settlement import (  # noqa: E402
-    audit_settlement_codes,
     conservation_identity,
     settlement_fold_canonical_v2,
 )
@@ -61,11 +58,8 @@ def verify(text: str, out=sys.stdout) -> int:
             f"({a.leakage_class}), demanded {a.demanded_mbits}, "
             f"leased {a.granted_lease_mbits}{flags}"
         )
-    i_codes = ledger.audit_codes()
-
     # value layer
     s_fold = settlement_fold_canonical_v2(ledger)
-    s_codes = audit_settlement_codes(ledger)
     lhs, rhs = conservation_identity(ledger)
     if s_fold["accounts"] or s_fold["escrows"] or s_fold["bonds"]:
         w("\n== charge-settlement/2 (value) ==")
@@ -96,14 +90,14 @@ def verify(text: str, out=sys.stdout) -> int:
             )
         w(f"  conservation: {lhs} == {rhs} {'OK' if lhs == rhs else 'BROKEN'}")
 
-    x_codes = ledger.substrate_codes()          # charge-substrate/1 (X0)
-    c_codes = covenant_mod.covenant_codes(ledger)  # charge-covenant/1
-    p_codes = ledger.provenance_codes()         # charge-provenance/1
-    a_codes = identity_mod.identity_codes(ledger)  # charge-identity/1
-    v_codes = attribution_mod.attribution_codes(ledger)  # charge-attribution/1
-
     w("\n== verdict ==")
-    findings = i_codes + s_codes + x_codes + c_codes + p_codes + a_codes + v_codes
+    # every family's codes, in registry order (the one roster is
+    # findings.FAMILIES; nothing is re-enumerated here)
+    findings = [
+        code
+        for _prefix, codes in findings_registry.verdict_codes(ledger)
+        for code in codes
+    ]
     conserved = lhs == rhs
     if not findings and conserved:
         w("CLEAN: no findings; conservation exact")

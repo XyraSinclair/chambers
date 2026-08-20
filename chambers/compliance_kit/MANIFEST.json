@@ -1310,6 +1310,14 @@
       "verifier": "python"
     },
     {
+      "bytes": 6769,
+      "path": "verifier/python/chambers/kernel/findings.py",
+      "role": "reference_verifier",
+      "sha256": "8c8770a6ed5fed690e56de8c4362b59e90b1340c307c17c49c59b2ad99565dce",
+      "source": "chambers/kernel/findings.py",
+      "verifier": "python"
+    },
+    {
       "bytes": 12626,
       "path": "verifier/python/chambers/kernel/identity.py",
       "role": "reference_verifier",
@@ -1326,18 +1334,18 @@
       "verifier": "python"
     },
     {
-      "bytes": 81264,
+      "bytes": 81101,
       "path": "verifier/python/chambers/kernel/settlement.py",
       "role": "reference_verifier",
-      "sha256": "0717bd169cd55d06e77b4241e660cfabd64cd755737365c1706824da641f9c64",
+      "sha256": "2cc1d45e35b2a29a30415e331caeaf4411fdbbc9a6b98d256eb5519380ef77df",
       "source": "chambers/kernel/settlement.py",
       "verifier": "python"
     },
     {
-      "bytes": 5126,
+      "bytes": 4713,
       "path": "verifier/python/chambers/kernel/verify.py",
       "role": "reference_verifier",
-      "sha256": "5ed6f2eaad96dd3f30c8ab6bfdf64dc675a292e6b19c1fdf567c76d3c8d88f08",
+      "sha256": "f51edb70e973941cd7db6826cc03d0b9775d5477f11fdc6703cf5b78d5b5fb24",
       "source": "chambers/kernel/verify.py",
       "verifier": "python"
     },
@@ -1374,6 +1382,14 @@
       "verifier": "rust"
     },
     {
+      "bytes": 15117,
+      "path": "verifier/rust_ledger/src/attribution.rs",
+      "role": "reference_verifier",
+      "sha256": "81ed3793371d06627d09248801dd5f1e0d20ce0cf95dc2e415c215c301184976",
+      "source": "chambers/kernel/rust_ledger/src/attribution.rs",
+      "verifier": "rust"
+    },
+    {
       "bytes": 3140,
       "path": "verifier/rust_ledger/src/bin/charge-verify.rs",
       "role": "reference_verifier",
@@ -1390,15 +1406,15 @@
       "verifier": "rust"
     },
     {
-      "bytes": 90867,
+      "bytes": 97128,
       "path": "verifier/rust_ledger/src/lib.rs",
       "role": "reference_verifier",
-      "sha256": "46556fe176e5174bca8af889f260cb5f820dce04aa0062951ec554babd7a2c2b",
+      "sha256": "505d3b37587dcef65ed11091e7f17f4412e6f07effeaa44135771a4654e551bc",
       "source": "chambers/kernel/rust_ledger/src/lib.rs",
       "verifier": "rust"
     }
   ],
-  "entry_count": 132,
+  "entry_count": 134,
   "generated_by": "chambers/compliance_kit/make_kit.py",
   "manifest_version": 1
 }
