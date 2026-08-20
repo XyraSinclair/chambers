@@ -90,6 +90,14 @@ class EmissionResult:
 class MediationSession:
     """One admitted guest agent working over one exact tuple of chambers.
 
+    KNOWN DRIFT, named: KernelMeter enforces the charge-identity/2
+    authoring law (require_signer; every recorded charge is key-signed)
+    while this front-end signs nothing — a key-shaped node id here emits
+    A1-convicted, unattributable charges through the maintained API.
+    The shared lease-spender extraction that carries the signing law
+    into both front-ends is queued semantic work; until it lands, use
+    KernelMeter where authorship must be attributable.
+
     node:        the executing node's id. Every lease this session holds MUST
                  be leased to this node (checked at construction) — a session
                  cannot spend another node's lease.
