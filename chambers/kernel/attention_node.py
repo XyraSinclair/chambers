@@ -42,7 +42,7 @@ spam ceiling protects the third party's privacy, not just the
 receiver's focus. An exposure refusal after attention was accepted
 over-counts one interrupt and pays nobody: the safe direction, chosen.
 
-WHAT THE RESPONSE IS: a receipt of event ids. The stranger re-derives
+WHAT THE RESPONSE IS: evidence made of event ids. The stranger re-derives
 every number from GET /v1/verify — nothing in the response is
 trust-me.
 
@@ -80,7 +80,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
-from typing import Optional, Tuple
+from typing import Optional
 
 from . import node as node_mod  # noqa: E402
 from .accountant import CapacityEstimate, EstimatorAttestation, Key, exposure_key  # noqa: E402
@@ -187,12 +187,14 @@ class AttentionNodeState(node_mod.NodeState):
 
     # ---- the verb ----
 
-    def notify(self, req: dict) -> Tuple[int, dict]:
+    def notify(self, req: dict) -> dict:
         """One notification: the demo's proven sequence, served. Returns
-        (http_status, receipt)."""
+        the evidence dict alone — `stage` names the outcome; the HTTP
+        status is transport naming and lives with the handler
+        (_http_status)."""
         err = _validate(req)
         if err:
-            return 400, {"error": err}
+            return {"error": err}
         att = req["attention"]
         exp = req["exposure"]
         pay = req["payment"]
@@ -208,14 +210,14 @@ class AttentionNodeState(node_mod.NodeState):
             for key, last_tick in ((a_key, t), (x_key, t + 1)):
                 err = self._adopt_locked(key, last_tick)
                 if err:
-                    return 409, {"delivered": False, "stage": "provisioning", "error": err}
+                    return {"delivered": False, "stage": "provisioning", "error": err}
             # funds (pure read; an unfunded ring must not burn attention)
             accounts, _ = settlement_fold(self.ledger)
             available = accounts[pay["payer"]].available_ucr if pay["payer"] in accounts else 0
             if pay["price_ucr"] > available:
-                return 402, {"delivered": False, "stage": "funds",
-                             "error": f"payer {pay['payer']!r} has {available} ucr "
-                                      f"available < price {pay['price_ucr']}"}
+                return {"delivered": False, "stage": "funds",
+                        "error": f"payer {pay['payer']!r} has {available} ucr "
+                                 f"available < price {pay['price_ucr']}"}
 
             # 1) attention first: may the receiver's bell ring?
             attn, attn_id = self.meter.charge_recorded(
@@ -224,10 +226,10 @@ class AttentionNodeState(node_mod.NodeState):
             if not attn.accepted:
                 self.clock = t
                 self._persist_locked()
-                return 200, {"delivered": False, "stage": "attention_refused",
-                             "reason_class": attn.reason_class,
-                             "attention_charge_id": attn_id,
-                             "note": "refusal recorded as demand; zero third-party exposure"}
+                return {"delivered": False, "stage": "attention_refused",
+                        "reason_class": attn.reason_class,
+                        "attention_charge_id": attn_id,
+                        "note": "refusal recorded as demand; zero third-party exposure"}
             # 2) exposure second: the card's content leaks the third party.
             card, card_id = self.meter.charge_recorded(
                 x_key, CapacityEstimate(exp["card_mbits"], 0, 0, 0, 0, channel),
@@ -235,12 +237,12 @@ class AttentionNodeState(node_mod.NodeState):
             if not card.accepted:
                 self.clock = t + 1
                 self._persist_locked()
-                return 200, {"delivered": False, "stage": "exposure_refused",
-                             "reason_class": card.reason_class,
-                             "attention_charge_id": attn_id,
-                             "exposure_charge_id": card_id,
-                             "note": "one interrupt over-counted, nobody paid "
-                                     "(the safe direction)"}
+                return {"delivered": False, "stage": "exposure_refused",
+                        "reason_class": card.reason_class,
+                        "attention_charge_id": attn_id,
+                        "exposure_charge_id": card_id,
+                        "note": "one interrupt over-counted, nobody paid "
+                                "(the safe direction)"}
             # 3) the payment, bound to THIS ring, paid to the bell's owner.
             try:
                 escrow = self.bank.escrow(
@@ -252,21 +254,21 @@ class AttentionNodeState(node_mod.NodeState):
             except SettlementRefused as exc:
                 self.clock = t + 1
                 self._persist_locked()
-                return 409, {"delivered": False, "stage": "settlement_refused",
-                             "error": str(exc),
-                             "attention_charge_id": attn_id,
-                             "exposure_charge_id": card_id,
-                             "note": "charges stand as facts; no value moved"}
+                return {"delivered": False, "stage": "settlement_refused",
+                        "error": str(exc),
+                        "attention_charge_id": attn_id,
+                        "exposure_charge_id": card_id,
+                        "note": "charges stand as facts; no value moved"}
             self.clock = t + 3
             self._persist_locked()
-            return 200, {"delivered": True,
-                         "attention_charge_id": attn_id,
-                         "exposure_charge_id": card_id,
-                         "escrow_id": escrow.id,
-                         "release_id": release.id,
-                         "paid_ucr": pay["price_ucr"],
-                         "payee": receiver,
-                         "tick": t}
+            return {"delivered": True,
+                    "attention_charge_id": attn_id,
+                    "exposure_charge_id": card_id,
+                    "escrow_id": escrow.id,
+                    "release_id": release.id,
+                    "paid_ucr": pay["price_ucr"],
+                    "payee": receiver,
+                    "tick": t}
 
     # ---- the view ----
 
@@ -331,6 +333,23 @@ def _validate(req) -> Optional[str]:
     return None
 
 
+def _http_status(outcome: dict) -> int:
+    """The transport's reading of a notify() outcome. A request that never
+    reached the protocol is the client's error (400); a refusal the node
+    could not record is a conflict (409) or a funding failure (402); every
+    RECORDED outcome — delivery or a refusal that stands as a fact in the
+    ledger — is a 200: the protocol answered, and the answer itself carries
+    the verdict."""
+    if "delivered" not in outcome:
+        return 400
+    stage = outcome.get("stage")
+    if stage == "funds":
+        return 402
+    if stage in ("provisioning", "settlement_refused"):
+        return 409
+    return 200
+
+
 def make_handler(state: AttentionNodeState, max_body: int):
     Base = node_mod.make_handler(state, max_body)
 
@@ -356,8 +375,8 @@ def make_handler(state: AttentionNodeState, max_body: int):
             except Exception as exc:
                 self._send(400, {"error": f"unparseable JSON: {exc}"})
                 return
-            code, payload = state.notify(req)
-            self._send(code, payload)
+            outcome = state.notify(req)
+            self._send(_http_status(outcome), outcome)
 
     return Handler
 
