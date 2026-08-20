@@ -140,6 +140,11 @@ independence.
 - Keep the workbench non-normative: workbench code may import `chambers.*`;
   maintained code never imports `workbench.*`. Deleting `workbench/` must
   leave every specification, proof, frozen corpus, and maintained test intact.
+- One module identity per process: library modules in `chambers/kernel/`
+  import relatively (`from .events import …`); scripts and cross-package
+  consumers import `chambers.kernel.*` absolutely. Never reintroduce a
+  `sys.path.insert` that aims inside a package — that is how
+  `ledger.Ledger is not chambers.kernel.ledger.Ledger` happened.
 - Do not turn fixture knowledge or a demo's global view into a protocol
   assumption.
 - Do not describe reproducibility as confidentiality or attestation.
