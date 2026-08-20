@@ -106,7 +106,7 @@ def _game(
     (node, tick) coupling. Returns (sources ascending, numerators, E),
     or None when the game is unauditable (no exp-emissions, or arity
     over NMAX)."""
-    events = getattr(ledger, "_events")
+    events = ledger.payloads()
     channel = DERIVED_CHANNEL_PREFIX + derived
     exp_emissions = _coupling_exp_emissions(events, node, tick, channel)
     if not exp_emissions:
@@ -271,7 +271,7 @@ def attribution_findings(ledger: Ledger) -> List[Tuple[str, str, str]]:
     content. Integer-only. Findings are functions of the event set —
     merge order and jsonl round-trips cannot move them."""
     findings: List[Tuple[str, str, str]] = []
-    events = getattr(ledger, "_events")
+    events = ledger.payloads()
 
     for eid in sorted(events):
         p = events[eid]

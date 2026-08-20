@@ -38,7 +38,8 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from typing import Any, Dict, Iterable, List, Optional, Tuple
+from types import MappingProxyType
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple
 
 from accountant import Key, UNSAFE_PERMILLE, leakage_class
 from events import (
@@ -291,6 +292,15 @@ class Ledger:
 
     def events(self) -> Iterable[Dict[str, Any]]:
         return self._events.values()
+
+    def payloads(self) -> "Mapping[str, Dict[str, Any]]":
+        """The event set as a value: id -> payload, read-only.
+
+        This is the audit interface. Every verdict family is a pure
+        function of this mapping (plus declared policy bytes); no
+        consumer reaches past it into storage. Read-only by
+        construction — verdicts cannot mutate the court they judge."""
+        return MappingProxyType(self._events)
 
     # ---- wire format ----
 

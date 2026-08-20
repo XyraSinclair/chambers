@@ -88,7 +88,7 @@ class LeaseIssuer:
         # charge-covenant/1: the issuer's own declared self-restrictions
         # bind its future authority (E5 — the exit story's other half).
         why = grant_violates_covenants(
-            getattr(self.ledger, "_events"), self.issuer, key,
+            self.ledger.payloads(), self.issuer, key,
             amount_mbits, expires_tick,
         )
         if why is not None:

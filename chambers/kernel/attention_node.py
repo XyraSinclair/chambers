@@ -162,7 +162,7 @@ class AttentionNodeState(node_mod.NodeState):
             if reg is None:
                 return f"no well-formed registration for key {list(key)}"
             best = None  # (expires_tick, lease_seq, LeaseEvent)
-            for eid, p in getattr(self.ledger, "_events").items():
+            for eid, p in self.ledger.payloads().items():
                 if p.get("kind") != "lease" or tuple(p.get("key", ())) != key:
                     continue
                 if p.get("node") != self.node_id:
@@ -277,7 +277,7 @@ class AttentionNodeState(node_mod.NodeState):
         """The court's fold restricted to the attention family, plus who
         was paid for the rings — everything re-derivable by a stranger."""
         led = self.snapshot()
-        events = getattr(led, "_events")
+        events = led.payloads()
         paid: dict = {}
         for p in events.values():
             if p.get("kind") != "release":

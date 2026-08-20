@@ -186,7 +186,7 @@ def verify_consistency(first: int, second: int, first_root: str,
 
 def set_head(ledger: Ledger) -> Dict[str, Any]:
     """The set commitment: tree over id-sorted event ids."""
-    ids = sorted(getattr(ledger, "_events").keys())
+    ids = sorted(ledger.payloads().keys())
     return {"tree_size": len(ids), "set_root": merkle_root(ids)}
 
 
@@ -263,7 +263,7 @@ def scope_response(ledger: Ledger, keys: Sequence[Sequence[str]]) -> Dict[str, A
     """Build the served scope: in-scope events + membership proofs against
     the set head. The head commits to the WHOLE court; proofs bind each
     served event to it."""
-    events = getattr(ledger, "_events")
+    events = ledger.payloads()
     all_ids = sorted(events.keys())
     head = {"tree_size": len(all_ids), "set_root": merkle_root(all_ids)}
     in_scope = scope_closure(events, keys)

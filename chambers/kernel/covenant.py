@@ -153,7 +153,7 @@ def covenant_findings(ledger: Ledger) -> List[Tuple[str, str, str]]:
     C3  covenant event id — malformed covenant
     """
     findings: List[Tuple[str, str, str]] = []
-    events = getattr(ledger, "_events")
+    events = ledger.payloads()
 
     for eid, p in events.items():
         if p.get("kind") == "covenant" and not _covenant_well_formed(p):
@@ -241,7 +241,7 @@ def declare_covenant(
     if action not in COVENANT_ACTIONS:
         raise CovenantRefused(f"action must be one of {COVENANT_ACTIONS}")
     key = tuple(key)
-    events = getattr(ledger, "_events")
+    events = ledger.payloads()
     if action == "cease_lease_issuance":
         if not (isinstance(horizon_tick, int) and not isinstance(horizon_tick, bool)):
             raise CovenantRefused("cease covenant needs an integer horizon_tick")

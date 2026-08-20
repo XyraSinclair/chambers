@@ -489,7 +489,7 @@ class BondState:
 
 
 def _settlement_events(ledger: Ledger) -> Iterable[Tuple[str, Dict[str, Any]]]:
-    for eid, payload in getattr(ledger, "_events").items():
+    for eid, payload in ledger.payloads().items():
         if payload.get("kind") in SETTLEMENT_KINDS:
             yield eid, payload
 
@@ -523,7 +523,7 @@ def settlement_fold_full(
     accounts: Dict[str, AccountBalance] = {}
     escrows: Dict[str, EscrowState] = {}
     bonds: Dict[str, BondState] = {}
-    events = getattr(ledger, "_events")
+    events = ledger.payloads()
 
     def acct(name: Any) -> Optional[AccountBalance]:
         if not isinstance(name, str):
@@ -1036,7 +1036,7 @@ def audit_settlement_findings(ledger: Ledger) -> List[Tuple[str, str, str]]:
     adversarial content."""
     findings: List[Tuple[str, str, str]] = []
     accounts, escrows, bonds = settlement_fold_full(ledger)
-    events = getattr(ledger, "_events")
+    events = ledger.payloads()
 
     # id -> key maps for S3/S4 subject resolution
     lease_key: Dict[str, tuple] = {}
@@ -1563,7 +1563,7 @@ class SettlementIssuer:
             raise SettlementRefused(
                 f"over-release: {amount_ucr} > remaining {st.remaining_ucr}"
             )
-        events = getattr(self.ledger, "_events")
+        events = self.ledger.payloads()
         key_set = set(escrow.charge_keys)
         for cid in charge_ids:
             ch = events.get(cid)
@@ -1642,7 +1642,7 @@ class SettlementIssuer:
             raise SettlementRefused(
                 f"{beneficiary!r} has no bound row in this escrow's split"
             )
-        events = getattr(self.ledger, "_events")
+        events = self.ledger.payloads()
         for _eid, p in events.items():
             if (p.get("kind") in ("release", "default_resolution")
                     and p.get("escrow_id") == escrow.id
@@ -1705,7 +1705,7 @@ def _refuse_unless_quorum(
             "an outcome-conditioned disbursement carries an outcome proof: "
             "attestation_ids cannot be empty"
         )
-    events = getattr(ledger, "_events")
+    events = ledger.payloads()
     accounts, _escrows, _bonds = settlement_fold_full(ledger)
     attestations = {e: q for e, q in events.items()
                     if q.get("kind") == "outcome_attestation"}
@@ -1761,7 +1761,7 @@ def resolve_default(
             raise SettlementRefused(
                 "a release-direction default pays for work: the receipt cannot be empty"
             )
-        events = getattr(ledger, "_events")
+        events = ledger.payloads()
         key_set = set(escrow.charge_keys)
         for cid in charge_ids:
             ch = events.get(cid)
@@ -1821,7 +1821,7 @@ def attest_outcome(
     signer = require_signer(attestor, signer, "attestor")
     if escrow.outcome is None:
         raise SettlementRefused("escrow declares no outcome condition; nothing to attest")
-    if escrow.id not in getattr(ledger, "_events"):
+    if escrow.id not in ledger.payloads():
         raise SettlementRefused("unknown escrow (not in this ledger)")
     if claim not in OUTCOME_CLAIMS:
         raise SettlementRefused(f"claim must be one of {OUTCOME_CLAIMS}")
@@ -1891,7 +1891,7 @@ def resolve_bond(
         raise SettlementRefused(
             f"over-resolution: {amount_ucr} > remaining {b.remaining_ucr}"
         )
-    events = getattr(ledger, "_events")
+    events = ledger.payloads()
     attestations = {e: q for e, q in events.items()
                     if q.get("kind") == "outcome_attestation"}
     t = events[attestation.id]

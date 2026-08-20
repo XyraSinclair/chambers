@@ -100,7 +100,7 @@ class NodeState:
         # hydrate the ingestion log: sidecar order first (filtered to
         # known events), then any events the sidecar missed, id-sorted —
         # deterministic across restarts.
-        known = set(getattr(self.ledger, "_events").keys())
+        known = set(self.ledger.payloads().keys())
         log_path = self._log_path()
         if log_path and os.path.exists(log_path):
             for line in open(log_path, encoding="ascii"):
@@ -123,9 +123,9 @@ class NodeState:
         except Exception as exc:
             raise ValueError(f"unparseable events: {exc}") from None
         with self.lock:
-            before_ids = set(getattr(self.ledger, "_events").keys())
+            before_ids = set(self.ledger.payloads().keys())
             self.ledger.merge(incoming)
-            after_ids = set(getattr(self.ledger, "_events").keys())
+            after_ids = set(self.ledger.payloads().keys())
             self.ingestion.extend(sorted(after_ids - before_ids))
             self._persist_locked()
             return {
@@ -143,7 +143,7 @@ class NodeState:
             if on_disk.strip():
                 merged = merged.merge(Ledger.from_jsonl(on_disk))
         # a concurrent writer's facts join the log too (merge-on-persist)
-        merged_ids = set(getattr(merged, "_events").keys())
+        merged_ids = set(merged.payloads().keys())
         seen = set(self.ingestion)
         self.ingestion.extend(sorted(merged_ids - seen))
         os.makedirs(os.path.dirname(os.path.abspath(self.state_path)), exist_ok=True)
