@@ -1310,10 +1310,10 @@
       "verifier": "python"
     },
     {
-      "bytes": 6769,
+      "bytes": 6768,
       "path": "verifier/python/chambers/kernel/findings.py",
       "role": "reference_verifier",
-      "sha256": "8c8770a6ed5fed690e56de8c4362b59e90b1340c307c17c49c59b2ad99565dce",
+      "sha256": "bcdfd26e2eef901977fd88592eb214ec155b584a47099c5bf4b6460e66e207c6",
       "source": "chambers/kernel/findings.py",
       "verifier": "python"
     },
@@ -1342,10 +1342,10 @@
       "verifier": "python"
     },
     {
-      "bytes": 4713,
+      "bytes": 4699,
       "path": "verifier/python/chambers/kernel/verify.py",
       "role": "reference_verifier",
-      "sha256": "f51edb70e973941cd7db6826cc03d0b9775d5477f11fdc6703cf5b78d5b5fb24",
+      "sha256": "79d6f1c412371ea160479706dc54c6df16bb4e39378cbfdac83961c6e868f810",
       "source": "chambers/kernel/verify.py",
       "verifier": "python"
     },
@@ -1374,26 +1374,26 @@
       "verifier": "rust"
     },
     {
-      "bytes": 4547,
+      "bytes": 4838,
       "path": "verifier/rust_ledger/README.md",
       "role": "reference_verifier",
-      "sha256": "4cb22de1a5b77a5c4370700d5e45a4bb1f7205258fa2a5f521424987e35a74e8",
+      "sha256": "500363a126bfc9c1084bd13b54b7db30d2b0e1addddb60164b53fd61d308f75a",
       "source": "chambers/kernel/rust_ledger/README.md",
       "verifier": "rust"
     },
     {
-      "bytes": 15117,
+      "bytes": 15022,
       "path": "verifier/rust_ledger/src/attribution.rs",
       "role": "reference_verifier",
-      "sha256": "81ed3793371d06627d09248801dd5f1e0d20ce0cf95dc2e415c215c301184976",
+      "sha256": "1c181d033a198ec5ce429933f75d1db7c5fe2c7ca36c9927f6619f31c192df25",
       "source": "chambers/kernel/rust_ledger/src/attribution.rs",
       "verifier": "rust"
     },
     {
-      "bytes": 3140,
+      "bytes": 3508,
       "path": "verifier/rust_ledger/src/bin/charge-verify.rs",
       "role": "reference_verifier",
-      "sha256": "2352baf67fd6dc3d6fad50ce38ab213cb454772376a0596d6b3e2da0feef6de7",
+      "sha256": "4fb327d9e187f6bb8d9171ad5311d929273e8002d6ddf180d1f9473c5670316e",
       "source": "chambers/kernel/rust_ledger/src/bin/charge-verify.rs",
       "verifier": "rust"
     },
@@ -1406,10 +1406,10 @@
       "verifier": "rust"
     },
     {
-      "bytes": 97128,
+      "bytes": 97274,
       "path": "verifier/rust_ledger/src/lib.rs",
       "role": "reference_verifier",
-      "sha256": "505d3b37587dcef65ed11091e7f17f4412e6f07effeaa44135771a4654e551bc",
+      "sha256": "6463d07a22ac4466614678ea47ed3185e7c1219252db928a1dba972b3931be38",
       "source": "chambers/kernel/rust_ledger/src/lib.rs",
       "verifier": "rust"
     }

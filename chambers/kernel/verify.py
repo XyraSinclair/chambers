@@ -15,10 +15,10 @@ identity — and exits:
 
 This is the trust equation's evidence made operational: no access to the
 producer's code, state, or goodwill is needed. The Rust twin
-(`rust_ledger/`'s `charge-verify`) re-verifies the I, S1–S10, and A
+(`rust_ledger/`'s `charge-verify`) re-verifies the I, S, A, and V
 families from an implementation sharing only the specs with this one;
-the remaining families are Python-only today (the parity residue is
-recorded in docs/SPECS.md).
+X0, C, and P are Python-only today (the parity residue is recorded in
+docs/SPECS.md).
 """
 from __future__ import annotations
 

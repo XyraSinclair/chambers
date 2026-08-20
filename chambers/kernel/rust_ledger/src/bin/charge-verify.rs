@@ -53,17 +53,29 @@ fn main() -> ExitCode {
     println!("conservation: [{conserved},{deposited}]");
 
     let i_codes = ledger.audit_codes();
+    let v_codes = ledger.attribution_codes();
     let s_codes = ledger.settlement_audit_codes();
     let a_codes = identity_codes(&ledger);
     let conservation_ok = conserved == deposited;
 
-    if i_codes.is_empty() && s_codes.is_empty() && a_codes.is_empty() && conservation_ok {
-        println!("CLEAN: no charge-ledger/1, settlement, or identity findings");
+    if i_codes.is_empty()
+        && v_codes.is_empty()
+        && s_codes.is_empty()
+        && a_codes.is_empty()
+        && conservation_ok
+    {
+        println!("CLEAN: no charge-ledger/1, attribution, settlement, or identity findings");
         ExitCode::from(0)
     } else {
         if !i_codes.is_empty() {
             println!("information findings:");
             for c in &i_codes {
+                println!("  {c}");
+            }
+        }
+        if !v_codes.is_empty() {
+            println!("attribution findings:");
+            for c in &v_codes {
                 println!("  {c}");
             }
         }
@@ -84,7 +96,11 @@ fn main() -> ExitCode {
         }
         println!(
             "CONVICTED: {} finding(s)",
-            i_codes.len() + s_codes.len() + a_codes.len() + usize::from(!conservation_ok)
+            i_codes.len()
+                + v_codes.len()
+                + s_codes.len()
+                + a_codes.len()
+                + usize::from(!conservation_ok)
         );
         ExitCode::from(1)
     }

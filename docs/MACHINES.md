@@ -162,8 +162,9 @@ the money obeys — split-bound escrows disburse only along the recomputed rows
 contributor collects her own row after expiry with nobody's permission (F4).
 Conservation is a Lean theorem for every tie-break; the alpha story (1/8000 of
 $100M → exactly $12,500.000000, releasable by alice herself) is a passing
-test. Residues: Rust-twin parity for V/S11/S12; outcome-conditioned split pots
-refused (/3).
+test, and the Rust twin re-verifies V and S11/S12 from the specs alone
+(attribution_traces replay bit-for-bit). Residue: outcome-conditioned split
+pots refused (/3).
 
 ### Derived views — charge-views/1
 
@@ -248,8 +249,8 @@ cargo test    # in chambers/kernel/rust_ledger; binary: charge-verify
 
 Independent re-implementation from the specs alone, both layers (settlement
 port landed 2026-07-06): information 16/16, settlement 26/26 (13 `/1` + 13
-`/2`) bit-for-bit; verdicts information fold + S1–S10 + conservation from
-bytes alone; cross-checked CLEAN/CONVICTED against a live attention-node
+`/2`) bit-for-bit plus the 8 attribution traces; verdicts information fold
++ S1–S12 + A + V + conservation from bytes alone; cross-checked CLEAN/CONVICTED against a live attention-node
 artifact outside any corpus. The differentiated haul: 8 recorded spec
 ambiguities in the crate README where the golden bytes force what the spec
 underdetermines — standing spec-tightening candidates.

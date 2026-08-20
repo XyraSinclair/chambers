@@ -78,7 +78,7 @@ FAMILIES: Tuple[FindingFamily, ...] = (
     FindingFamily(
         prefix="V", spec="charge-attribution/1+2",
         defined_in="ATTRIBUTION-SPEC.md (join amended by its V.7)",
-        rust=False, settlement_court=True, node_audit=False,
+        rust=True, settlement_court=True, node_audit=False,
         note="V joins the S4 court (ATTRIBUTION-SPEC V.7) but not "
              "/v1/audit's information view; it arrives via /v1/verify.",
     ),

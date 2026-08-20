@@ -15,6 +15,7 @@ fn assert_total_and_conserved(name: &str, jsonl: &str) {
             Err(_) => return None, // rejected at the door: not a soup
         };
         let (lhs, rhs) = ledger.settlement_conservation_pair(SettlementVersion::V2);
+        let _ = ledger.attribution_codes();
         let _ = ledger.settlement_audit_codes();
         let _ = ledger.audit_codes();
         let _ = ledger.settlement_fold_v2();

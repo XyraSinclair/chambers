@@ -1,6 +1,8 @@
 use std::collections::{BTreeMap, BTreeSet};
 
+pub mod attribution;
 pub mod identity;
+pub use attribution::{attribution_codes, attribution_findings};
 pub use identity::identity_codes;
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
@@ -886,6 +888,14 @@ impl Ledger {
         codes.into_iter().collect()
     }
 
+    pub fn attribution_codes(&self) -> Vec<String> {
+        attribution::attribution_codes(self)
+    }
+
+    pub fn attribution_findings(&self) -> Vec<String> {
+        attribution::attribution_findings(self)
+    }
+
     fn accounts(&self) -> Vec<Account> {
         let (_, infos) = self.resolve_registers();
         self.accounts_from_info(&infos)
@@ -1232,6 +1242,10 @@ impl Ledger {
                 Some("escrow") if obj_get(&event.value, "outcome").is_some() => {
                     return SettlementVersion::V2
                 }
+                Some("escrow") if obj_get(&event.value, "split").is_some() => {
+                    return SettlementVersion::V2
+                }
+                Some("attribution_report") => return SettlementVersion::V2,
                 Some("release") | Some("default_resolution")
                     if obj_get(&event.value, "attestation_ids").is_some() =>
                 {
@@ -1290,7 +1304,16 @@ impl Ledger {
         let state = self.settlement_state(SettlementVersion::V2);
         let escrows = self.escrow_index();
         let attestations = self.attestation_index();
-        let information_codes = self.audit_codes();
+        let mut court_codes = self.audit_codes();
+        court_codes.extend(self.attribution_codes());
+        let split_rows: BTreeMap<String, Option<BTreeMap<String, attribution::AttributionShare>>> =
+            escrows
+                .iter()
+                .filter(|(_, escrow)| obj_get(&escrow.value, "split").is_some())
+                .map(|(escrow_id, escrow)| {
+                    (escrow_id.clone(), self.split_bound_rows(&escrow.value))
+                })
+                .collect();
         let mut codes = BTreeSet::new();
 
         for (account, info) in &state.accounts {
@@ -1343,7 +1366,7 @@ impl Ledger {
                         codes.insert(format!("S3 {}", event.id));
                     }
                     if escrow.map_or(false, |escrow| {
-                        self.clean_court_fail(&escrow.value, &information_codes)
+                        self.clean_court_fail(&escrow.value, &court_codes)
                     }) {
                         codes.insert(format!("S4 {}", event.id));
                     }
@@ -1351,6 +1374,14 @@ impl Ledger {
                         codes.insert(format!("S7 {}", event.id));
                     }
                     if let Some(escrow) = escrow {
+                        if obj_get(&escrow.value, "split").is_some()
+                            && split_disbursement_fails(
+                                &event.value,
+                                split_rows.get(&escrow.id).and_then(Option::as_ref),
+                            )
+                        {
+                            codes.insert(format!("S11 {}", event.id));
+                        }
                         if obj_get(&escrow.value, "outcome").is_some()
                             && self.outcome_release_fails(
                                 &event.value,
@@ -1388,7 +1419,7 @@ impl Ledger {
                     if let (Some(escrow), Some(DefaultDirection::Release)) = (escrow, direction) {
                         let release_checks_fail = self
                             .release_receipts_fail(&event.value, Some(escrow))
-                            || self.clean_court_fail(&escrow.value, &information_codes);
+                            || self.clean_court_fail(&escrow.value, &court_codes);
                         let outcome_checks_fail = obj_get(&escrow.value, "outcome").is_some()
                             && self.outcome_release_fails(
                                 &event.value,
@@ -1398,6 +1429,14 @@ impl Ledger {
                             );
                         if release_checks_fail || outcome_checks_fail {
                             codes.insert(format!("S8 {}", event.id));
+                        }
+                        if obj_get(&escrow.value, "split").is_some()
+                            && split_disbursement_fails(
+                                &event.value,
+                                split_rows.get(&escrow.id).and_then(Option::as_ref),
+                            )
+                        {
+                            codes.insert(format!("S11 {}", event.id));
                         }
                     }
                 }
@@ -1459,6 +1498,8 @@ impl Ledger {
                 codes.insert(format!("S5 {slot}"));
             }
         }
+
+        self.add_split_overdraw_codes(&escrows, &split_rows, &mut codes);
 
         codes.into_iter().collect()
     }
@@ -1546,7 +1587,7 @@ impl Ledger {
                         if let Some(escrow) = as_string(obj_get(&event.value, "escrow_id"))
                             .and_then(|id| escrows.get(id))
                         {
-                            add_release_to_state(&mut state, escrow, amount);
+                            add_release_to_state(&mut state, escrow, &event.value, amount);
                         }
                     }
                 }
@@ -1566,7 +1607,7 @@ impl Ledger {
                         {
                             match default_direction(&event.value, &escrow.value, version) {
                                 Some(DefaultDirection::Release) => {
-                                    add_release_to_state(&mut state, escrow, amount)
+                                    add_release_to_state(&mut state, escrow, &event.value, amount)
                                 }
                                 Some(DefaultDirection::Refund) => {
                                     add_refund_to_state(&mut state, escrow, amount)
@@ -1684,10 +1725,10 @@ impl Ledger {
         };
         information_codes
             .iter()
-            .any(|code| self.information_code_touches_keys(code, &keys))
+            .any(|code| self.court_code_touches_keys(code, &keys))
     }
 
-    fn information_code_touches_keys(&self, code: &str, keys: &BTreeSet<Vec<String>>) -> bool {
+    fn court_code_touches_keys(&self, code: &str, keys: &BTreeSet<Vec<String>>) -> bool {
         let Some((prefix, subject)) = code.split_once(' ') else {
             return true;
         };
@@ -1717,7 +1758,90 @@ impl Ledger {
                 .and_then(|lease_id| self.events.get(&lease_id).cloned())
                 .and_then(|event| as_key(obj_get(&event.value, "key")))
                 .map_or(false, |key| keys.contains(&key)),
+            "V1" | "V3" | "V4" => parse_json(subject)
+                .ok()
+                .and_then(|value| match value {
+                    Json::Array(items) if items.len() == 3 => match &items[2] {
+                        Json::String(source) => Some(source.clone()),
+                        _ => None,
+                    },
+                    _ => None,
+                })
+                .map_or(true, |source| {
+                    keys.iter().any(|key| {
+                        key.first().map(String::as_str) == Some("exp")
+                            && key.get(1) == Some(&source)
+                    })
+                }),
+            "V2" | "V5" => true,
             _ => true,
+        }
+    }
+
+    fn split_bound_rows(
+        &self,
+        escrow: &Json,
+    ) -> Option<BTreeMap<String, attribution::AttributionShare>> {
+        let amount_ucr = as_uint(obj_get(escrow, "amount_ucr"))?;
+        let (derived, node, tick) = split_binding(escrow)?;
+        attribution::recomputed_shares(self, derived, node, tick, amount_ucr)
+    }
+
+    fn add_split_overdraw_codes(
+        &self,
+        escrows: &BTreeMap<String, Event>,
+        split_rows: &BTreeMap<String, Option<BTreeMap<String, attribution::AttributionShare>>>,
+        codes: &mut BTreeSet<String>,
+    ) {
+        let mut disbursed: BTreeMap<(String, String), u128> = BTreeMap::new();
+        for event in self.events.values() {
+            let Some(escrow_id) = as_string(obj_get(&event.value, "escrow_id")) else {
+                continue;
+            };
+            let Some(escrow) = escrows.get(escrow_id) else {
+                continue;
+            };
+            if obj_get(&escrow.value, "split").is_none() {
+                continue;
+            }
+            let release_direction = match kind(&event.value) {
+                Some("release") => true,
+                Some("default_resolution") => {
+                    default_direction(&event.value, &escrow.value, SettlementVersion::V2)
+                        == Some(DefaultDirection::Release)
+                }
+                _ => false,
+            };
+            if !release_direction {
+                continue;
+            }
+            let (Some(beneficiary), Some(amount_ucr)) = (
+                as_string(obj_get(&event.value, "beneficiary")),
+                as_uint(obj_get(&event.value, "amount_ucr")),
+            ) else {
+                continue;
+            };
+            *disbursed
+                .entry((escrow_id.to_string(), beneficiary.to_string()))
+                .or_default() += amount_ucr as u128;
+        }
+
+        for ((escrow_id, beneficiary), amount_ucr) in disbursed {
+            let Some(row) = split_rows
+                .get(&escrow_id)
+                .and_then(Option::as_ref)
+                .and_then(|rows| rows.get(&beneficiary))
+            else {
+                continue;
+            };
+            if amount_ucr > row.payout_ucr as u128 {
+                let subject = canonical_json(&Json::Array(vec![
+                    Json::String("split".to_string()),
+                    Json::String(escrow_id),
+                    Json::String(beneficiary),
+                ]));
+                codes.insert(format!("S12 {subject}"));
+            }
         }
     }
 
@@ -2039,13 +2163,23 @@ fn settlement_to_json(state: &SettlementState, version: SettlementVersion) -> Js
     Json::Object(root)
 }
 
-fn add_release_to_state(state: &mut SettlementState, escrow: &Event, amount: i64) {
+fn add_release_to_state(
+    state: &mut SettlementState,
+    escrow: &Event,
+    disbursement: &Json,
+    amount: i64,
+) {
     // All-or-nothing (SPEC §2): the disbursement counts against the escrow
     // ONLY when it credits a real (string) destination account — else it
     // would drop the escrow remainder with no offsetting account gain and
     // break conservation (the mirror of the escrow-lock case). A
-    // disbursement to a non-string party is convicted by S3/S2.
-    if let Some(payee) = as_string(obj_get(&escrow.value, "payee")) {
+    // disbursement to a non-string party is convicted by its audit family.
+    let destination = if obj_get(&escrow.value, "split").is_some() {
+        as_string(obj_get(disbursement, "beneficiary"))
+    } else {
+        as_string(obj_get(&escrow.value, "payee"))
+    };
+    if let Some(payee) = destination {
         if let Some(info) = state.escrows.get_mut(&escrow.id) {
             info.released_ucr += amount;
         }
@@ -2084,7 +2218,7 @@ fn default_direction(
         };
     }
     match as_string(obj_get(escrow, "default_on_expiry")) {
-        Some("release_to_payee") => Some(DefaultDirection::Release),
+        Some("release_to_payee" | "release_by_report") => Some(DefaultDirection::Release),
         Some("refund_to_payer") => Some(DefaultDirection::Refund),
         _ => None,
     }
@@ -2159,10 +2293,7 @@ fn settlement_s6(value: &Json) -> bool {
                 // all-or-nothing law's conviction arm (fable review F1).
                 || as_string(obj_get(value, "payer")).is_none()
                 || as_string(obj_get(value, "payee")).is_none()
-                || !matches!(
-                    as_string(obj_get(value, "default_on_expiry")),
-                    Some("release_to_payee" | "refund_to_payer")
-                )
+                || escrow_split_s6(value)
                 || escrow_outcome_s6(value)
         }
         "release" | "refund" | "default_resolution" => {
@@ -2197,6 +2328,48 @@ fn charge_keys(value: &Json) -> Option<BTreeSet<Vec<String>>> {
         out.insert(key);
     }
     Some(out)
+}
+
+fn split_binding(value: &Json) -> Option<(&str, &Json, &Json)> {
+    let Json::Object(fields) = obj_get(value, "split")? else {
+        return None;
+    };
+    Some((
+        as_string(fields.get("derived"))?,
+        fields.get("node")?,
+        fields.get("coupling_tick")?,
+    ))
+}
+
+fn escrow_split_s6(value: &Json) -> bool {
+    if obj_get(value, "split").is_some() {
+        split_binding(value).is_none()
+            || obj_get(value, "outcome").is_some()
+            || !matches!(
+                as_string(obj_get(value, "default_on_expiry")),
+                Some("release_by_report" | "refund_to_payer")
+            )
+    } else {
+        !matches!(
+            as_string(obj_get(value, "default_on_expiry")),
+            Some("release_to_payee" | "refund_to_payer")
+        )
+    }
+}
+
+fn split_disbursement_fails(
+    value: &Json,
+    rows: Option<&BTreeMap<String, attribution::AttributionShare>>,
+) -> bool {
+    let (Some(beneficiary), Some(amount_ucr), Some(rows)) = (
+        as_string(obj_get(value, "beneficiary")),
+        as_uint(obj_get(value, "amount_ucr")),
+        rows,
+    ) else {
+        return true;
+    };
+    rows.get(beneficiary)
+        .map_or(true, |row| row.payout_ucr != amount_ucr)
 }
 
 fn escrow_outcome_s6(value: &Json) -> bool {

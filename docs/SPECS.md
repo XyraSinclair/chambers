@@ -60,9 +60,9 @@ release tag. Two limits are part of the claim's meaning:
 Two facts a reader should not have to assemble from fragments:
 
 **Per-family implementation coverage.** The verdict families and where
-each executes today: I, S1–S10, A, and W in both Python and the Rust
-twin; S11/S12, X0, C, P, and V in Python only. The Rust `charge-verify`
-re-verifies I, S1–S10, A, and the conservation identity. A cross-language
+each executes today: I, S, A, V, and W in both Python and the Rust
+twin; X0, C, and P in Python only. The Rust `charge-verify`
+re-verifies I, S (S1–S12), A, V, and the conservation identity. A cross-language
 conformance claim extends exactly this far and no further.
 
 **The court is defined differently by surface.** The full verifier

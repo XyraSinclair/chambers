@@ -1,7 +1,8 @@
 # charge_ledger
 
 Independent second implementation of `charge-ledger/1`,
-`charge-settlement/1`, `charge-settlement/2`, and `charge-views/1`
+`charge-settlement/1`, `charge-settlement/2` (including the S11/S12
+split extension), `charge-attribution/1+2`, and `charge-views/1`
 in Rust.
 
 This crate implements the ledger artifact parser, canonical JSON
@@ -16,6 +17,10 @@ refusals, canonical report bytes) is implemented from `../VIEWS-SPEC.md`
 — `views_traces/` replays bit-for-bit, and the §V.5 parity law
 (legacy-default view ≡ the fold's embedded `leakage_class`/`incident`)
 is asserted against every frozen ledger fold from this side too.
+The attribution layer (`charge-attribution/1+2`: exact-integer Shapley
+over DPI max-flow, V1–V5, split-bound disbursement S11/S12) is
+implemented from `../ATTRIBUTION-SPEC.md` — `attribution_traces/`
+replays bit-for-bit.
 
 ## Independence discipline
 
