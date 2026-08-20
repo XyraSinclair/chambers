@@ -78,8 +78,7 @@ from urllib.parse import parse_qs, urlparse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import covenant as covenant_mod  # noqa: E402
-from emit_ledger_traces import fold_canonical  # noqa: E402  (KERNEL-SPEC §3.3)
-from ledger import Ledger  # noqa: E402
+from ledger import Ledger, fold_canonical  # noqa: E402  (KERNEL-SPEC §3.3)
 import scope as scope_mod  # noqa: E402
 from settlement import conservation_identity, settlement_fold_canonical_v2  # noqa: E402
 import verify as verify_mod  # noqa: E402

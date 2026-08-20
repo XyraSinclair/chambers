@@ -5,17 +5,20 @@
 Reads a charge-kernel ledger artifact, recomputes everything a counterparty
 is owed — the information fold (charge-ledger/1), the value fold
 (charge-settlement/2: accounts, escrows, attestation bonds), every audit
-verdict (I1–I8, S1–S10, X0, C1–C3, P1–P3, A1–A2, V1–V5), and the
-conservation identity — and exits:
+verdict (the I, S, X, C, P, A, and V families; each family's codes are
+defined in its spec, never re-enumerated here), and the conservation
+identity — and exits:
 
     0   clean (no I/S/X/C/P/A/V codes, conservation exact)
     1   findings (the verdicts are printed; the receipt convicts itself)
     2   unreadable artifact
 
-This is the trust equation's receipt made operational: no access to the
+This is the trust equation's evidence made operational: no access to the
 producer's code, state, or goodwill is needed. The Rust twin
-(`rust_ledger/`'s `charge-verify`) verifies the information layer from an
-implementation sharing only the specs with this one.
+(`rust_ledger/`'s `charge-verify`) re-verifies the I, S1–S10, and A
+families from an implementation sharing only the specs with this one;
+the remaining families are Python-only today (the parity residue is
+recorded in docs/SPECS.md).
 """
 from __future__ import annotations
 
@@ -108,19 +111,7 @@ def verify(text: str, out=sys.stdout) -> int:
     if not findings and conserved:
         w("CLEAN: no findings; conservation exact")
         return 0
-    for c in i_codes:
-        w(f"  {c}")
-    for c in s_codes:
-        w(f"  {c}")
-    for c in x_codes:
-        w(f"  {c}")
-    for c in c_codes:
-        w(f"  {c}")
-    for c in p_codes:
-        w(f"  {c}")
-    for c in a_codes:
-        w(f"  {c}")
-    for c in v_codes:
+    for c in findings:
         w(f"  {c}")
     if not conserved:
         w("  CONSERVATION BROKEN (unreachable for well-formed artifacts)")

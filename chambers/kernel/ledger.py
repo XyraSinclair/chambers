@@ -48,6 +48,7 @@ from events import (
     RegisterEvent,
     canonical_json,
     event_id,
+    is_uint as _is_uint,
 )
 
 
@@ -106,10 +107,6 @@ class LeaseUsage:
         state.blocked = self.ceiling_refusal_seen or self.spent_mbits >= lease_amount_mbits
         state.incident = self.demanded_mbits * 1000 >= UNSAFE_PERMILLE * entropy_mbits
         return self.max_charge_seq + 1
-
-
-def _is_uint(v: Any) -> bool:
-    return isinstance(v, int) and not isinstance(v, bool) and v >= 0
 
 
 def _hashable_key(payload: Dict[str, Any]) -> Optional[Key]:
@@ -855,3 +852,25 @@ class Ledger:
                     findings.append(("I3", lease_id, f"I3 lease overspent ({lease_id})"))
 
         return findings
+
+
+def fold_canonical(ledger: "Ledger") -> dict:
+    """KERNEL-SPEC §3.3 — the canonical fold serialization. This is the
+    wire shape of the fold (the node serves it; the golden ledger corpora
+    freeze it), so it lives beside the fold it serializes."""
+    accounts = []
+    folded = ledger.fold()
+    for key in sorted(folded.keys(), key=lambda k: canonical_json(list(k))):
+        a = folded[key]
+        accounts.append({
+            "key": list(key),
+            "subject_entropy_mbits": a.subject_entropy_mbits,
+            "ceiling_mbits": a.ceiling_mbits,
+            "cumulative_mbits": a.cumulative_mbits,
+            "demanded_mbits": a.demanded_mbits,
+            "granted_lease_mbits": a.granted_lease_mbits,
+            "leakage_class": a.leakage_class,
+            "incident": a.incident,
+            "conflicted": a.conflicted,
+        })
+    return {"accounts": accounts}

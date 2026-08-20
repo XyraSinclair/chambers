@@ -87,9 +87,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import node as node_mod  # noqa: E402
 from accountant import CapacityEstimate, EstimatorAttestation, Key, exposure_key  # noqa: E402
-from events import LeaseEvent, event_id  # noqa: E402
+from events import LeaseEvent, event_id, is_uint as _is_uint  # noqa: E402
 from meter import KernelMeter  # noqa: E402
 from settlement import (  # noqa: E402
+    SETTLEMENT_KINDS,
     SettlementIssuer,
     SettlementRefused,
     settlement_fold,
@@ -107,20 +108,11 @@ CARD_ESTIMATOR = EstimatorAttestation(
 DEFAULT_INTERRUPT_UNITS = 1_000
 ESCROW_TTL_TICKS = 64  # release happens at tick+3; any ttl > 3 works
 
-_SETTLEMENT_KINDS = (
-    "deposit", "escrow", "release", "refund", "outcome_attestation",
-    "attestation_contest", "bond_return", "bond_slash",
-)
-
 
 def att_key(receiver: str, sender: str, epoch: str) -> Key:
     """The second key family: protected party = the receiver, write =
     occupancy of their focus, regeneration = the epoch in the key."""
     return ("att", receiver, sender, epoch)
-
-
-def _is_uint(v) -> bool:
-    return isinstance(v, int) and not isinstance(v, bool) and v >= 0
 
 
 def _is_pos(v) -> bool:
@@ -151,7 +143,7 @@ class AttentionNodeState(node_mod.NodeState):
             kind = p.get("kind")
             mine = (
                 (kind == "charge" and p.get("node") == self.node_id)
-                or (kind in _SETTLEMENT_KINDS and p.get("issuer") == self.bank.issuer)
+                or (kind in SETTLEMENT_KINDS and p.get("issuer") == self.bank.issuer)
             )
             if mine and _is_uint(p.get("tick")):
                 top = max(top, p["tick"])

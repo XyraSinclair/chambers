@@ -29,7 +29,7 @@ from accountant import (  # noqa: E402
 )
 from events import ChargeEvent, LeaseEvent, RegisterEvent, canonical_json, event_id  # noqa: E402
 from leases import LeaseIssuer  # noqa: E402
-from ledger import Ledger  # noqa: E402
+from ledger import Ledger, fold_canonical  # noqa: E402  (re-exported: test_kernel.py replays through this module)
 from meter import KernelMeter  # noqa: E402
 from session import MediationSession  # noqa: E402
 
@@ -301,26 +301,6 @@ SCENARIOS = [
     ("spec-ambiguity-issuer", s_spec_ambiguity_issuer),
     ("spec-ambiguity-i3-i4", s_spec_ambiguity_i3_i4),
 ]
-
-
-def fold_canonical(ledger: Ledger) -> dict:
-    """KERNEL-SPEC §3.3 — the canonical fold serialization."""
-    accounts = []
-    folded = ledger.fold()
-    for key in sorted(folded.keys(), key=lambda k: canonical_json(list(k))):
-        a = folded[key]
-        accounts.append({
-            "key": list(key),
-            "subject_entropy_mbits": a.subject_entropy_mbits,
-            "ceiling_mbits": a.ceiling_mbits,
-            "cumulative_mbits": a.cumulative_mbits,
-            "demanded_mbits": a.demanded_mbits,
-            "granted_lease_mbits": a.granted_lease_mbits,
-            "leakage_class": a.leakage_class,
-            "incident": a.incident,
-            "conflicted": a.conflicted,
-        })
-    return {"accounts": accounts}
 
 
 def emit() -> None:

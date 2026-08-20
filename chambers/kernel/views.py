@@ -24,7 +24,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from events import canonical_json
+from events import canonical_json, is_uint as _is_uint
 
 SPEC = "charge-views/1"
 
@@ -50,10 +50,6 @@ LEGACY_DEFAULT_POLICY: Dict[str, Any] = {
 _POLICY_FIELDS = {
     "spec", "name", "domains", "classes", "terminal_label", "incident_permille",
 }
-
-
-def _is_uint(v: Any) -> bool:
-    return isinstance(v, int) and not isinstance(v, bool) and v >= 0
 
 
 def _sha256_hex(data: str) -> str:

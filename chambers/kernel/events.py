@@ -28,6 +28,14 @@ def event_id(payload: Dict[str, Any]) -> str:
     return "sha256:" + hashlib.sha256(canonical_json(payload).encode("ascii")).hexdigest()
 
 
+def is_uint(v: Any) -> bool:
+    """KERNEL-SPEC §0 integer discipline: a non-negative int that is not a
+    bool (Python's bool subclasses int — the exact trap the spec warns
+    about). The one shared validity predicate; every kernel module that
+    guards adversarial payloads imports this rather than re-deriving it."""
+    return isinstance(v, int) and not isinstance(v, bool) and v >= 0
+
+
 def _key_list(key: Key) -> list:
     return list(key)
 

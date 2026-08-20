@@ -1294,10 +1294,10 @@
       "verifier": "python"
     },
     {
-      "bytes": 8493,
+      "bytes": 8890,
       "path": "verifier/python/chambers/kernel/events.py",
       "role": "reference_verifier",
-      "sha256": "5d575b8ca7e297abfcc4f919a810de843929f955447ea46da4f2e385397fc147",
+      "sha256": "182453e111998d8d2a0f484c15a41b69febb44e9b3175f55690a30cbfc397519",
       "source": "chambers/kernel/events.py",
       "verifier": "python"
     },
@@ -1310,34 +1310,34 @@
       "verifier": "python"
     },
     {
-      "bytes": 37564,
+      "bytes": 38382,
       "path": "verifier/python/chambers/kernel/ledger.py",
       "role": "reference_verifier",
-      "sha256": "a36e3f289005526e072b7c4a7530deb1d3ddd47884f1e735aa4fdfdc7cfd9aab",
+      "sha256": "3e69009ed5f59b0f80c86a7bf1f4787abce38e886f4308fa2fac5fd81363f16b",
       "source": "chambers/kernel/ledger.py",
       "verifier": "python"
     },
     {
-      "bytes": 81297,
+      "bytes": 81339,
       "path": "verifier/python/chambers/kernel/settlement.py",
       "role": "reference_verifier",
-      "sha256": "8d83ff005387d90470ebc16f129d5cbcae958f022a22c892b0207b5e105520eb",
+      "sha256": "52ae29bef43f1ed4d125fe6cbf40b4a861f59d6a1067d2aae783e9a6421fd023",
       "source": "chambers/kernel/settlement.py",
       "verifier": "python"
     },
     {
-      "bytes": 5267,
+      "bytes": 5176,
       "path": "verifier/python/chambers/kernel/verify.py",
       "role": "reference_verifier",
-      "sha256": "a6845cb47585ef7f8425ffc008938f8bd9eb1aeb111e4ec7af5628f400d1650b",
+      "sha256": "f3112a86aa4b0ae578e0122ec67a29a7b7f7ca6a9f1ab521d3d7cefdf1eccded",
       "source": "chambers/kernel/verify.py",
       "verifier": "python"
     },
     {
-      "bytes": 7468,
+      "bytes": 7388,
       "path": "verifier/python/chambers/kernel/views.py",
       "role": "reference_verifier",
-      "sha256": "7a9c215e7b9e19926eb0f4852006e5f90f2e0d48c22879a7d777ee83be37b5a4",
+      "sha256": "69cdbe01c0f1747ceb3ca371c86a34f2acb96c71501003bd6a025278a5a1d6f6",
       "source": "chambers/kernel/views.py",
       "verifier": "python"
     },

@@ -1031,8 +1031,9 @@ def _touches(finding: Tuple[str, str, str], key_set: set,
 
 
 def audit_settlement_findings(ledger: Ledger) -> List[Tuple[str, str, str]]:
-    """SETTLEMENT-SPEC §3 + §9 — S1..S10 as (code, subject, prose)
-    triples. Total: never raises on adversarial content."""
+    """SETTLEMENT-SPEC §3 + §9 (and the S11/S12 split extension) — the
+    S-codes as (code, subject, prose) triples. Total: never raises on
+    adversarial content."""
     findings: List[Tuple[str, str, str]] = []
     accounts, escrows, bonds = settlement_fold_full(ledger)
     events = getattr(ledger, "_events")
