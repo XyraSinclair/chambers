@@ -317,10 +317,6 @@ class Signer:
         self._seed = seed
         self.author = key_author(pub)
 
-    def sign_payload(self, payload: dict) -> dict:
-        """Raw-payload form (mirrors sign_event's author-mismatch law)."""
-        return sign_event(payload, self._seed)
-
     def sign(self, ev):
         """Dataclass form: return a copy of the event with `sig` attached.
         The event's content address then covers the signature (spec §3).

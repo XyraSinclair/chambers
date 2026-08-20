@@ -357,8 +357,3 @@ def verify_scope(response: Dict[str, Any]) -> List[str]:
                 f"(may be out-of-scope activity by the same actor)")
 
     return problems
-
-
-def scope_is_verified(response: Dict[str, Any]) -> bool:
-    """True iff verify_scope finds no HARD problems (notes allowed)."""
-    return all(p.startswith("note:") for p in verify_scope(response))

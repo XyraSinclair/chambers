@@ -82,10 +82,6 @@ class ExposureLedger:
         return sum(c["completion_chars"] for c in self.calls)
 
 
-class BudgetExceeded(RuntimeError):
-    pass
-
-
 def _zdr_completion(prompt: str, max_tokens: int, ledger: ExposureLedger) -> str:
     key = os.environ.get("OPENROUTER_API_KEY")
     if not key:

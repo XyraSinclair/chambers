@@ -228,9 +228,6 @@ class LeakageAccountant:
     def state(self, technique_id: str, observer: str) -> CompositionState:
         return self._refresh_state(technique_id, observer)
 
-    def can_observe(self, technique_id: str, observer: str, bits: float) -> bool:
-        st = self.state(technique_id, observer)
-        return (not st.blocked) and (bits_to_mbits(bits) <= st.remaining_mbits())
 
     def observe(self, technique_id: str, observer: str, channel: str, bits: float,
                 tick: int, note: str = "") -> Tuple[bool, CompositionState]:

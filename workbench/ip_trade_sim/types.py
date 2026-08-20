@@ -54,8 +54,6 @@ class Technique:
     probe_leak_per_query_bits: float = 0.05
     method_reveal_fraction: float = 1.0  # fraction of entropy leaked if method is revealed
 
-    def binding_byte_hash(self) -> str:
-        return sha(self.secret_payload)
 
     def binding_capability_hash(self) -> str:
         # The commitment must not be grid-searchable: benchmark names are

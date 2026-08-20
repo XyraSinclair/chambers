@@ -1302,10 +1302,10 @@
       "verifier": "python"
     },
     {
-      "bytes": 12884,
+      "bytes": 12710,
       "path": "verifier/python/chambers/kernel/identity.py",
       "role": "reference_verifier",
-      "sha256": "e7b4c5ff4401602d3057cbdd154747baeb878d19daff9a674cffad67226cf748",
+      "sha256": "1626333b12dbed1c671693dc43ad7be3e12eeadda8f096c3baa2e69e805841a5",
       "source": "chambers/kernel/identity.py",
       "verifier": "python"
     },

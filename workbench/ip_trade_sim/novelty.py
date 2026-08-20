@@ -40,11 +40,6 @@ class NoveltyEstimate:
     epistemic_lane: str = "estimated"    # never 'proven'
     backend: str = "offline"
 
-    def as_verdict_line(self) -> str:
-        return (f"OOD≈{self.ood_score:.2f} (prior-art density {self.prior_art_density}, "
-                f"conf {self.confidence:.2f}, via {self.backend}) — ESTIMATED, not proven; "
-                f"gameable: {self.gameability_caveat}")
-
 
 class NoveltyBackend(Protocol):
     def prior_art(self, keywords: str, limit: int) -> "PriorArt": ...

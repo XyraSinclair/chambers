@@ -89,18 +89,3 @@ def validate_verdict(verdict: Any, candidate_ids: List[str]) -> List[str]:
         if pick.get("confidence") not in CONFIDENCE:
             problems.append(f"pick[{i}].confidence not in {CONFIDENCE}")
     return problems
-
-
-def canonical_verdict_json(verdict: Dict[str, Any]) -> str:
-    """One wire form per semantic verdict: rank order preserved (it is
-    semantic), keys sorted, separators fixed."""
-    return json.dumps(verdict, sort_keys=True, separators=(",", ":"))
-
-
-def outcome_symbol(code: str) -> str:
-    if code not in OUTCOME_CODES:
-        raise ValueError(
-            f"outcome {code!r} is not enumerated — an un-enumerated outcome "
-            "is an unmetered side channel, and it is a bug"
-        )
-    return code

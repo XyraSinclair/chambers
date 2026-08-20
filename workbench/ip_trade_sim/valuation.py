@@ -252,15 +252,3 @@ def carrier_class_acceptable(
     if not isinstance(valuation, BarterOnly):
         return False
     return offered_carrier in valuation.acceptable_carrier_classes
-
-
-def describe_valuation(valuation: Valuation) -> str:
-    if isinstance(valuation, Monetary):
-        return f"monetary reserve {valuation.reserve}"
-    if isinstance(valuation, BarterOnly):
-        return "barter_only(" + ",".join(valuation.acceptable_carrier_classes) + ")"
-    if isinstance(valuation, Attribution):
-        return f"attribution({valuation.priority_commit_hash})"
-    if isinstance(valuation, ExcludedFromMonetaryClearing):
-        return f"excluded_from_monetary_clearing({valuation.exclusivity_rationale})"
-    raise TypeError(f"unknown valuation type: {type(valuation)!r}")
