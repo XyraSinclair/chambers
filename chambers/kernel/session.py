@@ -144,16 +144,10 @@ class MediationSession(LeaseSpender):
 
             self._hydrate_lease(key, lease, acct.subject_entropy_mbits)
 
+    Refused = SessionRefused
+
     def _spent_leases(self) -> Dict[Key, LeaseEvent]:
         return self.leases
-
-    # ---- liveness (a session refuses to spend an expired lease) ----
-
-    def _check_live(self, lease: LeaseEvent, tick: int) -> None:
-        if tick > lease.expires_tick:
-            raise SessionRefused(
-                f"lease {lease.id} expired at tick {lease.expires_tick}, now {tick}"
-            )
 
     # ---- observation ----
 

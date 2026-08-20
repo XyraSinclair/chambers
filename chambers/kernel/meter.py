@@ -133,6 +133,8 @@ class KernelMeter(LeaseSpender):
         self._leases[key] = lease
         self._hydrate_lease(key, lease, subject_entropy_mbits)
 
+    Refused = MeterRefused
+
     def _spent_leases(self) -> Dict[Key, LeaseEvent]:
         return self._leases
 
@@ -173,6 +175,7 @@ class KernelMeter(LeaseSpender):
         if key not in self._leases:
             raise MeterRefused(f"key not registered with this meter: {key}")
         t = self._resolve_tick(tick)
+        self._check_live(self._leases[key], t)
         decision = self.accountant.charge(key, estimate, estimator, t)
         eid = self._record_charge(key, self._leases[key], t, estimate, estimator, decision)
         return decision, eid
@@ -190,6 +193,10 @@ class KernelMeter(LeaseSpender):
             if key not in self._leases:
                 raise MeterRefused(f"key not registered with this meter: {key}")
         t = self._resolve_tick(tick)
+        # atomicity includes liveness: any expired lease refuses the whole
+        # coupled charge before any state moves
+        for key in keys:
+            self._check_live(self._leases[key], t)
         decisions = self.accountant.charge_coupled(keys, estimate, estimator, t)
         for key in keys:
             self._record_charge(key, self._leases[key], t, estimate, estimator, decisions[key])

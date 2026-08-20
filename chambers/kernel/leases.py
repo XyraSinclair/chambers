@@ -41,10 +41,22 @@ class LeaseSpender:
     recording, and the court-file fold — so the two front-ends cannot
     drift on any of them. A front-end supplies the attributes `node`,
     `clock`, `ledger`, `accountant`, `node_signer`, `_next_seq`, and
-    the `_spent_leases()` hook naming the leases it spends."""
+    the `_spent_leases()` hook naming the leases it spends, and sets
+    `Refused` to its own refusal exception."""
+
+    Refused: type = Exception
 
     def _spent_leases(self) -> Dict[Key, LeaseEvent]:
         raise NotImplementedError
+
+    # ---- liveness (an honest spender refuses an expired lease: the
+    # charge it would record is exactly what audit I4 convicts) ----
+
+    def _check_live(self, lease: LeaseEvent, tick: int) -> None:
+        if tick > lease.expires_tick:
+            raise self.Refused(
+                f"lease {lease.id} expired at tick {lease.expires_tick}, now {tick}"
+            )
 
     # ---- clock (issuer domain: declared ticks, else a local counter) ----
 
