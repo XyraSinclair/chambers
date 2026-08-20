@@ -227,8 +227,9 @@ reviewer seated only on a clean coherence receipt (seat key-signed,
 charge-identity/1) reproduces findings against the bytes — the smuggler's
 excerpt card is refused and the secret appears nowhere in the artifact; paid
 rings on the owners' bells, budget-bounded; every fee released against the
-exact receipt. Byte-deterministic, 28 self-checks, CLEAN across I/S/X/C/P/A,
-conservation exact. Zero new mechanism needed — the composition parsimony
+exact work record. Byte-deterministic, every inline self-check green (the
+run prints its count — 31 today), CLEAN across I/S/X/C/P/A, conservation
+exact. Zero new mechanism needed — the composition parsimony
 test, passed.
 
 ### The stranger's verifier (Python)

@@ -12,6 +12,11 @@ shipped wedge and the kernel.
 **L0 — Types.** Illegal states unrepresentable. Fourteen modules, laws as
 exported consts, admission-gated. Status: HOLDS (`tsc --strict` green in CI
 over `docs/primitives/`; survived a 207-agent adversarial review pass).
+Scope of that check, stated exactly: it proves the canon's internal
+coherence, not correspondence — no Python, Rust, or Lean artifact consumes
+or cross-checks these types, so this lane can stay green while the canon
+drifts from the implementations. Correspondence lives one rung up, in the
+frozen corpora.
 
 **L1 — Conformance.** A reference implementation plus a trace checker: every
 implementation must emit court files that replay against `SPEC.md`. Status:

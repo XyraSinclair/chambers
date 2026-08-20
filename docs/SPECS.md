@@ -55,6 +55,32 @@ release tag. Two limits are part of the claim's meaning:
   stated. An implementation that asserts what canon refuses to assert
   is nonconformant regardless of its trace results.
 
+## Coverage and the court, stated exactly
+
+Two facts a reader should not have to assemble from fragments:
+
+**Per-family implementation coverage.** The verdict families and where
+each executes today: I, S1–S10, A, and W in both Python and the Rust
+twin; S11/S12, X0, C, P, and V in Python only. The Rust `charge-verify`
+re-verifies I, S1–S10, A, and the conservation identity. A cross-language
+conformance claim extends exactly this far and no further.
+
+**The court is defined differently by surface.** The full verifier
+(`chambers/kernel/verify.py`) verdicts on all seven information/value
+families. `chamber-node/1`'s `/v1/audit` joins I/X/C/P. The S4 value
+gate (`settlement.py`'s `_court_findings`) joins I/C/P/V. The Rust
+twin's S4 gate joins I only. The Python and Rust S4 courts therefore
+diverge on any ledger holding covenant, derivation, or attribution
+facts near a `required_clean` escrow — latent today only because the
+frozen corpora carry none of those kinds. Under this file's own rule
+that Python/Rust divergence is release-critical, this is the named
+open debt: the reconciling change is a single findings registry (per
+family: code prefix, permanence class, court membership) that the
+verifier, the node, the S4 gate, and the Rust twin all consume, landing
+as a versioned spec change with migrated corpora. Until it lands, do
+not rely on S4 gating of covenant/provenance/attribution dirt agreeing
+across implementations.
+
 ## Findings
 
 Divergences between conformant implementations, ambiguities two careful

@@ -1,12 +1,16 @@
 /-
 ChargeKernel — the L4 formal kernel of charge-kernel/2 (ASSURANCE.md).
 
-Not the stack: the ~300 lines where wrongness is catastrophic and proof is
-tractable. Three files:
+Not the stack: the surfaces where wrongness is catastrophic and proof is
+tractable. The founding trio:
 
   Basic.lean     the SPEC §2.2 step function and per-account odometer laws
   GlobalCap.lean the lease-partition theorem under ANY interleaving
   Monotone.lean  leakage-class monotonicity and merge-only-escalates
+
+with the later theorem files imported below (settlement conservation,
+verdict partition, value gate, attribution, completeness, widening — one
+file per proved surface; the import list is the inventory).
 
 The executable binding to the normative documents: SPEC §4's worked
 micro-example replays below by `rfl` — if the model and the document ever
